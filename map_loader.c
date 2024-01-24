@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:47:27 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/23 15:25:57 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/24 16:40:54 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,16 @@ void	free_matrix(char **matrix)
 	free(matrix);
 }
 
-t_pos	*get_map_size(char **map)
+t_pos	get_map_size(char **map)
 {
-	t_pos	*size;
+	t_pos	size;
 
-	size = malloc(sizeof(t_pos *));
-	size->x = 0;
-	size->y = 0;
-	while(map[size->y])
-		size->y++; // Does this work correctly?
-	while(map[0][size->x])
-		size->x++;
+	size.x = 0;
+	size.y = 0;
+	while(map[size.y])
+		size.y++; // Does this work correctly?
+	while(map[0][size.x])
+		size.x++;
 	return (size);
 }
 
@@ -85,7 +84,7 @@ int	load_map(char *file, t_map *map)
 	}
 	map->map_size = get_map_size(map->map_content);
 	close(fd);
-	if (!(map->map_size->x) || !(map->map_size->y) 
+	if (!(map->map_size.x) || !(map->map_size.y) 
 		|| !is_edge_walled(map->map_content, map->map_size))
 	{
 		throw_error("Map file Error");

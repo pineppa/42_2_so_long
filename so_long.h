@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/23 22:32:56 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/24 18:20:29 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <errno.h>
 # include <mlx.h>
 # include <stdio.h>
+# include "libft/libft.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 512
@@ -34,22 +35,33 @@
 # define EXIT_IMG "./img/exit.xpm"
 # define PATROL_IMG "./img/patrol.xpm"
 
-# define ESC
-# define DOWN
-# define UP
-# define LEFT
-# define RIGHT
-# define W
-# define A
-# define S
-# define D
-# define SPACE
+# define ESC 65307
+# define LEFT 65361
+# define UP 65362
+# define RIGHT 65363
+# define DOWN 65364
+# define W 119
+# define A 97
+# define S 112
+# define D 100
+# define SPACE 32
+# define ENTER 65293
 
 typedef struct s_pos
 {
 	unsigned int	x;
 	unsigned int	y;
 } t_pos;
+
+typedef struct s_sprite
+{
+	t_pos			pos;
+	char			spr_char;
+	unsigned int	spr_id;
+	//unsigned int	life;
+	//unsigned int	attack;
+	//unsigned int	defense;
+} t_sprite;
 
 typedef struct s_map
 {
@@ -62,16 +74,6 @@ typedef struct s_map
 	t_sprite		*spr_p; //List of player sprites
 	t_sprite		*spr_e; //List of exits
 } t_map;
-
-typedef struct s_sprite
-{
-	t_pos			pos;
-	char			sprite_char;
-	unsigned int	sprite_id;
-	//unsigned int	life;
-	//unsigned int	attack;
-	//unsigned int	defense;
-} t_sprite;
 
 typedef struct s_image 
 {
@@ -97,12 +99,14 @@ typedef struct s_data
 	t_image	*img_patrol;
 } t_data;
 
+/*
 // Libft functions
 void	ft_putstr_fd(char *message, int fd);
 int		ft_strlen(char *str);
 char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
+*/
 
 // Utils
 void    print_map(char **map); // Used for debugging only
@@ -117,11 +121,34 @@ t_image	*load_img(t_data *game, char *map_file);
 void	draw_game_gui(t_data *game);
 int		init_game_gui(t_data *game);
 
+// Input Handler
+int		init_keys(t_data *game);
+int		handle_key_input(int keysim, t_data *game);
+
+// Map loader
+
+void	free_matrix(char **matrix);
+t_pos	get_map_size(char **map);
 char	**read_mapfile(int fd);
-t_pos	*get_map_size(char **map);
+int		load_map(char *file, t_map *map);
+
+// Map checker
+
 int 	check_input(char *str);
-int		load_map(char *map_file, t_map *map);
-char	**read_mapfile(int fd);
-int		is_edge_walled(char **map, t_pos *size);
+int		is_edge_walled(char **map, t_pos size);
+
+// Moves
+
+int		is_valid_move(char **map, char spr_char, int x, int y);
+void	move(int keysim, t_sprite spr, char **map);
+
+// Moves_utils
+
+int is_move_inbound(char **map, int x, int y);
+int	is_move_wall(char **map, int x, int y);
+
+// Other functions
+
+t_pos	get_map_size(char **map);
 
 #endif

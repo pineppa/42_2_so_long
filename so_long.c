@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/23 22:07:59 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/24 16:44:03 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ void	game_exit(t_data *game)
 }
 */
 
-void	handle_mlx(t_data *game)
+int	handle_mlx(t_data *game)
 {
-	t_pos	img_pos;
-	
 	game->mlx_conn = mlx_init(); //Sets up a connection to the X Server
 	if (!game->mlx_conn)
 		return (1); //Shall it throw an error?
@@ -36,6 +34,7 @@ void	handle_mlx(t_data *game)
 //	mlx_expose_hook(game->window, &ft_expose, void);
 //	mlx_loop(game->mlx_conn); //Infinite loop (while(1) that waits for keyboard / mouse signals)
 //	game_exit(game);
+	return (0);
 }
 
 int	init_map(t_data *game, char *map_file)
@@ -79,7 +78,7 @@ int	init_game_resources(t_data *game, char *map_file)
 int	main(int argc, char **argv)
 {
 	t_data	*game;
-	int			res;
+	int		res;
 
 	if (argc != 2 || !ft_strnstr(argv[1], ".ber", ft_strlen(argv[1]))) //Doesn't block fake names, should check the file extension and MIME file
 	{
@@ -92,7 +91,9 @@ int	main(int argc, char **argv)
 	res = init_game_resources(game, argv[2]); // Create a free resources, that checks if there is content, in case it frees it, otherwise goes next
 	if (!res)
 		return (1); // This should properly free resources
-	// handle_mlx();
+	res = handle_mlx(game);
+	if(!res)
+		return (1);
 	// free_resources(game);
 	return (0);
 }
