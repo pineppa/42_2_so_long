@@ -6,17 +6,17 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:19:50 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/24 18:55:14 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/24 20:10:47 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int is_move_inbound(char **map, int x, int y)
+int is_move_inbound(t_pos map_size, int x, int y)
 {
 	if (x < 1 || y < 1
-		|| y > ((int)ft_strlen(map) - 1)
-		|| x > ((int)ft_strlen(map[0]) - 1)) // Should not be necessary, but better check 
+		|| y > (map_size.y - 1)
+		|| x > (map_size.x - 1)) // Should not be necessary, but better check 
 		return (0);
 	return (1);
 }
@@ -32,10 +32,10 @@ int is_player_exit(char **map, int x, int y)
 {
     if (map[y][x] == 'E')
     {
-        if (game->collectibles == all)
-            printf("Win!");
+        //if (game->collectibles == all)
+        printf("Win!");
             //exit... return(1);
-        else
+        //else
         //Ignore the exit or say you lose
     }
     return (0);
@@ -50,7 +50,7 @@ int is_player_collect(char **map, int x, int y)
     }
     return (0);
 }
-
+/*
 int is_player_patrol(char **map, int x, int y)
 {
     if (map[y][x] == 'Patrol')
@@ -61,3 +61,4 @@ int is_player_patrol(char **map, int x, int y)
     }
     return (0);
 }
+*/

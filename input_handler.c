@@ -6,12 +6,11 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:25:44 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/24 18:55:15 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/24 20:09:13 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
 
 // Mac uses keycodes, while linux uses keysim!
 int handle_key_input(int keysim, t_data *game) // How is data working?
@@ -24,7 +23,7 @@ int handle_key_input(int keysim, t_data *game) // How is data working?
 	else if (keysim == UP || keysim == RIGHT || keysim == LEFT
 		|| keysim == DOWN || keysim == W || keysim == D 
 		|| keysim == A || keysim == S)
-		move(keysim, game->map->spr_p[0], game->map->map_content);
+		move(keysim, game->map->spr_p[0], game->map);
 /*	else if (keysim == SHOOT)
 		shoot()
 */	

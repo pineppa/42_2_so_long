@@ -1,27 +1,28 @@
-SRCS = map_checker.c map_loader.c so_long.c gui_handler.c input_handler.c utils.c movements.c
+SRCS = map_checker.c map_loader.c so_long.c gui_handler.c input_handler.c utils.c moves.c moves_utils.c
+HEADER = so_long.h
 
-INCLUDE = -I. -Iminilibx_linux
+INCLUDE = -I. -I./minilibx_linux -I./libft
 
 OBJ_SRCS = $(SRCS:.c=.o)
 
-MLX_FLAGS = -L ./libft -L ./minilibx_linux -lmlx -lXext -lX11 -lm -lbsd -lz
+MLX_FLAGS = ./minilibx_linux/libmlx_Linux.a -lXext -lX11
 
 LIBFT = ./libft/libft.a
 LIBFT_DIR = ./libft
 
 NAME = so_long
 
-CC = gcc #-03
+CC = gcc# -03
 CFLAGS = -Wall -Werror -Wextra
 RM = rm -f
 
 all : $(NAME)
 
 %.o : %.c
-	$(CC) $(CFLAGS) -c $(LIBFT) $(INCLUDE) $(MLX_INCLUDE) $< -o $(<:.c=.o)
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $(<:.c=.o)
 
-$(NAME) : $(LIBFT) $(OBJ_SRCS)
-	$(CC) $(OBJ_SRCS) $(MLX_FLAGS) $(MLX_INCLUDE) -o $(NAME)
+$(NAME) : $(OBJ_SRCS) $(LIBFT) $(HEADER) Makefile
+	$(CC) $(CFLAGS) $(OBJ_SRCS) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
 
 $(LIBFT) : 
 	make -C ./libft

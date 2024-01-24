@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/24 18:20:29 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/24 20:13:22 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@
 
 typedef struct s_pos
 {
-	unsigned int	x;
-	unsigned int	y;
+	int	x;
+	int	y;
 } t_pos;
 
 typedef struct s_sprite
@@ -109,8 +109,8 @@ char	*ft_strnstr(const char *big, const char *little, size_t len);
 */
 
 // Utils
-void    print_map(char **map); // Used for debugging only
-void    throw_error(char *message);
+void	print_map(char **map); // Used for debugging only
+void	throw_error(char *message);
 
 // Game functions
 // Initialisation
@@ -134,21 +134,28 @@ int		load_map(char *file, t_map *map);
 
 // Map checker
 
-int 	check_input(char *str);
+int		check_input(char *str);
 int		is_edge_walled(char **map, t_pos size);
 
 // Moves
 
-int		is_valid_move(char **map, char spr_char, int x, int y);
-void	move(int keysim, t_sprite spr, char **map);
+void	move(int keysim, t_sprite spr, t_map *map);
+int		move_up(char **map, t_pos map_size, t_sprite spr);
+int		move_down(char **map, t_pos map_size, t_sprite spr);
+int		move_left(char **map, t_pos map_size, t_sprite spr);
+int		move_right(char **map, t_pos map_size, t_sprite spr);
 
 // Moves_utils
 
-int is_move_inbound(char **map, int x, int y);
-int	is_move_wall(char **map, int x, int y);
+int		is_move_inbound(t_pos map_size, int x, int y);
+int		is_move_wall(char **map, int x, int y);
+int		is_player_exit(char **map, int x, int y);
+int		is_player_collect(char **map, int x, int y);
+int		is_player_patrol(char **map, int x, int y);
 
 // Other functions
 
 t_pos	get_map_size(char **map);
+// void	attack(int keysim, t_sprite spr, t_map *map);
 
 #endif

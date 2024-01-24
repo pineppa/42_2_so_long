@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/23 22:09:11 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/24 22:31:53 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ t_image	*load_img(t_data *game, char *img_file) // --> This only loads it, doesn
 	img = malloc(sizeof(t_image *)); // How? And should it be done? 
 	if (img == NULL)
 		return (0);
-	img->length = 1080;
-	img->width = 1920;
+	printf("Image file name: %s;\n", img_file);
+	img->length = 256;
+	img->width = 240;
 	img->img = mlx_xpm_file_to_image(game->mlx_conn, img_file, 
 		&(img->width), &(img->length)); // To be fixed in size;
+	printf("Image file name: %s;\n", img_file);
 	// img->img = mlx_new_image(game->mlx_conn, 1920, 1080);
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->line_length, &img->endian);
 	return (img);
@@ -39,6 +41,7 @@ void	draw_game_gui(t_data *game)
 }*/
 int	init_images(t_data *game)
 {
+	printf(" --- Starting to load images --- \n");
 	game->img_wall = load_img(game->mlx_conn, WALL_IMG);
 	game->img_empty = load_img(game->mlx_conn, EMPTY_IMG);
 	game->img_collectible = load_img(game->mlx_conn, COLLECTIBLE_IMG);
@@ -68,13 +71,12 @@ int init_game_gui(t_data *game)
 
 	Map here is already loaded beforehand
 	*/  /*
-	init_images(game);
-	if (not loaded)
+	if (init_images(game) == 0)
 	{
-		free(all);
-		throw_error("Error loading images");
+		throw_error("Initialisation failure - Images");
+		return (0);
 	}
 	draw_game_gui(game);	*/
-	printf("%p\n", game->mlx_conn);
+	printf("mlx_conn: %p\n", game->mlx_conn);
 	return (1);
 }

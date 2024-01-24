@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 16:51:15 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/24 16:48:39 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/24 20:12:23 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	check_input(char *str)  // Remove free ed exit qui per farne uno con return 
 
 int	is_edge_walled(char **map, t_pos size)
 {
-	unsigned int	i;
+	int	i;
 
 	if (!map)
 		return (0);

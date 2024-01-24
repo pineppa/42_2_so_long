@@ -6,20 +6,18 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/24 16:44:03 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/24 22:13:34 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-/*
 void	game_exit(t_data *game)
 {
-	free_resources(game);
-	mlx_clear_window(game->window);
-	mlx_destroy_window(game->window);
+//	free_resources(game);
+	mlx_clear_window(game->mlx_conn, game->window);
+	mlx_destroy_window(game->mlx_conn, game->window);
 }
-*/
 
 int	handle_mlx(t_data *game)
 {
@@ -33,7 +31,7 @@ int	handle_mlx(t_data *game)
 	init_keys(game);
 //	mlx_expose_hook(game->window, &ft_expose, void);
 //	mlx_loop(game->mlx_conn); //Infinite loop (while(1) that waits for keyboard / mouse signals)
-//	game_exit(game);
+	game_exit(game);
 	return (0);
 }
 
@@ -60,12 +58,7 @@ int	init_game_resources(t_data *game, char *map_file)
 		throw_error("Initialisation failure - Map");
 		return (0);
 	}
-	res = init_images(game);
-	if (res == 0)
-	{
-		throw_error("Initialisation failure - Images");
-		return (0);
-	}
+	printf("Init debug get info:\n- Pointer game: %p;\n- Map file: %s;\n", game, map_file);
 	res = init_game_gui(game);
 	if (res == 0)
 	{
@@ -88,7 +81,7 @@ int	main(int argc, char **argv)
 	game = malloc(sizeof(t_data *));
 	if (!game)
 		return (1);
-	res = init_game_resources(game, argv[2]); // Create a free resources, that checks if there is content, in case it frees it, otherwise goes next
+	res = init_game_resources(game, argv[1]); // Create a free resources, that checks if there is content, in case it frees it, otherwise goes next
 	if (!res)
 		return (1); // This should properly free resources
 	res = handle_mlx(game);
