@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 16:51:15 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/22 16:08:25 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/23 15:20:27 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,25 @@ int	check_input(char *str)  // Remove free ed exit qui per farne uno con return 
 	return (1); // Return the length of the rows
 }
 
-int	is_edge_walled(char **map, t_pos size)
+int	is_edge_walled(char **map, t_pos *size)
 {
-	int	i;
+	unsigned int	i;
 
 	if (!map)
 		return (0);
-	i = -1;
-	while (++i < size.x)
-		if (map[0][i] != '1' || map[size.y - 1][i] != '1')
+	i = 0;
+	while (i < size->x)
+	{
+		if (map[0][i] != '1' || map[size->y - 1][i] != '1')
 			return (0);
-	i = -1;
-	while (++i < size.y)	
-		if (map[i][0] != '1' || map[i][size.x - 1] != '1')
+		i++;
+	}
+	i = 0;
+	while (++i < size->y)	
+	{
+		if (map[i][0] != '1' || map[i][size->x - 1] != '1')
 			return (0);
+		i++;
+	}
 	return (1);
 }
