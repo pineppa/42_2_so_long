@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/24 20:13:22 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/25 18:38:36 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 
 # endif
 
+# define WIN_W 640
+# define WIN_H 480
+
 # define WALL_IMG "./img/wall.xpm"
 # define EMPTY_IMG "./img/empty.xpm"
 # define COLLECTIBLE_IMG "./img/collectible.xpm"
@@ -36,6 +39,7 @@
 # define PATROL_IMG "./img/patrol.xpm"
 
 # define ESC 65307
+# define ESC_X 65340 // TO BE CHANGED!! SHOULD BE X OF WINDOW
 # define LEFT 65361
 # define UP 65362
 # define RIGHT 65363
@@ -53,15 +57,15 @@ typedef struct s_pos
 	int	y;
 } t_pos;
 
-typedef struct s_sprite
+typedef struct s_obj
 {
 	t_pos			pos;
-	char			spr_char;
-	unsigned int	spr_id;
+	char			obj_char;
+	unsigned int	obj_id;
 	//unsigned int	life;
 	//unsigned int	attack;
 	//unsigned int	defense;
-} t_sprite;
+} t_obj;
 
 typedef struct s_map
 {
@@ -70,33 +74,36 @@ typedef struct s_map
 	unsigned int	c;
 	unsigned int	players;
 	unsigned int	exits;
-	t_sprite		*spr_c; //List of collectibles
-	t_sprite		*spr_p; //List of player sprites
-	t_sprite		*spr_e; //List of exits
+	t_obj			*obj_c; //List of collectibles
+	t_obj			*obj_p; //List of player objites
+	t_obj			*obj_e; //List of exits
 } t_map;
 
-typedef struct s_image 
+typedef struct s_item 
 {
 	void    *img;
 	char	*addr;
-	int		width;
-	int		length;
+	int		w;
+	int		h;
+	int		x;
+	int		y;
 	int		bpp;
 	int		line_length;
 	int		endian;
-} t_image;
+} t_item;
 
 typedef struct s_data
 {
 	void	*mlx_conn;
 	void	*window;
 	t_map	*map;
-	t_image *img_wall;
-	t_image	*img_empty;
-	t_image	*img_collectible;
-	t_image	*img_player;
-	t_image	*img_exit;
-	t_image	*img_patrol;
+	t_item	*img_wall;
+	t_item	*img_empty;
+	t_item	*img_collectible;
+	t_item	*img_player;
+	t_item	*img_exit;
+	t_item	*img_patrol;
+	int		end;
 } t_data;
 
 /*
@@ -116,8 +123,8 @@ void	throw_error(char *message);
 // Initialisation
 
 int		init_map(t_data *game, char *map_file);
-int		init_images(t_data *game);
-t_image	*load_img(t_data *game, char *map_file);
+int		init_items(t_data *game);
+t_item	*load_img(void *mlx_conn, char *map_file);
 void	draw_game_gui(t_data *game);
 int		init_game_gui(t_data *game);
 
@@ -139,11 +146,11 @@ int		is_edge_walled(char **map, t_pos size);
 
 // Moves
 
-void	move(int keysim, t_sprite spr, t_map *map);
-int		move_up(char **map, t_pos map_size, t_sprite spr);
-int		move_down(char **map, t_pos map_size, t_sprite spr);
-int		move_left(char **map, t_pos map_size, t_sprite spr);
-int		move_right(char **map, t_pos map_size, t_sprite spr);
+void	move(int keysim, t_obj obj, t_map *map);
+int		move_up(char **map, t_pos map_size, t_obj obj);
+int		move_down(char **map, t_pos map_size, t_obj obj);
+int		move_left(char **map, t_pos map_size, t_obj obj);
+int		move_right(char **map, t_pos map_size, t_obj obj);
 
 // Moves_utils
 
@@ -156,6 +163,6 @@ int		is_player_patrol(char **map, int x, int y);
 // Other functions
 
 t_pos	get_map_size(char **map);
-// void	attack(int keysim, t_sprite spr, t_map *map);
+// void	attack(int keysim, t_obj obj, t_map *map);
 
 #endif

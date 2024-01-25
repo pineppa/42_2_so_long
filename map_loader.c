@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:47:27 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/24 16:40:54 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/25 18:25:24 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,20 @@ char	**read_mapfile(int fd)
 	char	**map;
 
 	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buff)
-		return (NULL);
-	str = malloc(sizeof(char) * 1);
-	if (!str)
+	str = malloc(sizeof(char) * 1); // Check if it makes sense
+	if (!str || !buff)
 	{
 		free(buff);
 		return (NULL);
-	}	
+	}
+	str[0] = '\0';
+	buff[BUFFER_SIZE] = '\0';
 	while (read(fd, buff, BUFFER_SIZE))
 		str = ft_strjoin(str, buff);
 	free(buff);
 	if (!check_input(str))
 	{
-		free(str);
+		//free(str);
 		write(2, "The input map is not valid", 26);
 		return (NULL);
 	}
@@ -76,7 +76,7 @@ int	load_map(char *file, t_map *map)
 		throw_error("Error opening the file, invalid fd");
 		return (0);
 	}
-	map->map_content = read_mapfile(fd);
+	map->map_content = read_mapfile(fd); // returns a malloc'd array
 	if (!(map->map_content))
 	{
 		throw_error("Error loading map content");

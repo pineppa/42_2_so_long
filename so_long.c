@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/24 22:13:34 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/25 18:48:44 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,35 @@ void	game_exit(t_data *game)
 	mlx_destroy_window(game->mlx_conn, game->window);
 }
 
+int ft_render(t_data *game)
+{
+	mlx_clear_window(game->mlx_conn, game->window);
+	//draw_game_gui();
+	printf("I am rendering. %p\n", game->map);
+	sleep(1);
+	printf("I slept a second!\n");
+	return (0);
+}
+
 int	handle_mlx(t_data *game)
 {
-	game->mlx_conn = mlx_init(); //Sets up a connection to the X Server
-	if (!game->mlx_conn)
-		return (1); //Shall it throw an error?
-	game->window = mlx_new_window(game->mlx_conn, 1920, 1080, "So long");
-	if (!game->window)
-		return (1); //Shall it throw an error and free game->mlx_conn?
-	init_game_gui(game);
+	printf("\n --- handle mlx --- \n\n");
 	init_keys(game);
+	printf(" --- init keys --- \n");
+	mlx_loop_hook(game->mlx_conn, ft_render, game);
+	printf(" --- loop hook --- \n");
 //	mlx_expose_hook(game->window, &ft_expose, void);
-//	mlx_loop(game->mlx_conn); //Infinite loop (while(1) that waits for keyboard / mouse signals)
-	game_exit(game);
+	mlx_loop(game->mlx_conn); //Infinite loop (while(1) that waits for keyboard / mouse signals)
 	return (0);
 }
 
 int	init_map(t_data *game, char *map_file)
 {
+	printf("The map_file received is: %s\n", map_file);
 	game->map = malloc(sizeof(t_map));
 	if (!game->map || !map_file)
-		return (1);
+		return (0);
+	printf("The map_file received is: %s\n", map_file);
 	if (!load_map(map_file, game->map))
 	{
 		free(game->map);
@@ -55,16 +63,27 @@ int	init_game_resources(t_data *game, char *map_file)
 	res = init_map(game, map_file);
 	if (res == 0)
 	{
-		throw_error("Initialisation failure - Map");
+		throw_error("Initialisation failure - Map\n");
 		return (0);
 	}
 	printf("Init debug get info:\n- Pointer game: %p;\n- Map file: %s;\n", game, map_file);
 	res = init_game_gui(game);
 	if (res == 0)
 	{
-		throw_error("Initialisation failure - Game GUI");
+		throw_error("Initialisation failure - Game GUI\n");
 		return (0);
 	}
+	return (1);
+}
+
+int	init_game(t_data *game)
+{
+	game->mlx_conn = mlx_init(); //Sets up a connection to the X Server
+	if (!game->mlx_conn)
+		return (0); //Shall it throw an error?
+	game->window = mlx_new_window(game->mlx_conn, WIN_W, WIN_H, "So long");
+	if (!game->window)
+		return (0); //Shall it throw an error and free game->mlx_conn?
 	return (1);
 }
 
@@ -75,18 +94,21 @@ int	main(int argc, char **argv)
 
 	if (argc != 2 || !ft_strnstr(argv[1], ".ber", ft_strlen(argv[1]))) //Doesn't block fake names, should check the file extension and MIME file
 	{
-		write(1, "Correct input format: $>so_long *.ber.", 38);
-		return (1);
+		ft_putstr_fd("Correct input format: $>so_long *.ber.\n", 1);
+		return (EXIT_FAILURE);
 	}
-	game = malloc(sizeof(t_data *));
+	game = malloc(sizeof(t_data));
 	if (!game)
-		return (1);
+		return (EXIT_FAILURE);
+	res = init_game(game);
+	if (!res)
+		return (EXIT_FAILURE);
 	res = init_game_resources(game, argv[1]); // Create a free resources, that checks if there is content, in case it frees it, otherwise goes next
 	if (!res)
-		return (1); // This should properly free resources
+		return (EXIT_FAILURE); // This should properly free resources
 	res = handle_mlx(game);
 	if(!res)
-		return (1);
-	// free_resources(game);
-	return (0);
+		return (EXIT_FAILURE);
+	game_exit(game);
+	return (EXIT_SUCCESS);
 }

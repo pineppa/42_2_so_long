@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 16:51:15 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/24 20:12:23 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/25 18:25:24 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	check_input(char *str)  // Remove free ed exit qui per farne uno con return 
 	row_len = 0;
 	i = -1;
 	count = 0;
+	printf("I am passing the map check?");
 	while (str[++i])
 	{
 		if (str[i] != '0' && str[i] != '1' && str[i] != 'E' && 
@@ -49,6 +50,7 @@ int	check_input(char *str)  // Remove free ed exit qui per farne uno con return 
 		else
 			count++;
 	}
+	printf("Yes!\n");
 	return (1); // Return the length of the rows
 }
 
@@ -66,7 +68,7 @@ int	is_edge_walled(char **map, t_pos size)
 		i++;
 	}
 	i = 0;
-	while (++i < size.y)	
+	while (i < size.y)	
 	{
 		if (map[i][0] != '1' || map[i][size.x - 1] != '1')
 			return (0);
