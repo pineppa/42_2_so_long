@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 20:08:13 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/26 14:55:15 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/26 15:28:26 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,15 @@ char	**move_up(char **map, t_pos size, t_obj *obj)
 		}
 //	else if (obj_char == 'Enemy' && (map[y][x] == 'E' || map[y][x] == 'C')) // Enemies cannot path on collectibles or Exit
 //		return (0);
-	//Update map
-//	else
-//	{
 	printf("I successfully pass the if statement!\n");
 	map[obj->pos.y - 1][obj->pos.x] = obj->obj_char;
 	map[obj->pos.y][obj->pos.x] = '0';
-//	}
 	return (map);
 }
 
 char	**move_down(char **map, t_pos map_size, t_obj *obj)
 {
-	printf("Test move down\n");
+	printf("Test move down :S\n, New position: %i, %i;\n", obj->pos.y + 1, obj->pos.x);
 	if (is_move_inbound(map_size, obj->pos.y + 1, obj->pos.x) == 0
 		|| is_move_wall(map, obj->pos.y + 1, obj->pos.x) == 1
 		|| is_player_exit(map, obj->pos.y + 1, obj->pos.x) == 1

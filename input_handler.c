@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:25:44 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/26 14:29:27 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/26 15:29:59 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ int handle_key_input(int keysim, t_map *map) // How is data working?
 	if (keysim == ESC)
 	{
 		printf("Value of key: %i\n", keysim);
-		printf("Exit on going!");
-		return (EXIT_SUCCESS); // To be fixed to exit loop;
+		printf("Exit on going!\n");
+		exit(EXIT_SUCCESS);
+		//return (EXIT_SUCCESS); // To be fixed to exit loop;
 	}
 	else if (keysim == UP || keysim == RIGHT || keysim == LEFT
 		|| keysim == DOWN || keysim == W || keysim == D 

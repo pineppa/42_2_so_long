@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/26 14:36:43 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/26 15:31:19 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 # endif
 
-# define WIN_W 1024
-# define WIN_H 720
+// # define WIN_W 1024
+// # define WIN_H 720
 # define IMG_W 64
 # define IMG_H 64
 

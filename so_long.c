@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/26 13:50:20 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/26 15:31:20 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,19 @@ int	init_map(t_data *game, char *map_file)
 int	init_game_resources(t_data *game, char *map_file)
 {
 	int	res;
-
+	
+	game->mlx_conn = mlx_init(); //Sets up a connection to the X Server
+	if (!game->mlx_conn)
+		return (0); //Shall it throw an error?  WIN_W, WIN_H//
 	res = init_map(game, map_file);
 	if (res == 0)
 	{
 		throw_error("Initialisation failure - Map\n");
 		return (0);
 	}
-//	res = init_objs(..);
-	if (res == 0)
-	{
-		throw_error("Initialisation failure - Objects\n");
-		return (0);
-	}
+	game->window = mlx_new_window(game->mlx_conn, IMG_W * game->map->map_size.x, 
+		IMG_H * game->map->map_size.y, "So long");
+	if (!game->window)
 	printf("Init debug get info:\n- Pointer game: %p;\n- Map file: %s;\n", game, map_file);
 	res = init_game_gui(game);
 	if (res == 0)
@@ -69,17 +69,6 @@ int	init_game_resources(t_data *game, char *map_file)
 		throw_error("Initialisation failure - Game GUI\n");
 		return (0);
 	}
-	return (1);
-}
-
-int	init_game(t_data *game)
-{
-	game->mlx_conn = mlx_init(); //Sets up a connection to the X Server
-	if (!game->mlx_conn)
-		return (0); //Shall it throw an error?
-	game->window = mlx_new_window(game->mlx_conn, WIN_W, WIN_H, "So long");
-	if (!game->window)
-		return (0); //Shall it throw an error and free game->mlx_conn?
 	return (1);
 }
 
@@ -95,9 +84,6 @@ int	main(int argc, char **argv)
 	}
 	game = malloc(sizeof(t_data));
 	if (!game)
-		return (EXIT_FAILURE);
-	res = init_game(game);
-	if (!res)
 		return (EXIT_FAILURE);
 	res = init_game_resources(game, argv[1]); // Create a free resources, that checks if there is content, in case it frees it, otherwise goes next
 	if (!res)
