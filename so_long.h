@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/26 15:31:19 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/26 15:38:34 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 # define DOWN 65364
 # define W 119
 # define A 97
-# define S 112
+# define S 115
 # define D 100
 # define SPACE 32
 # define ENTER 65293

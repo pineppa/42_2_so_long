@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 20:08:13 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/26 15:28:26 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/26 15:37:08 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ char	**move_up(char **map, t_pos size, t_obj *obj)
 	printf("Something is wrong here, eh?\n");
     printf("The values of size, y, x are: %p, %i, %i;\n", &size, obj->pos.x, obj->pos.y);
 	
-	if (is_move_inbound(size, obj->pos.y - 1, obj->pos.x) == 0
-		|| is_move_wall(map, obj->pos.y - 1, obj->pos.x) == 1
-		|| is_player_exit(map, obj->pos.y - 1, obj->pos.x) == 1
-	//	|| is_player_patrol(map, obj->pos.y - 1, obj->pos.x) == 0
+	if (is_move_inbound(size, obj->pos.x, obj->pos.y - 1) == 0
+		|| is_move_wall(map, obj->pos.x, obj->pos.y - 1) == 1
+		|| is_player_exit(map, obj->pos.x, obj->pos.y - 1) == 1
+	//	|| is_player_patrol(map, obj->pos.x, obj->pos.y - 1) == 0
 	){
 		printf("Something is wrong!\n");
 		return (NULL);
@@ -55,11 +55,11 @@ char	**move_up(char **map, t_pos size, t_obj *obj)
 
 char	**move_down(char **map, t_pos map_size, t_obj *obj)
 {
-	printf("Test move down :S\n, New position: %i, %i;\n", obj->pos.y + 1, obj->pos.x);
-	if (is_move_inbound(map_size, obj->pos.y + 1, obj->pos.x) == 0
-		|| is_move_wall(map, obj->pos.y + 1, obj->pos.x) == 1
-		|| is_player_exit(map, obj->pos.y + 1, obj->pos.x) == 1
-//		|| is_player_patrol(map, obj->pos.y + 1, obj->pos.x) == 0
+	printf("Test move down :S\n, New position: %i, %i;\n", obj->pos.x, obj->pos.y + 1);
+	if (is_move_inbound(map_size, obj->pos.x, obj->pos.y + 1) == 0
+		|| is_move_wall(map, obj->pos.x, obj->pos.y + 1) == 1
+		|| is_player_exit(map, obj->pos.x, obj->pos.y + 1) == 1
+//		|| is_player_patrol(map, obj->pos.x, obj->pos.y + 1) == 0
 	)
 		return (0);
 	printf("I successfully pass the if statement!\n");
@@ -70,10 +70,10 @@ char	**move_down(char **map, t_pos map_size, t_obj *obj)
 
 char	**move_left(char **map, t_pos map_size, t_obj *obj)
 {
-	if (is_move_inbound(map_size, obj->pos.y, obj->pos.x - 1) == 0
-		|| is_move_wall(map, obj->pos.y, obj->pos.x - 1) == 1
-		|| is_player_exit(map, obj->pos.y, obj->pos.x - 1) == 1
-//		|| is_player_patrol(map, obj->pos.y, obj->pos.x - 1) == 0
+	if (is_move_inbound(map_size, obj->pos.x - 1, obj->pos.y) == 0
+		|| is_move_wall(map, obj->pos.x - 1, obj->pos.y) == 1
+		|| is_player_exit(map, obj->pos.x - 1, obj->pos.y) == 1
+//		|| is_player_patrol(map, obj->pos.x - 1, obj->pos.y) == 0
 	)
 		return (0);
 //	else if (obj_char == 'Enemy' && (map[y][x] == 'E' || map[y][x] == 'C')) // Enemies cannot path on collectibles or Exit
@@ -87,10 +87,10 @@ char	**move_left(char **map, t_pos map_size, t_obj *obj)
 
 char	**move_right(char **map, t_pos map_size, t_obj *obj)
 {
-	if (is_move_inbound(map_size, obj->pos.y, obj->pos.x + 1) == 0
-		|| is_move_wall(map, obj->pos.y, obj->pos.x + 1) == 1
-		|| is_player_exit(map, obj->pos.y, obj->pos.x + 1) == 1
-//		|| is_player_patrol(map, obj->pos.y, obj->pos.x + 1) == 0
+	if (is_move_inbound(map_size, obj->pos.x + 1, obj->pos.y) == 0
+		|| is_move_wall(map, obj->pos.x + 1, obj->pos.y) == 1
+		|| is_player_exit(map, obj->pos.x + 1, obj->pos.y) == 1
+//		|| is_player_patrol(map, obj->pos.x + 1, obj->pos.y) == 0
 	)
 		return (0);
 	//Update map
