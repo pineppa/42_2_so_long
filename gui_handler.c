@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/25 18:39:04 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/26 10:27:34 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_item	*load_img(void *mlx_conn, char *img_file) // --> This only loads it, does
 		return (0);
 	img->img = NULL;
 	printf("Image file name: %s; What is mlx? %p\n", img_file, mlx_conn);
-	img->h = 150;
-	img->w = 150;
+	img->h = 64;
+	img->w = 64;
 	printf("Image file name: %s; Sizes: %i, %i;\n", img_file, img->h, img->w);
 	img->img = mlx_xpm_file_to_image(mlx_conn, img_file, 
 		&(img->w), &(img->h)); // To be fixed in size;
@@ -31,26 +31,37 @@ t_item	*load_img(void *mlx_conn, char *img_file) // --> This only loads it, does
 	printf("Image file name: %s; Image addressed?\n", img_file);
 	return (img);
 }
-/*
+
 void	draw_game_gui(t_data *game, char **map)
 {
-	int	i;
-	int	j;
+	t_pos	pos;
 
-	i = -1;
-	j = -1;
+	pos.x = -1;
+	pos.y = -1;
 	//dst = img->addr + (img_pos.y * img->line_length + img_pos.x * (img->bpp / 8));
 	// *(unsigned int*)dst = color; // Why this? It transforms the integer in a pointer with the RGBA structure 0x00FFBB00
-	while (map[++i])
+	while (++pos.y < game->map->map_size.y)
 	{
-		while(map[i][++j])
+		while(++pos.x < game->map->map_size.x)
 		{
-			mlx_put_item_to_window(game->mlx_conn, game->window, img->img, img.x, img.y);
+			printf("Value of map is %c, x is %i, y is %i", map[pos.y][pos.x], pos.x, pos.y);
+			if (map[pos.y][pos.x] == 'E')
+				draw_static_item(game, game->img_exit, pos.x, pos.y);
+			else if (map[pos.y][pos.x] == 'C')
+				draw_static_item(game, game->img_collectible, pos.x, pos.y);
+			else if (map[pos.y][pos.x] == '0')
+				draw_static_item(game, game->img_empty, pos.x, pos.y);
+			else if (map[pos.y][pos.x] == '1')
+				draw_static_item(game, game->img_wall, pos.x, pos.y);
+			else if (map[pos.y][pos.x] == 'P')
+				draw_dyn_item(game, game->img_player, pos.x, pos.y);
+		//	else if (map[pos.y][pos.x] == 'Patrol')
+		//		draw_dyn_item(game, game->img_wall, pos.x, pos.y);	
 		}
-		i = 0
+		pos.x = -1;
 	}
 }
-*/
+
 int	init_items(t_data *game)
 {
 	printf("\n --- Starting to load images --- \n\n");
@@ -87,7 +98,8 @@ int init_game_gui(t_data *game)
 		throw_error("Initialisation failure - Images");
 		return (0);
 	}
-	// draw_game_gui(game);
+	draw_game_gui(game, game->map->map_content);
+	sleep(5);
 	//mlx_put_item_to_window(game->mlx_conn, game->window, game->img_wall, 0, 0);
 	//mlx_put_item_to_window(game->mlx_conn, game->window, game->img_empty, 150, 150);
 	//mlx_put_item_to_window(game->mlx_conn, game->window, game->img_wall, 0, 150);

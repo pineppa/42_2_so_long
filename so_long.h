@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/25 18:38:36 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/26 10:05:42 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,13 @@
 
 # endif
 
-# define WIN_W 640
-# define WIN_H 480
+# define WIN_W 1024
+# define WIN_H 720
+# define IMG_W 64
+# define IMG_H 64
 
-# define WALL_IMG "./img/wall.xpm"
-# define EMPTY_IMG "./img/empty.xpm"
+# define WALL_IMG "./img/wall_blue_64x64.xpm"
+# define EMPTY_IMG "./img/empty_green_64x64.xpm"
 # define COLLECTIBLE_IMG "./img/collectible.xpm"
 # define PLAYER_IMG "./img/player.xpm"
 # define EXIT_IMG "./img/exit.xpm"
@@ -125,7 +127,7 @@ void	throw_error(char *message);
 int		init_map(t_data *game, char *map_file);
 int		init_items(t_data *game);
 t_item	*load_img(void *mlx_conn, char *map_file);
-void	draw_game_gui(t_data *game);
+void	draw_game_gui(t_data *game, char **map);
 int		init_game_gui(t_data *game);
 
 // Input Handler
@@ -151,6 +153,11 @@ int		move_up(char **map, t_pos map_size, t_obj obj);
 int		move_down(char **map, t_pos map_size, t_obj obj);
 int		move_left(char **map, t_pos map_size, t_obj obj);
 int		move_right(char **map, t_pos map_size, t_obj obj);
+
+// Drawings
+
+int 	draw_static_item(t_data *game, t_item *item, int x, int y);
+int 	draw_dyn_item(t_data *game, t_item *item, int x, int y);
 
 // Moves_utils
 

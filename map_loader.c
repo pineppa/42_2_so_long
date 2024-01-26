@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:47:27 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/25 18:25:24 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/25 19:49:54 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	**read_mapfile(int fd)
 	free(buff);
 	if (!check_input(str))
 	{
-		//free(str);
+		free(str);
 		write(2, "The input map is not valid", 26);
 		return (NULL);
 	}

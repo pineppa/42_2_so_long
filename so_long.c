@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/25 18:48:44 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/26 10:27:57 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	game_exit(t_data *game)
 int ft_render(t_data *game)
 {
 	mlx_clear_window(game->mlx_conn, game->window);
-	//draw_game_gui();
+	draw_game_gui(game, game->map->map_content); // Name to be changed
 	printf("I am rendering. %p\n", game->map);
 	sleep(1);
 	printf("I slept a second!\n");

@@ -1,4 +1,4 @@
-SRCS = map_checker.c map_loader.c so_long.c gui_handler.c input_handler.c utils.c moves.c moves_utils.c
+SRCS = map_checker.c map_loader.c so_long.c gui_handler.c draw_figures.c input_handler.c utils.c moves.c moves_utils.c
 HEADER = so_long.h
 
 INCLUDE = -I. -I./minilibx_linux -I./libft
@@ -16,7 +16,7 @@ CC = gcc# -03
 CFLAGS = -Wall -Werror -Wextra
 RM = rm -f
 
-all : $(NAME)
+all : $(NAME) $(HEADER) Makefile
 
 %.o : %.c
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $(<:.c=.o)
