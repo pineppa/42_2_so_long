@@ -1,5 +1,5 @@
 /* XPM */
-static char * empty_green_64x64_xpm[] = {
+static char * ground_green_64x64_xpm[] = {
 "64 64 944 2",
 "  	c None",
 ". 	c #1F262F",

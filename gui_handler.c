@@ -6,74 +6,61 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/26 10:27:34 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/26 14:45:48 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_item	*load_img(void *mlx_conn, char *img_file) // --> This only loads it, doesn't show it yet 
+t_anima	*load_img(void *mlx, char *img_file) // --> This only loads it, doesn't show it yet 
 {
-	t_item	*img;
+	t_anima	*anima;
 
-	img = malloc(sizeof(t_item)); // How? And should it be done? 
-	if (img == NULL)
+	anima = malloc(sizeof(t_anima)); // How? And should it be done? 
+	if (anima == NULL)
 		return (0);
-	img->img = NULL;
-	printf("Image file name: %s; What is mlx? %p\n", img_file, mlx_conn);
-	img->h = 64;
-	img->w = 64;
-	printf("Image file name: %s; Sizes: %i, %i;\n", img_file, img->h, img->w);
-	img->img = mlx_xpm_file_to_image(mlx_conn, img_file, 
-		&(img->w), &(img->h)); // To be fixed in size;
+	anima->img = NULL;
+	printf("Image file name: %s; What is mlx? %p\n", img_file, mlx);
+	anima->h = 64;
+	anima->w = 64;
+	printf("Image file name: %s; Sizes: %i, %i;\n", img_file, anima->h, anima->w);
+	anima->img = mlx_xpm_file_to_image(mlx, img_file, 
+		&(anima->w), &(anima->h)); // To be fixed in size;
 	printf("Image file name: %s; Image loaded?\n", img_file);
-	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->line_length, &img->endian);
+	anima->addr = mlx_get_data_addr(anima->img, &anima->bpp, 
+		&anima->line_length, &anima->endian);
 	printf("Image file name: %s; Image addressed?\n", img_file);
-	return (img);
+	return (anima);
 }
 
-void	draw_game_gui(t_data *game, char **map)
+t_obj *load_obj(void *mlx, char *img_file, char obj_char)
 {
-	t_pos	pos;
+	t_obj	*item;
 
-	pos.x = -1;
-	pos.y = -1;
-	//dst = img->addr + (img_pos.y * img->line_length + img_pos.x * (img->bpp / 8));
-	// *(unsigned int*)dst = color; // Why this? It transforms the integer in a pointer with the RGBA structure 0x00FFBB00
-	while (++pos.y < game->map->map_size.y)
-	{
-		while(++pos.x < game->map->map_size.x)
-		{
-			printf("Value of map is %c, x is %i, y is %i", map[pos.y][pos.x], pos.x, pos.y);
-			if (map[pos.y][pos.x] == 'E')
-				draw_static_item(game, game->img_exit, pos.x, pos.y);
-			else if (map[pos.y][pos.x] == 'C')
-				draw_static_item(game, game->img_collectible, pos.x, pos.y);
-			else if (map[pos.y][pos.x] == '0')
-				draw_static_item(game, game->img_empty, pos.x, pos.y);
-			else if (map[pos.y][pos.x] == '1')
-				draw_static_item(game, game->img_wall, pos.x, pos.y);
-			else if (map[pos.y][pos.x] == 'P')
-				draw_dyn_item(game, game->img_player, pos.x, pos.y);
-		//	else if (map[pos.y][pos.x] == 'Patrol')
-		//		draw_dyn_item(game, game->img_wall, pos.x, pos.y);	
-		}
-		pos.x = -1;
-	}
+	item = malloc(sizeof(t_obj));
+	if (!item)
+		return (NULL);
+	item->anima = load_img(mlx, img_file);
+	if (!item->anima)
+		return (NULL);
+	item->pos.x = 0;
+	item->pos.y = 0;
+	item->obj_char = obj_char;
+	return (item);
 }
 
-int	init_items(t_data *game)
+int	init_objects(void *mlx, t_map *map)
 {
 	printf("\n --- Starting to load images --- \n\n");
-	game->img_wall = load_img(game->mlx_conn, WALL_IMG);
-	game->img_empty = load_img(game->mlx_conn, EMPTY_IMG);
-	game->img_collectible = load_img(game->mlx_conn, COLLECTIBLE_IMG);
-	game->img_player = load_img(game->mlx_conn, PLAYER_IMG);
-	game->img_exit = load_img(game->mlx_conn, EXIT_IMG);
-	game->img_patrol = load_img(game->mlx_conn, PATROL_IMG);
-	if (game->img_wall == NULL || game->img_collectible == NULL 
-		|| game->img_empty == NULL || game->img_patrol == NULL
-		|| game->img_exit == NULL || game->img_player == NULL)
+	map->wall = load_obj(mlx, WALL_IMG, '0');
+	map->ground = load_obj(mlx, GROUND_IMG, '1');
+	map->collecs = load_obj(mlx, COLLECTIBLE_IMG, 'C');
+	map->p1 = load_obj(mlx, PLAYER_IMG, 'P');
+	map->exits = load_obj(mlx, EXIT_IMG, 'E');
+	//map->patrols = load_img(mlx, PATROL_IMG);
+	if (map->wall == NULL || map->collecs == NULL 
+		|| map->ground == NULL //|| map->patrols == NULL
+		|| map->exits == NULL || map->p1 == NULL)
 	{
 		throw_error("Failed to load image");
 		return(0);
@@ -87,21 +74,20 @@ int init_game_gui(t_data *game)
 	- How should the images be handled not to be stretched?
 	- Should the background be loaded as a single image?
 	Go through map and load every location with the specific image required:
-	- 0 Loads the empty space;
+	- 0 Loads the ground space;
 	- 1 Loads the Wall image;
-	- ECP loads an empty space as background plus the specific image that represents the Exit, a Collectible, or the Player;
+	- ECP loads an ground space as background plus the specific image that represents the Exit, a Collectible, or the Player;
 
 	Map here is already loaded beforehand
 	*/
-	if (init_items(game) == 0)
+	if (init_objects(game->mlx_conn, game->map) == 0)
 	{
 		throw_error("Initialisation failure - Images");
 		return (0);
 	}
-	draw_game_gui(game, game->map->map_content);
-	sleep(5);
-	//mlx_put_item_to_window(game->mlx_conn, game->window, game->img_wall, 0, 0);
-	//mlx_put_item_to_window(game->mlx_conn, game->window, game->img_empty, 150, 150);
-	//mlx_put_item_to_window(game->mlx_conn, game->window, game->img_wall, 0, 150);
+	draw_game_gui(game, game->map);
+	//mlx_put_anima_to_window(game->mlx_conn, game->window, game->img_wall, 0, 0);
+	//mlx_put_anima_to_window(game->mlx_conn, game->window, game->img_ground, 150, 150);
+	//mlx_put_anima_to_window(game->mlx_conn, game->window, game->img_wall, 0, 150);
 	return (1);
 }

@@ -39,7 +39,7 @@ This is a graphical engine developed by the school. Download a Linux version for
 * The map has to be constructed with 3 components: walls, collectibles, and free
 space.
 * The map can be composed of only these 5 characters:
-  * 0 for an empty space,
+  * 0 for an ground space,
   * 1 for a wall,
   * C for a collectible,
   * E for a map exit,

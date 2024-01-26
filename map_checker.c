@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 16:51:15 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/25 18:25:24 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/26 13:17:20 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ returns -1 in case of any error in the map
 
 - Assumes that checks on loaded values (01EPC) have already being done;
 - Assumes that *str is longer than 4 elements
-	-> Checks for empty and less than 2x2 maps done in advance
+	-> Checks for ground and less than 2x2 maps done in advance
 */
 
 int	check_input(char *str)  // Remove free ed exit qui per farne uno con return (0);

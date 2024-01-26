@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/26 10:27:57 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/26 13:50:20 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,6 @@ void	game_exit(t_data *game)
 //	free_resources(game);
 	mlx_clear_window(game->mlx_conn, game->window);
 	mlx_destroy_window(game->mlx_conn, game->window);
-}
-
-int ft_render(t_data *game)
-{
-	mlx_clear_window(game->mlx_conn, game->window);
-	draw_game_gui(game, game->map->map_content); // Name to be changed
-	printf("I am rendering. %p\n", game->map);
-	sleep(1);
-	printf("I slept a second!\n");
-	return (0);
 }
 
 int	handle_mlx(t_data *game)
@@ -64,6 +54,12 @@ int	init_game_resources(t_data *game, char *map_file)
 	if (res == 0)
 	{
 		throw_error("Initialisation failure - Map\n");
+		return (0);
+	}
+//	res = init_objs(..);
+	if (res == 0)
+	{
+		throw_error("Initialisation failure - Objects\n");
 		return (0);
 	}
 	printf("Init debug get info:\n- Pointer game: %p;\n- Map file: %s;\n", game, map_file);

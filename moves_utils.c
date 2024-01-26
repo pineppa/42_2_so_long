@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:19:50 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/24 20:10:47 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/26 14:45:08 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 int is_move_inbound(t_pos map_size, int x, int y)
 {
+    printf("\n\nSomething is wrong here, eh?\n");
+    printf("The values of x, y, size_y, size_x are: %i,%i,%i,%i;\n", x, y, map_size.y, map_size.x);
 	if (x < 1 || y < 1
 		|| y > (map_size.y - 1)
 		|| x > (map_size.x - 1)) // Should not be necessary, but better check 
 		return (0);
+    printf("\n1\n");
 	return (1);
 }
 
@@ -25,6 +28,7 @@ int	is_move_wall(char **map, int x, int y)
 {
 	if (map[y][x] == '1')
 		return (1);
+    printf("\n1\n");
 	return (0);
 }
 
@@ -38,6 +42,7 @@ int is_player_exit(char **map, int x, int y)
         //else
         //Ignore the exit or say you lose
     }
+    printf("\n1\n");
     return (0);
 }
 
