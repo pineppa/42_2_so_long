@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/27 13:03:36 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/27 18:26:07 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,18 @@ int	handle_mlx(t_data *game)
 
 int	init_map(t_data *game, char *map_file)
 {
+	int	screen_w;
+	int	screen_h;
+
+	screen_h = 0;
+	screen_w = 0;
+	mlx_get_screen_size(game->mlx_conn, &screen_w, &screen_h);
 	game->map = malloc(sizeof(t_map));
 	if (!game->map || !map_file)
 		return (0);
-	if (!load_map(map_file, game->map))
+	if (!load_map(map_file, game->map)
+		|| game->map->map_size.x > screen_w / IMG_W
+		|| game->map->map_size.y > screen_h / IMG_H)
 	{
 		free(game->map);
 		return (0);
@@ -59,6 +67,7 @@ int	init_game_resources(t_data *game, char *map_file)
 		throw_error("Initialisation failure - Game GUI\n");
 		return (0);
 	}
+	game->moves = 0;
 	return (1);
 }
 

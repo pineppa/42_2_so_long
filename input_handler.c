@@ -6,30 +6,28 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:25:44 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/27 12:08:45 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/27 16:57:45 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-// Mac uses keycodes, while linux uses keysim!
-int	handle_key_input(int keysim, t_data *game) // How is data working?
+int	handle_key_input(int keysim, t_data *game)
 {
-	int	res;
-
-	res = 0;
 	if (keysim == ESC)
-	{
 		game_exit(game);
-		exit(EXIT_SUCCESS); // To be fixed to exit loop;
-	}
 	else if (keysim == UP || keysim == RIGHT || keysim == LEFT
 		|| keysim == DOWN || keysim == W || keysim == D
 		|| keysim == A || keysim == S)
-		res = move(keysim, game->map->p1, game->map); // Moves can be here, but potentially need space
+		{
+			if(move(keysim, game->map->p1, game->map) == 0)
+				game_exit(game);
+			else
+				game->moves++;
+		}
 /*	else if (keysim == SHOOT)
 		shoot()*/
-	return (res);
+	return (0);
 }
 
 /*

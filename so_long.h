@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/27 13:03:34 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/27 18:27:16 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@
 // # define WIN_H 720
 # define IMG_W 64
 # define IMG_H 64
+# define MAX_MAP_W 15
+# define MAX_MAP_H 12
+# define TEXT_COLOR 0x00000000
 
 # define WALL_IMG "./img/wall_blue_64x64.xpm"
 # define GROUND_IMG "./img/empty_green_64x64.xpm"
@@ -103,6 +106,7 @@ typedef struct s_data
 	void	*mlx_conn;
 	void	*window;
 	t_map	*map;
+	int		moves;
 	int		end;
 }	t_data;
 
@@ -116,6 +120,7 @@ int		ft_check_file_extension(char *str);
 
 int		init_map(t_data *game, char *map_file);
 int		init_objects(void *mlx_conn, t_map *map);
+void	init_nr_objs(t_map *map);
 t_anima	*load_img(void *mlx_conn, char *map_file);
 t_obj	*load_obj(void *mlx, char *img_file, char obj_char);
 int		init_game_gui(t_data *game);
@@ -137,16 +142,14 @@ int		is_edge_walled(char **map, t_pos size);
 
 // Moves
 
+t_obj	*update_obj_pos(t_map *map, t_obj *obj, t_pos new_pos);
+int		move_action(t_map *map, t_obj *obj, t_pos new_pos);
 int		move(int keysim, t_obj *obj, t_map *map);
-int		move_up(char ***map, t_pos map_size, t_obj *obj);
-int		move_down(char ***map, t_pos map_size, t_obj *obj);
-int		move_left(char ***map, t_pos map_size, t_obj *obj);
-int		move_right(char ***map, t_pos map_size, t_obj *obj);
 
 // Rendering
 
 int		ft_render(t_data *game);
-void	draw_game_gui(t_data *game, t_map *map);
+void	draw_game_map(t_data *game, t_map *map);
 
 // Drawings
 
@@ -154,11 +157,12 @@ int		draw_item(t_data *game, t_obj *item, t_pos pos);
 
 // Moves_utils
 
-int		is_move_inbound(t_pos map_size, int x, int y);
-int		is_move_wall(char **map, int x, int y);
-int		is_player_exit(char **map, int x, int y);
-int		is_player_collect(char **map, int x, int y);
-int		is_player_patrol(char **map, int x, int y);
+//int		is_move_valid(t_map *map, t_pos map_size, t_obj *obj);
+//int		is_move_inbound(t_pos map_size, int x, int y);
+//int		is_move_wall(char **map, int x, int y);
+int		player_exit(t_map *map);
+int		player_collect(t_map *map);
+//int		player_patrol(t_map *map, int x, int y);
 
 // Free allocations
 

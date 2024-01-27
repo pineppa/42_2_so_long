@@ -6,21 +6,28 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 13:43:04 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/26 14:22:48 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/27 17:43:07 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int ft_render(t_data *game)
+int draw_item(t_data *game, t_obj *item, t_pos pos)
 {
-	mlx_clear_window(game->mlx_conn, game->window);
-	draw_game_gui(game, game->map); // Name to be changed
-	mlx_do_sync(game->mlx_conn);
-	return (0);
+	if (item->obj_char == 'E' || item->obj_char == 'P' || item->obj_char == 'C')
+		mlx_put_image_to_window(game->mlx_conn, game->window, 
+			item->anima->img, IMG_W * pos.x, IMG_H * pos.y);
+	mlx_put_image_to_window(game->mlx_conn, game->window, item->anima->img,
+		IMG_W * pos.x, IMG_H * pos.y);
+	if (item->obj_char == 'P') 
+	{
+		item->pos.x = pos.x;
+		item->pos.y = pos.y;
+	}
+	return (1);
 }
 
-void	draw_game_gui(t_data *game, t_map *map)
+void	draw_game_map(t_data *game, t_map *map)
 {
 	t_pos	pos;
 
@@ -47,17 +54,28 @@ void	draw_game_gui(t_data *game, t_map *map)
 	}
 }
 
-int draw_item(t_data *game, t_obj *item, t_pos pos)
+int	draw_moves(t_data *game)
 {
-	if (item->obj_char == 'E' || item->obj_char == 'P' || item->obj_char == 'C')
-		mlx_put_image_to_window(game->mlx_conn, game->window, 
-			item->anima->img, IMG_W * pos.x, IMG_H * pos.y);
-	mlx_put_image_to_window(game->mlx_conn, game->window, item->anima->img,
-		IMG_W * pos.x, IMG_H * pos.y);
-	if (item->obj_char == 'P') 
-	{
-		item->pos.x = pos.x;
-		item->pos.y = pos.y;
-	}
-	return (1);
+	char	*moves_text;
+
+	moves_text = ft_itoa(game->moves);
+	moves_text = ft_strjoin("Moves: ", moves_text);
+	mlx_string_put(game->mlx_conn, game->window, IMG_W / 4, IMG_H / 4,
+		TEXT_COLOR, moves_text);
+	return (0);
+}
+
+int	draw_ui(t_data *game)
+{
+	draw_moves(game);
+	return (0);
+}
+
+int ft_render(t_data *game)
+{
+	mlx_clear_window(game->mlx_conn, game->window);
+	draw_game_map(game, game->map); // Name to be changed
+	draw_ui(game);
+	mlx_do_sync(game->mlx_conn);
+	return (0);
 }

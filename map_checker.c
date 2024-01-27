@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 16:51:15 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/26 13:17:20 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/27 18:19:07 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ returns -1 in case of any error in the map
 	-> Checks for ground and less than 2x2 maps done in advance
 */
 
-int	check_input(char *str)  // Remove free ed exit qui per farne uno con return (0);
+int	check_input(char *str)
 {
 	int	row_len;
 	int	i;
@@ -33,7 +33,6 @@ int	check_input(char *str)  // Remove free ed exit qui per farne uno con return 
 	row_len = 0;
 	i = -1;
 	count = 0;
-	printf("I am passing the map check?");
 	while (str[++i])
 	{
 		if (str[i] != '0' && str[i] != '1' && str[i] != 'E' && 
@@ -42,16 +41,15 @@ int	check_input(char *str)  // Remove free ed exit qui per farne uno con return 
 		if (str[i] == '\n')
 		{
 			if (row_len == 0)
-				row_len = i; // if it is the first line set the size
+				row_len = i;
 			else if (row_len != count)
 				return (0);
-			count = 0; // Reset the counter if a new line character is hit
+			count = 0;
 		}
 		else
 			count++;
 	}
-	printf("Yes!\n");
-	return (1); // Return the length of the rows
+	return (1);
 }
 
 int	is_edge_walled(char **map, t_pos size)

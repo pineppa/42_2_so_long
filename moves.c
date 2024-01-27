@@ -6,87 +6,51 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 20:08:13 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/27 12:50:27 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/27 14:58:49 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+t_obj	*update_obj_pos(t_map *map, t_obj *obj, t_pos new_pos)
+{
+	map->map_content[new_pos.y][new_pos.x] = obj->obj_char;
+	map->map_content[obj->pos.y][obj->pos.x] = '0';
+	obj->pos.x = new_pos.x;
+	obj->pos.y = new_pos.y;
+	return (obj);
+}
+
+int	move_action(t_map *map, t_obj *obj, t_pos new_pos)
+{
+	char obj_c;
+
+	obj_c = map->map_content[new_pos.y][new_pos.x];
+	if (obj_c == '1')
+		return (1);
+		//player_wall(map);
+	else if (obj_c == 'C')
+		player_collect(map);
+	else if (obj_c == 'E')
+		return (player_exit(map));
+	update_obj_pos(map, obj, new_pos);
+	return (1);
+}
+
 int	move(int keysim, t_obj *obj, t_map *map)
 {
-	int	res;
+	t_pos	new_pos;
 
-	res = 0;
-	printf("Keysim value: %i, Object pointer: %p", keysim, obj);
+	new_pos.x = obj->pos.x;
+	new_pos.y = obj->pos.y;
 	if (keysim == UP || keysim == W)
-		res = move_up(&(map->map_content), map->map_size, obj);
+		new_pos.y -= 1;
 	else if (keysim == DOWN || keysim == S)
-		res = move_down(&(map->map_content), map->map_size, obj);
-	else if (keysim == RIGHT || keysim == D)
-		res = move_right(&(map->map_content), map->map_size, obj);
+		new_pos.y += 1;
 	else if (keysim == LEFT || keysim == A)
-		res = move_left(&(map->map_content), map->map_size, obj);
-	//Update map with required move... In case enemy can move, he also does a move.
-	return (res);
+		new_pos.x -= 1;
+	else if (keysim == RIGHT || keysim == D)
+		new_pos.x += 1;
+	return (move_action(map, obj, new_pos));
 }
 // void	attack(int keysim, t_obj obj, t_map *map)
-
-int	move_up(char ***map, t_pos size, t_obj *obj)
-{
-	if (is_move_inbound(size, obj->pos.x, obj->pos.y - 1) == 0
-		|| is_move_wall(*map, obj->pos.x, obj->pos.y - 1) == 1
-		|| is_player_exit(*map, obj->pos.x, obj->pos.y - 1) == 1
-		//	|| is_player_patrol(*map, obj->pos.x, obj->pos.y - 1) == 0
-	)
-	{
-		printf("Something is wrong!\n");
-		return (0);
-	}
-//	else if (obj_char == 'Enemy' && (map[y][x] == 'E' || map[y][x] == 'C')) // Enemies cannot path on collectibles or Exit
-//		return (0);
-	(*map)[obj->pos.y - 1][obj->pos.x] = obj->obj_char;
-	(*map)[obj->pos.y][obj->pos.x] = '0';
-	return (1);
-}
-
-int	move_down(char ***map, t_pos map_size, t_obj *obj)
-{
-	if (is_move_inbound(map_size, obj->pos.x, obj->pos.y + 1) == 0
-		|| is_move_wall(*map, obj->pos.x, obj->pos.y + 1) == 1
-		|| is_player_exit(*map, obj->pos.x, obj->pos.y + 1) == 1
-//		|| is_player_patrol(*map, obj->pos.x, obj->pos.y + 1) == 0
-	)
-		return (0);
-	(*map)[obj->pos.y + 1][obj->pos.x] = obj->obj_char;
-	(*map)[obj->pos.y][obj->pos.x] = '0';
-	return (1);
-}
-
-int	move_left(char ***map, t_pos map_size, t_obj *obj)
-{
-	if (is_move_inbound(map_size, obj->pos.x - 1, obj->pos.y) == 0
-		|| is_move_wall(*map, obj->pos.x - 1, obj->pos.y) == 1
-		|| is_player_exit(*map, obj->pos.x - 1, obj->pos.y) == 1
-//		|| is_player_patrol(*map, obj->pos.x - 1, obj->pos.y) == 0
-	)
-		return (0);
-//	else if (obj_char == 'Enemy' && (map[y][x] == 'E' || map[y][x] == 'C')) // Enemies cannot path on collectibles or Exit
-//		return (0);	
-	(*map)[obj->pos.y][obj->pos.x - 1] = obj->obj_char;
-	(*map)[obj->pos.y][obj->pos.x] = '0';
-//	}
-	return (1);
-}
-
-int	move_right(char ***map, t_pos map_size, t_obj *obj)
-{
-	if (is_move_inbound(map_size, obj->pos.x + 1, obj->pos.y) == 0
-		|| is_move_wall(*map, obj->pos.x + 1, obj->pos.y) == 1
-		|| is_player_exit(*map, obj->pos.x + 1, obj->pos.y) == 1
-		//	|| is_player_patrol(*map, obj->pos.x + 1, obj->pos.y) == 0
-	)
-		return (0);
-	(*map)[obj->pos.y][obj->pos.x + 1] = obj->obj_char;
-	(*map)[obj->pos.y][obj->pos.x] = '0';
-	return (1);
-}

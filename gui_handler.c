@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/27 12:45:20 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/27 18:28:00 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ t_obj	*load_obj(void *mlx, char *img_file, char obj_char)
 
 int	init_objects(void *mlx, t_map *map)
 {
-	printf("\n --- Starting to load images --- \n\n");
 	map->wall = load_obj(mlx, WALL_IMG, '0');
 	map->ground = load_obj(mlx, GROUND_IMG, '1');
 	map->collecs = load_obj(mlx, COLLECTIBLE_IMG, 'C');
@@ -72,6 +71,7 @@ int	init_game_gui(t_data *game)
 		throw_error("Initialisation failure - Images");
 		return (0);
 	}
-	draw_game_gui(game, game->map);
+	init_nr_objs(game->map);
+	draw_game_map(game, game->map);
 	return (1);
 }
