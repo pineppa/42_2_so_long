@@ -6,29 +6,17 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/27 12:03:18 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/27 13:03:36 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	game_exit(t_data *game)
-{
-	free_resources(game);
-	mlx_clear_window(game->mlx_conn, game->window);
-	mlx_destroy_window(game->mlx_conn, game->window);
-	mlx_destroy_display(game->mlx_conn);
-	free(game->mlx_conn);
-	free(game);
-}
-
 int	handle_mlx(t_data *game)
 {
-	printf("\n --- handle mlx --- \n\n");
 	init_keys(game);
-	printf(" --- init keys --- \n");
+	mlx_hook(game->window, ON_DESTROY, 0, game_exit, game);
 	mlx_loop_hook(game->mlx_conn, ft_render, game);
-	printf(" --- loop hook --- \n");
 //	mlx_expose_hook(game->window, &ft_expose, void);
 	mlx_loop(game->mlx_conn);
 	return (0);

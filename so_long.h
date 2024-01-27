@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/27 12:52:41 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/27 13:03:34 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 #  define BUFFER_SIZE 512
 
 # endif
+
+// Signals
+# define ON_DESTROY 17
 
 // # define WIN_W 1024
 // # define WIN_H 720
@@ -159,7 +162,7 @@ int		is_player_patrol(char **map, int x, int y);
 
 // Free allocations
 
-void	game_exit(t_data *game);
+int		game_exit(t_data *game);
 void	free_matrix(char **matrix);
 void	free_anima_list(void *mlx, t_anima **anima);
 void	free_object(void *mlx, t_obj *obj);

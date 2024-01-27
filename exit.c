@@ -1,16 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_game.c                                        :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 07:58:23 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/27 12:41:14 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/27 13:01:18 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	game_exit(t_data *game)
+{
+	free_resources(game);
+	mlx_clear_window(game->mlx_conn, game->window);
+	mlx_destroy_window(game->mlx_conn, game->window);
+	mlx_destroy_display(game->mlx_conn);
+	free(game->mlx_conn);
+	free(game);
+	exit(EXIT_SUCCESS);
+}
 
 void	free_matrix(char **matrix)
 {
