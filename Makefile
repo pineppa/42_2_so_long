@@ -1,4 +1,4 @@
-SRCS = map_checker.c map_loader.c so_long.c gui_handler.c render.c input_handler.c utils.c moves.c moves_utils.c
+SRCS = map_checker.c map_loader.c so_long.c gui_handler.c render.c input_handler.c utils.c moves.c moves_utils.c free_game.c
 HEADER = so_long.h
 
 INCLUDE = -I. -I./minilibx_linux -I./libft

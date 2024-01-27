@@ -75,3 +75,17 @@ Here is a simple valid map:
 ```
 
 * If any misconfiguration of any kind is encountered in the file, the program must exit in a clean way, and return "Error\n" followed by an explicit error message of your choice
+
+## Text to be checked before being included
+
+map->map_size tells how big the matrix of map is. This should be used to manage the content in the window;
+
+* To be checked if the window can be set with a minimum and maximum size...
+* How should the images be handled not to be stretched?
+* Should the background be loaded as a single image?
+Go through map and load every location with the specific image required:
+* 0 Loads the ground space;
+* 1 Loads the Wall image;
+* ECP loads an ground space as background plus the specific image that represents the Exit, a Collectible, or the Player;
+
+Map here is already loaded beforehand

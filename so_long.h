@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/26 15:38:34 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/27 12:52:41 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,19 @@ typedef struct s_pos
 {
 	int	x;
 	int	y;
-} t_pos;
+}	t_pos;
 
-typedef struct s_anima 
+typedef struct s_anima
 {
-	void    		*img;
+	void			*img;
 	char			*addr;
-	int				w; // width of the image
-	int				h; // height of the image
+	int				w;
+	int				h;
 	int				bpp;
 	int				line_length;
 	int				endian;
-	struct s_anima	*next; // Points to the next image in the animation
-} t_anima;
+	struct s_anima	*next;
+}	t_anima;
 
 typedef struct s_obj
 {
@@ -80,7 +80,7 @@ typedef struct s_obj
 	//unsigned int	life;
 	//unsigned int	attack;
 	//unsigned int	defense;
-} t_obj;
+}	t_obj;
 
 typedef struct s_map
 {
@@ -88,12 +88,12 @@ typedef struct s_map
 	t_pos			map_size;
 	unsigned int	n_collecs;
 	unsigned int	n_exits;
-	t_obj			*collecs; // List of collectibles
-	t_obj			*exits; // List of exits
-	t_obj			*p1; // Player 1 object
-	t_obj			*wall; // Single item stored (Later could turn in different walls);
-	t_obj			*ground; // Single item stored (Later could turn in different grounds);
-} t_map;
+	t_obj			*collecs;
+	t_obj			*exits;
+	t_obj			*p1;
+	t_obj			*wall;
+	t_obj			*ground;
+}	t_map;
 
 typedef struct s_data
 {
@@ -101,11 +101,12 @@ typedef struct s_data
 	void	*window;
 	t_map	*map;
 	int		end;
-} t_data;
+}	t_data;
 
 // Utils
-void	print_map(char **map); // Used for debugging only
+//void	print_map(char **map);
 void	throw_error(char *message);
+int		ft_check_file_extension(char *str);
 
 // Game functions
 // Initialisation
@@ -118,11 +119,10 @@ int		init_game_gui(t_data *game);
 
 // Input Handler
 int		init_keys(t_data *game);
-int		handle_key_input(int keysim, t_map *map);
+int		handle_key_input(int keysim, t_data *game);
 
 // Map loader
 
-void	free_matrix(char **matrix);
 t_pos	get_map_size(char **map);
 char	**read_mapfile(int fd);
 int		load_map(char *file, t_map *map);
@@ -134,11 +134,11 @@ int		is_edge_walled(char **map, t_pos size);
 
 // Moves
 
-void	move(int keysim, t_obj *obj, t_map *map);
-char	**move_up(char **map, t_pos map_size, t_obj *obj);
-char	**move_down(char **map, t_pos map_size, t_obj *obj);
-char	**move_left(char **map, t_pos map_size, t_obj *obj);
-char	**move_right(char **map, t_pos map_size, t_obj *obj);
+int		move(int keysim, t_obj *obj, t_map *map);
+int		move_up(char ***map, t_pos map_size, t_obj *obj);
+int		move_down(char ***map, t_pos map_size, t_obj *obj);
+int		move_left(char ***map, t_pos map_size, t_obj *obj);
+int		move_right(char ***map, t_pos map_size, t_obj *obj);
 
 // Rendering
 
@@ -147,7 +147,7 @@ void	draw_game_gui(t_data *game, t_map *map);
 
 // Drawings
 
-int 	draw_item(t_data *game, t_obj *item, t_pos pos);
+int		draw_item(t_data *game, t_obj *item, t_pos pos);
 
 // Moves_utils
 
@@ -157,7 +157,16 @@ int		is_player_exit(char **map, int x, int y);
 int		is_player_collect(char **map, int x, int y);
 int		is_player_patrol(char **map, int x, int y);
 
+// Free allocations
+
+void	game_exit(t_data *game);
+void	free_matrix(char **matrix);
+void	free_anima_list(void *mlx, t_anima **anima);
+void	free_object(void *mlx, t_obj *obj);
+void	free_resources(t_data *game);
+
 // Other functions
+void	check_malloc(char *str, char *buff);
 
 // void	attack(int keysim, t_obj obj, t_map *map);
 

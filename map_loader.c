@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:47:27 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/25 19:49:54 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/27 12:39:54 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,29 @@
 
 #include "so_long.h"
 
-void	free_matrix(char **matrix)
-{
-	int	i;
-
-	i = -1;
-	while (matrix[++i])
-		free(matrix[i]);
-	free(matrix);
-}
-
 t_pos	get_map_size(char **map)
 {
 	t_pos	size;
 
 	size.x = 0;
 	size.y = 0;
-	while(map[size.y])
-		size.y++; // Does this work correctly?
-	while(map[0][size.x])
+	while (map[size.y])
+		size.y++;
+	while (map[0][size.x])
 		size.x++;
 	return (size);
+}
+
+void	check_malloc(char *str, char *buff)
+{
+	if (!str || !buff)
+	{
+		if (str)
+			free(str);
+		if (buff)
+			free(buff);
+		exit (EXIT_FAILURE);
+	}
 }
 
 char	**read_mapfile(int fd)
@@ -44,12 +46,10 @@ char	**read_mapfile(int fd)
 	char	**map;
 
 	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	str = malloc(sizeof(char) * 1); // Check if it makes sense
-	if (!str || !buff)
-	{
-		free(buff);
-		return (NULL);
-	}
+	if (!buff)
+		exit(EXIT_FAILURE);
+	str = malloc(sizeof(char) * 1);
+	check_malloc(buff, str);
 	str[0] = '\0';
 	buff[BUFFER_SIZE] = '\0';
 	while (read(fd, buff, BUFFER_SIZE))
@@ -68,7 +68,7 @@ char	**read_mapfile(int fd)
 
 int	load_map(char *file, t_map *map)
 {
-	int		fd;
+	int	fd;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
@@ -76,7 +76,7 @@ int	load_map(char *file, t_map *map)
 		throw_error("Error opening the file, invalid fd");
 		return (0);
 	}
-	map->map_content = read_mapfile(fd); // returns a malloc'd array
+	map->map_content = read_mapfile(fd);
 	if (!(map->map_content))
 	{
 		throw_error("Error loading map content");
@@ -84,7 +84,7 @@ int	load_map(char *file, t_map *map)
 	}
 	map->map_size = get_map_size(map->map_content);
 	close(fd);
-	if (!(map->map_size.x) || !(map->map_size.y) 
+	if (!(map->map_size.x) || !(map->map_size.y)
 		|| !is_edge_walled(map->map_content, map->map_size))
 	{
 		throw_error("Map file Error");

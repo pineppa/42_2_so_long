@@ -6,64 +6,54 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:19:50 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/26 14:45:08 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/27 12:06:37 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int is_move_inbound(t_pos map_size, int x, int y)
+int	is_move_inbound(t_pos map_size, int x, int y)
 {
-    printf("\n\nSomething is wrong here, eh?\n");
-    printf("The values of x, y, size_y, size_x are: %i,%i,%i,%i;\n", x, y, map_size.y, map_size.x);
-	if (x < 1 || y < 1
-		|| y > (map_size.y - 1)
-		|| x > (map_size.x - 1)) // Should not be necessary, but better check 
-		return (0);
-    printf("\n1\n");
-	return (1);
+	return (x > 0 && y > 0
+		&& y < map_size.y && x < map_size.x); // Should not be necessary, but better check ;
 }
 
 int	is_move_wall(char **map, int x, int y)
 {
-	if (map[y][x] == '1')
+	return (map[y][x] == '1');
+}
+
+int	is_player_exit(char **map, int x, int y)
+{
+	if (map[y][x] == 'E')
+	{
+		//if (game->collectibles == all)
+		printf("Win!");
 		return (1);
-    printf("\n1\n");
+		//else
+		//Ignore the exit or say you lose
+	}
 	return (0);
 }
 
-int is_player_exit(char **map, int x, int y)
+int	is_player_collect(char **map, int x, int y)
 {
-    if (map[y][x] == 'E')
-    {
-        //if (game->collectibles == all)
-        printf("Win!");
-            //exit... return(1);
-        //else
-        //Ignore the exit or say you lose
-    }
-    printf("\n1\n");
-    return (0);
-}
-
-int is_player_collect(char **map, int x, int y)
-{
-    if (map[y][x] == 'C')
-    {
-        printf("1 UP!");
-        //exit... return(1);
-    }
-    return (0);
+	if (map[y][x] == 'C')
+	{
+		printf("1 UP!");
+		//exit... return(1);
+	}
+	return (0);
 }
 /*
-int is_player_patrol(char **map, int x, int y)
+int	is_player_patrol(char **map, int x, int y)
 {
-    if (map[y][x] == 'Patrol')
-    {
-        printf("Game lost");
-        //play lost sound;
-        //exit... return(1);
-    }
-    return (0);
+	if (map[y][x] == 'Patrol')
+	{
+		printf("Game lost");
+		//play lost sound;
+		//exit... return(1);
+	}
+	return (0);
 }
 */
