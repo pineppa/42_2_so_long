@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/27 18:26:07 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/28 07:58:23 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	init_game_resources(t_data *game, char *map_file)
 		throw_error("Initialisation failure - Game GUI\n");
 		return (0);
 	}
-	game->moves = 0;
+	game->map->moves = 0;
 	return (1);
 }
 

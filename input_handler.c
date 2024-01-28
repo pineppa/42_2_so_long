@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:25:44 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/27 16:57:45 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/28 09:17:18 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ int	handle_key_input(int keysim, t_data *game)
 		{
 			if(move(keysim, game->map->p1, game->map) == 0)
 				game_exit(game);
-			else
-				game->moves++;
 		}
 /*	else if (keysim == SHOOT)
 		shoot()*/

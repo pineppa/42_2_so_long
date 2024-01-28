@@ -6,20 +6,21 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 13:43:04 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/27 17:43:07 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/28 09:16:01 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 int draw_item(t_data *game, t_obj *item, t_pos pos)
-{
-	if (item->obj_char == 'E' || item->obj_char == 'P' || item->obj_char == 'C')
+{	
+	/*if (item->obj_char == 'E' || item->obj_char == 'P' 
+		|| item->obj_char == 'C')
 		mlx_put_image_to_window(game->mlx_conn, game->window, 
-			item->anima->img, IMG_W * pos.x, IMG_H * pos.y);
+			item->anima->img, IMG_W * pos.x, IMG_H * pos.y);*/
 	mlx_put_image_to_window(game->mlx_conn, game->window, item->anima->img,
 		IMG_W * pos.x, IMG_H * pos.y);
-	if (item->obj_char == 'P') 
+	if (item->obj_char == 'P' || item->obj_char == 'D') 
 	{
 		item->pos.x = pos.x;
 		item->pos.y = pos.y;
@@ -47,8 +48,8 @@ void	draw_game_map(t_data *game, t_map *map)
 				draw_item(game, map->wall, pos);
 			else if (map->map_content[pos.y][pos.x] == 'P')
 				draw_item(game, map->p1, pos);
-		//	else if (map[pos.y][pos.x] == 'Patrol')
-		//		draw_item(game, map->wall, pos);	
+			else if (map->map_content[pos.y][pos.x] == 'D')
+				draw_item(game, map->patrols, pos);
 		}
 		pos.x = -1;
 	}
@@ -58,7 +59,7 @@ int	draw_moves(t_data *game)
 {
 	char	*moves_text;
 
-	moves_text = ft_itoa(game->moves);
+	moves_text = ft_itoa(game->map->moves);
 	moves_text = ft_strjoin("Moves: ", moves_text);
 	mlx_string_put(game->mlx_conn, game->window, IMG_W / 4, IMG_H / 4,
 		TEXT_COLOR, moves_text);
@@ -74,7 +75,7 @@ int	draw_ui(t_data *game)
 int ft_render(t_data *game)
 {
 	mlx_clear_window(game->mlx_conn, game->window);
-	draw_game_map(game, game->map); // Name to be changed
+	draw_game_map(game, game->map);
 	draw_ui(game);
 	mlx_do_sync(game->mlx_conn);
 	return (0);

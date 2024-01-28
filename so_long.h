@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/27 18:27:16 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/28 08:34:15 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,12 @@
 
 # define WALL_IMG "./img/wall_blue_64x64.xpm"
 # define GROUND_IMG "./img/empty_green_64x64.xpm"
-# define COLLECTIBLE_IMG "./img/collectible.xpm"
+# define COLLECTIBLE_IMG "./img/collectible_green.xpm"
 # define PLAYER_IMG "./img/player_green_64x64_0.xpm"
 # define EXIT_IMG "./img/exit_green_64x64.xpm"
-# define PATROL_IMG "./img/patrol.xpm"
+# define PATROL_IMG "./img/patrol_green.xpm"
 
 # define ESC 65307
-# define ESC_X 65340 // TO BE CHANGED!! SHOULD BE X OF WINDOW
 # define LEFT 65361
 # define UP 65362
 # define RIGHT 65363
@@ -99,6 +98,8 @@ typedef struct s_map
 	t_obj			*p1;
 	t_obj			*wall;
 	t_obj			*ground;
+	t_obj			*patrols;
+	int				moves;
 }	t_map;
 
 typedef struct s_data
@@ -106,7 +107,6 @@ typedef struct s_data
 	void	*mlx_conn;
 	void	*window;
 	t_map	*map;
-	int		moves;
 	int		end;
 }	t_data;
 
@@ -157,12 +157,12 @@ int		draw_item(t_data *game, t_obj *item, t_pos pos);
 
 // Moves_utils
 
-//int		is_move_valid(t_map *map, t_pos map_size, t_obj *obj);
+//int		is_move_valid(t_map *map, t_pos map_size, t_obj *obj, t_pos new_pos);
 //int		is_move_inbound(t_pos map_size, int x, int y);
 //int		is_move_wall(char **map, int x, int y);
 int		player_exit(t_map *map);
 int		player_collect(t_map *map);
-//int		player_patrol(t_map *map, int x, int y);
+int		player_patrol(void);
 
 // Free allocations
 

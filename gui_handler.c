@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/27 18:28:00 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/28 09:13:11 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int	init_objects(void *mlx, t_map *map)
 	map->collecs = load_obj(mlx, COLLECTIBLE_IMG, 'C');
 	map->p1 = load_obj(mlx, PLAYER_IMG, 'P');
 	map->exits = load_obj(mlx, EXIT_IMG, 'E');
-//	map->patrols = load_img(mlx, PATROL_IMG);
+	map->patrols = load_obj(mlx, PATROL_IMG, 'D');
 	if (map->wall == NULL || map->collecs == NULL
-		|| map->ground == NULL //|| map->patrols == NULL
+		|| map->ground == NULL || map->patrols == NULL
 		|| map->exits == NULL || map->p1 == NULL)
 	{
 		throw_error("Failed to load image");

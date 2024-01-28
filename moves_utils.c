@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:19:50 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/27 18:29:04 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/28 08:30:00 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,20 @@ int	player_collect(t_map *map)
 	map->n_collecs -= 1;
 	return (0);
 }
-/*
-int	player_patrol(char **map, int x, int y)
-{
-	if (map[y][x] == 'Patrol')
-	{
-		printf("Game lost");
-		//play lost sound;
-		//exit... return(1);
-	}
-	return (0);
-}
 
-int	is_move_valid(t_map *map, t_pos map_size, t_obj *obj)
+int	player_patrol(void)
+{
+	printf("Game lost\n");
+	return(0);
+}
+/*
+int	is_move_valid(t_map *map, t_pos map_size, t_obj *obj, t_pos new_pos)
 {
 	return (
-		move_inbound(map->map_size, obj->pos.x + 1, obj->pos.y) == 0
-		|| move_wall(map->map_content, obj->pos.x + 1, obj->pos.y) == 1
-		|| player_exit(map->map_content, obj->pos.x + 1, obj->pos.y) == 1
-		//	|| player_patrol(map->map_content, obj->pos.x + 1, obj->pos.y) == 0
+		move_inbound(map->map_size, new_pos.x, new_pos.y) == 0
+		|| move_wall(map->map_content, new_pos.x, new_pos.y) == 1
+		|| (map->map_content[new_pos.y][new_pos.x] == 'E' && !(map->n_collecs))
+		//	|| player_patrol(map->map_content, new_pos.x, new_pos.y) == 0
 	);
 }
 */
