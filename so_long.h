@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 08:34:15 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/28 16:36:37 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@
 # define MAX_MAP_H 12
 # define TEXT_COLOR 0x00000000
 
+# define FRAMES_ANIMA 6
 # define WALL_IMG "./img/wall_blue_64x64.xpm"
 # define GROUND_IMG "./img/empty_green_64x64.xpm"
 # define COLLECTIBLE_IMG "./img/collectible_green.xpm"
 # define PLAYER_IMG "./img/player_green_64x64_0.xpm"
 # define EXIT_IMG "./img/exit_green_64x64.xpm"
-# define PATROL_IMG "./img/patrol_green.xpm"
+# define PATROL_IMG "./img/patrol_green_64x64_0.xpm"
 
 # define ESC 65307
 # define LEFT 65361
@@ -114,6 +115,7 @@ typedef struct s_data
 //void	print_map(char **map);
 void	throw_error(char *message);
 int		ft_check_file_extension(char *str);
+char	*get_file_path(char *base_file, int frame);
 
 // Game functions
 // Initialisation

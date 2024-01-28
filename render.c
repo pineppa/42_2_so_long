@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 13:43:04 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 09:16:01 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/28 16:37:08 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int draw_item(t_data *game, t_obj *item, t_pos pos)
 	{
 		item->pos.x = pos.x;
 		item->pos.y = pos.y;
+		item->anima = item->anima->next;
 	}
 	return (1);
 }
@@ -77,6 +78,7 @@ int ft_render(t_data *game)
 	mlx_clear_window(game->mlx_conn, game->window);
 	draw_game_map(game, game->map);
 	draw_ui(game);
+	usleep(75000);
 	mlx_do_sync(game->mlx_conn);
 	return (0);
 }

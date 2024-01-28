@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 07:58:23 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/27 13:01:18 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/28 16:39:50 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	free_anima_list(void *mlx, t_anima **anima)
 		*anima = (*anima)->next;
 		if (temp->img != NULL)
 			mlx_destroy_image(mlx, temp->img);
-		free(temp);
 	}
 }
 

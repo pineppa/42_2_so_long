@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:49:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 08:04:21 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/28 16:36:00 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,19 @@ void init_nr_objs(t_map *map)
 				map->n_collecs += 1;
 		}
 	}
+}
+
+char *get_file_path(char *base_file, int frame)
+{
+	int		file_len;
+	char	*str;
+
+	file_len = ft_strlen(base_file);
+	if (file_len <= 4)
+		perror("File name too short!");
+	str = malloc(sizeof(char) * file_len);
+	str = ft_substr(base_file, 0, file_len - 5);
+	str = ft_strjoin(str, ft_itoa(frame));
+	str = ft_strjoin(str, ft_substr(base_file, file_len - 4, 4));
+	return (str);
 }

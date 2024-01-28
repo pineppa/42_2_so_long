@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 09:13:11 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/28 16:35:52 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,22 @@ t_anima	*load_img(void *mlx, char *img_file)
 	return (anima);
 }
 
+t_anima *load_anima(void *mlx, char *img_file, t_anima *anima)
+{
+	t_anima *temp;
+	int		i;
+
+	i = 0;
+	temp = anima;
+	while (++i < FRAMES_ANIMA)
+	{
+		temp->next = load_img(mlx, get_file_path(img_file, i));
+		temp = temp->next;
+	}
+	temp->next = anima;
+	return (anima);
+}
+
 t_obj	*load_obj(void *mlx, char *img_file, char obj_char)
 {
 	t_obj	*item;
@@ -38,6 +54,8 @@ t_obj	*load_obj(void *mlx, char *img_file, char obj_char)
 	if (!item)
 		return (NULL);
 	item->anima = load_img(mlx, img_file);
+	if (obj_char == 'P' || obj_char == 'D')
+		item->anima = load_anima(mlx, img_file, item->anima);
 	if (!item->anima)
 		return (NULL);
 	item->pos.x = 0;
