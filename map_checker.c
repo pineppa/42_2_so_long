@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 16:51:15 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 08:53:03 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/28 20:35:26 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,13 @@ int	check_input(char *str)
 	int	i;
 	int	count;
 
-	if (ft_strlen(str) < 4)
-		return (0);
 	row_len = 0;
 	i = -1;
 	count = 0;
 	while (str[++i])
 	{
-		if (str[i] != '0' && str[i] != '1' && str[i] != 'E'
-				&& str[i] != 'P' && str[i] != 'C' && str[i] != 'D'
-				&& str[i] != '\n')
+		if (str[i] != '0' && str[i] != '1' && str[i] != 'E' && str[i] != 'P'
+				&& str[i] != 'C' && str[i] != 'D' && str[i] != '\n')
 			return (0);
 		if (str[i] == '\n')
 		{

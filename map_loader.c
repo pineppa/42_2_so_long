@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:47:27 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/27 18:26:04 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/28 21:15:34 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	**read_mapfile(int fd)
 	while (read(fd, buff, BUFFER_SIZE))
 		str = ft_strjoin(str, buff);
 	free(buff);
-	if (!check_input(str))
+	if (ft_strlen(str) < 5 || !check_input(str))
 	{
 		free(str);
 		write(2, "The input map is not valid", 26);
@@ -82,8 +82,8 @@ int	load_map(char *file, t_map *map)
 		throw_error("Error loading map content");
 		return (0);
 	}
-	map->map_size = get_map_size(map->map_content);
 	close(fd);
+	map->map_size = get_map_size(map->map_content);
 	if (!(map->map_size.x) || !(map->map_size.y)
 		|| !is_edge_walled(map->map_content, map->map_size))
 	{

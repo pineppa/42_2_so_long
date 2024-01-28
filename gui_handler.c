@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 16:35:52 by jsala            ###   ########.fr       */
+/*   Updated: 2024/01/28 22:09:30 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,13 @@ int	init_game_gui(t_data *game)
 		throw_error("Initialisation failure - Images");
 		return (0);
 	}
-	init_nr_objs(game->map);
+	if (!init_nr_objs(game->map))
+	{
+		throw_error("Map does not contain the minimum elements");
+		game_exit(game);
+	}
+	if (!check_valid_path(game->map))
+		return (0);
 	draw_game_map(game, game->map);
 	return (1);
 }
