@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
+/*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 21:54:15 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/12 14:33:35 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <errno.h>
-# include <mlx.h>
 # include <stdio.h>
 # include "libft/libft.h"
+# include <mlx.h>
+# include "mlx/mlx.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 512
@@ -47,6 +48,7 @@
 # define EXIT_IMG "./img/exit_green_64x64.xpm"
 # define PATROL_IMG "./img/patrol_green_64x64_0.xpm"
 
+/*
 # define ESC 65307
 # define LEFT 65361
 # define UP 65362
@@ -58,6 +60,19 @@
 # define D 100
 # define SPACE 32
 # define ENTER 65293
+*/
+
+# define ESC 53
+# define LEFT 123
+# define UP 126
+# define RIGHT 124
+# define DOWN 125
+# define W 13
+# define A 0
+# define S 1
+# define D 2
+# define SPACE 32
+# define ENTER 36
 
 typedef struct s_pos
 {
@@ -112,7 +127,7 @@ typedef struct s_data
 }	t_data;
 
 // Utils
-//void	print_map(char **map);
+void	print_map(char **map);
 void	throw_error(char *message);
 int		ft_check_file_extension(char *str);
 char	*get_file_path(char *base_file, int frame);
@@ -177,7 +192,7 @@ int		game_exit(t_data *game);
 void	free_matrix(char **matrix);
 void	free_anima_list(void *mlx, t_anima **anima);
 void	free_object(void *mlx, t_obj *obj);
-void	free_resources(t_data *game);
+void	free_map(t_data *game);
 
 // Other functions
 void	check_malloc(char *str, char *buff);

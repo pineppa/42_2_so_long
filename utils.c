@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
+/*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:49:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 21:49:13 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/12 14:45:33 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ char *get_file_path(char *base_file, int frame)
 	if (file_len <= 4)
 		perror("File name too short!");
 	str = malloc(sizeof(char) * file_len);
+	if (str == NULL)
+		return (NULL);
 	str = ft_substr(base_file, 0, file_len - 5);
 	str = ft_strjoin(str, ft_itoa(frame));
 	str = ft_strjoin(str, ft_substr(base_file, file_len - 4, 4));

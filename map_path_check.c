@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_path_check.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
+/*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 20:35:35 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 21:55:37 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/12 12:10:27 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char **copy_map(t_pos size, char **map)
 	temp_map = malloc(sizeof(char *) * (size.y + 1));
 	if (!temp_map)
 		return (NULL);
-	temp_map[size.y] = '\0';
+	temp_map[size.y] = NULL;
 	i = -1;
 	while (++i < size.y)
 	{
@@ -43,7 +43,7 @@ int is_valid_path(char **temp_map, int x, int y, int n_collecs)
     else if (temp_map[y][x] == 'P' || temp_map[y][x] == '0')
         temp_map[y][x] = '1';
     else if (temp_map[y][x] == 'E')
-    {   
+    {
         if (n_collecs == 0)
             return (1);
         return (0);
@@ -66,7 +66,7 @@ int check_valid_path(t_map *map)
     temp_map = copy_map(map->map_size, map->map_content);
 	if (!temp_map)
 		return (0);
-    if (!is_valid_path(temp_map, map->p1->pos.x, map->p1->pos.y, 
+    if (!is_valid_path(temp_map, map->p1->pos.x, map->p1->pos.y,
         map->n_collecs))
     {
         throw_error("What is wrong with meeeeee?\n");

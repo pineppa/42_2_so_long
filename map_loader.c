@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_loader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
+/*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:47:27 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 21:15:34 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/12 14:47:45 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ char	**read_mapfile(int fd)
 	if (!buff)
 		exit(EXIT_FAILURE);
 	str = malloc(sizeof(char) * 1);
+	if (!str)
+		return (NULL);
 	check_malloc(buff, str);
 	str[0] = '\0';
 	buff[BUFFER_SIZE] = '\0';
@@ -71,11 +73,13 @@ int	load_map(char *file, t_map *map)
 	int	fd;
 
 	fd = open(file, O_RDONLY);
+	printf("File Descriptor: %i;\n", fd);
 	if (fd < 0)
 	{
 		throw_error("Error opening the file, invalid fd");
 		return (0);
 	}
+	printf("Read map;\n");
 	map->map_content = read_mapfile(fd);
 	if (!(map->map_content))
 	{
@@ -83,6 +87,7 @@ int	load_map(char *file, t_map *map)
 		return (0);
 	}
 	close(fd);
+	printf("Get map size started\n");
 	map->map_size = get_map_size(map->map_content);
 	if (!(map->map_size.x) || !(map->map_size.y)
 		|| !is_edge_walled(map->map_content, map->map_size))
@@ -90,5 +95,6 @@ int	load_map(char *file, t_map *map)
 		throw_error("Map file Error");
 		return (0);
 	}
+	printf("Get map size ended\n");
 	return (1);
 }
