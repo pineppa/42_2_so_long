@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
+/*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 20:08:13 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 09:17:00 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/12 14:39:22 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,18 @@
 
 t_obj	*update_obj_pos(t_map *map, t_obj *obj, t_pos new_pos)
 {
+	char	*itoa_val;
+
 	map->map_content[new_pos.y][new_pos.x] = obj->obj_char;
 	map->map_content[obj->pos.y][obj->pos.x] = '0';
 	obj->pos.x = new_pos.x;
 	obj->pos.y = new_pos.y;
 	map->moves += 1;
 	ft_putstr_fd("Current number of moves: ", 1);
-	ft_putstr_fd(ft_itoa(map->moves), 1);
+	itoa_val = ft_itoa(map->moves);
+	ft_putstr_fd(itoa_val, 1);
+	if (itoa_val)
+		free(itoa_val);
 	ft_putstr_fd(";\n", 1);
 	return (obj);
 }

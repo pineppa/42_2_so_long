@@ -3,27 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
+/*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 13:43:04 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 09:16:01 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/12 14:40:23 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 int draw_item(t_data *game, t_obj *item, t_pos pos)
-{	
-	/*if (item->obj_char == 'E' || item->obj_char == 'P' 
+{
+	/*if (item->obj_char == 'E' || item->obj_char == 'P'
 		|| item->obj_char == 'C')
-		mlx_put_image_to_window(game->mlx_conn, game->window, 
+		mlx_put_image_to_window(game->mlx_conn, game->window,
 			item->anima->img, IMG_W * pos.x, IMG_H * pos.y);*/
 	mlx_put_image_to_window(game->mlx_conn, game->window, item->anima->img,
 		IMG_W * pos.x, IMG_H * pos.y);
-	if (item->obj_char == 'P' || item->obj_char == 'D') 
+	if (item->obj_char == 'P' || item->obj_char == 'D')
 	{
 		item->pos.x = pos.x;
 		item->pos.y = pos.y;
+		item->anima = item->anima->next;
 	}
 	return (1);
 }
@@ -63,6 +64,8 @@ int	draw_moves(t_data *game)
 	moves_text = ft_strjoin("Moves: ", moves_text);
 	mlx_string_put(game->mlx_conn, game->window, IMG_W / 4, IMG_H / 4,
 		TEXT_COLOR, moves_text);
+	if (moves_text)
+		free(moves_text);
 	return (0);
 }
 
@@ -77,6 +80,7 @@ int ft_render(t_data *game)
 	mlx_clear_window(game->mlx_conn, game->window);
 	draw_game_map(game, game->map);
 	draw_ui(game);
+	usleep(75000);
 	mlx_do_sync(game->mlx_conn);
 	return (0);
 }

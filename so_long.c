@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
+/*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 07:58:23 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/12 14:43:19 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ int	init_map(t_data *game, char *map_file)
 
 	screen_h = 0;
 	screen_w = 0;
-	mlx_get_screen_size(game->mlx_conn, &screen_w, &screen_h);
+	//mlx_get_screen_size(game->mlx_conn, &screen_w, &screen_h);
 	game->map = malloc(sizeof(t_map));
 	if (!game->map || !map_file)
 		return (0);
-	if (!load_map(map_file, game->map)
+	if (!load_map(map_file, game->map)/*
 		|| game->map->map_size.x > screen_w / IMG_W
-		|| game->map->map_size.y > screen_h / IMG_H)
+		|| game->map->map_size.y > screen_h / IMG_H*/)
 	{
-		free(game->map);
+		game_exit(game);
 		return (0);
 	}
 	return (1);
