@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/02/26 18:31:30 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/26 20:18:15 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void	free_object(void *mlx, t_obj *obj);
 void	free_resources(t_data *game);
 
 // Other functions
-void	check_malloc(char *str, char *buff);
+void	check_calloc(char *str, char *buff);
 
 // void	attack(int keysim, t_obj obj, t_map *map);
 

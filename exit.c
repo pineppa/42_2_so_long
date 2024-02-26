@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 07:58:23 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 16:39:50 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/26 21:42:57 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ void	free_anima_list(void *mlx, t_anima **anima)
 {
 	t_anima	*temp;
 
+	temp = NULL;
 	while (*anima != NULL)
 	{
-		temp = *anima;
-		*anima = (*anima)->next;
-		if (temp->img != NULL)
-			mlx_destroy_image(mlx, temp->img);
+		temp = (*anima)->next;
+		if ((*anima)->img != NULL)
+			mlx_destroy_image(mlx, (*anima)->img);
+		(*anima) = NULL;
+		(*anima) = temp;
 	}
 }
 
@@ -60,6 +62,6 @@ void	free_resources(t_data *game)
 	free_object(game->mlx_conn, game->map->exits);
 	free_object(game->mlx_conn, game->map->ground);
 	free_object(game->mlx_conn, game->map->wall);
-//	free_object(game->mlx_conn, game->map->patrol);
+	free_object(game->mlx_conn, game->map->patrols);
 	free(game->map);
 }

@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 13:43:04 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 16:37:08 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/26 20:42:41 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,14 @@ void	draw_game_map(t_data *game, t_map *map)
 int	draw_moves(t_data *game)
 {
 	char	*moves_text;
+	char	*moves;
 
-	moves_text = ft_itoa(game->map->moves);
-	moves_text = ft_strjoin("Moves: ", moves_text);
+	moves = ft_itoa(game->map->moves);
+	moves_text = ft_strjoin("Moves: ", moves);
+	free(moves);
 	mlx_string_put(game->mlx_conn, game->window, IMG_W / 4, IMG_H / 4,
 		TEXT_COLOR, moves_text);
+	free(moves_text);
 	return (0);
 }
 

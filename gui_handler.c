@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/02/26 18:31:15 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/26 20:18:50 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_anima	*load_img(void *mlx, char *img_file, int frame)
 {
 	t_anima	*anima;
+	char	*file_path;
 
 	anima = malloc(sizeof(t_anima));
 	if (anima == NULL)
@@ -22,9 +23,10 @@ t_anima	*load_img(void *mlx, char *img_file, int frame)
 	anima->img = NULL;
 	anima->h = 64;
 	anima->w = 64;
+	file_path = get_file_path(img_file, frame, ".xpm");
 	anima->img = mlx_xpm_file_to_image(mlx, 
-			get_file_path(img_file, frame, ".xpm"),
-			&(anima->w), &(anima->h));
+			file_path, &(anima->w), &(anima->h));
+	free(file_path);
 	anima->addr = mlx_get_data_addr(anima->img, &anima->bpp,
 			&anima->line_length, &anima->endian);
 	anima->next = NULL;

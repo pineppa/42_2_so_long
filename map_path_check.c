@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 20:35:35 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 21:55:37 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/26 20:19:32 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char **copy_map(t_pos size, char **map)
 	int		i;
 	int		j;
 
-	temp_map = malloc(sizeof(char *) * (size.y + 1));
+	temp_map = ft_calloc(sizeof(char *), (size.y + 1));
 	if (!temp_map)
 		return (NULL);
 	temp_map[size.y] = '\0';
@@ -26,7 +26,7 @@ char **copy_map(t_pos size, char **map)
 	while (++i < size.y)
 	{
 		j = -1;
-		temp_map[i] = malloc(sizeof(char) * (size.x + 1));
+		temp_map[i] = ft_calloc(sizeof(char), (size.x + 1));
 		if (!temp_map)
 			return (NULL);
 		temp_map[i][size.x] = '\0';
