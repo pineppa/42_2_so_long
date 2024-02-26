@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:49:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 21:49:13 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/26 18:38:45 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,30 @@ int init_nr_objs(t_map *map)
 	return (map->p1->pos.x > 0 && map->n_collecs > 0 && map->n_exits > 0);
 }
 
-char *get_file_path(char *base_file, int frame)
+char	*get_file_path(char *base_file, int frame, char *suffix)
 {
-	int		file_len;
 	char	*str;
+	int		i;
+	int		j;
+	int		fd;
 
-	file_len = ft_strlen(base_file);
-	if (file_len <= 4)
-		perror("File name too short!");
-	str = malloc(sizeof(char) * file_len);
-	str = ft_substr(base_file, 0, file_len - 5);
-	str = ft_strjoin(str, ft_itoa(frame));
-	str = ft_strjoin(str, ft_substr(base_file, file_len - 4, 4));
+	str = ft_calloc(sizeof(char), ft_strlen(base_file) + ft_strlen(suffix) + 3);
+	if (!str)
+		return (NULL);
+	i = -1;
+	while (base_file[++i])
+		str[i] = base_file[i];
+	str[i++] = (char) frame + '0';
+	j = -1;
+	while (suffix[++j])
+		str[i + j] = suffix[j];
+	str[i+j+1] = '\0';
+	fd = open(str, O_RDONLY);
+	if (fd == -1)
+	{
+		free(str);
+		return(NULL);
+	}
+	close(fd);
 	return (str);
 }

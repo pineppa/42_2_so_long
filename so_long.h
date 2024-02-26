@@ -6,7 +6,7 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 21:54:15 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/26 18:31:30 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@
 # define TEXT_COLOR 0x00000000
 
 # define FRAMES_ANIMA 6
-# define WALL_IMG "./img/wall_blue_64x64.xpm"
-# define GROUND_IMG "./img/empty_green_64x64.xpm"
-# define COLLECTIBLE_IMG "./img/collectible_green.xpm"
-# define PLAYER_IMG "./img/player_green_64x64_0.xpm"
-# define EXIT_IMG "./img/exit_green_64x64.xpm"
-# define PATROL_IMG "./img/patrol_green_64x64_0.xpm"
+# define WALL_IMG "./img/wall_blue"
+# define GROUND_IMG "./img/empty_green"
+# define COLLECTIBLE_IMG "./img/collectible_green"
+# define PLAYER_IMG "./img/player_green"
+# define EXIT_IMG "./img/exit_green"
+# define PATROL_IMG "./img/patrol_green"
 
 # define ESC 65307
 # define LEFT 65361
@@ -115,7 +115,7 @@ typedef struct s_data
 //void	print_map(char **map);
 void	throw_error(char *message);
 int		ft_check_file_extension(char *str);
-char	*get_file_path(char *base_file, int frame);
+char	*get_file_path(char *base_file, int frame, char *suffix);
 
 // Game functions
 // Initialisation
@@ -123,7 +123,7 @@ char	*get_file_path(char *base_file, int frame);
 int		init_map(t_data *game, char *map_file);
 int		init_objects(void *mlx_conn, t_map *map);
 int		init_nr_objs(t_map *map);
-t_anima	*load_img(void *mlx_conn, char *map_file);
+t_anima	*load_img(void *mlx, char *img_file, int frame);
 t_obj	*load_obj(void *mlx, char *img_file, char obj_char);
 int		init_game_gui(t_data *game);
 

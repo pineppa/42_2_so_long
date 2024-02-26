@@ -6,13 +6,13 @@
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 22:09:30 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/26 18:31:15 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_anima	*load_img(void *mlx, char *img_file)
+t_anima	*load_img(void *mlx, char *img_file, int frame)
 {
 	t_anima	*anima;
 
@@ -22,7 +22,8 @@ t_anima	*load_img(void *mlx, char *img_file)
 	anima->img = NULL;
 	anima->h = 64;
 	anima->w = 64;
-	anima->img = mlx_xpm_file_to_image(mlx, img_file,
+	anima->img = mlx_xpm_file_to_image(mlx, 
+			get_file_path(img_file, frame, ".xpm"),
 			&(anima->w), &(anima->h));
 	anima->addr = mlx_get_data_addr(anima->img, &anima->bpp,
 			&anima->line_length, &anima->endian);
@@ -39,7 +40,7 @@ t_anima *load_anima(void *mlx, char *img_file, t_anima *anima)
 	temp = anima;
 	while (++i < FRAMES_ANIMA)
 	{
-		temp->next = load_img(mlx, get_file_path(img_file, i));
+		temp->next = load_img(mlx, img_file, i);
 		temp = temp->next;
 	}
 	temp->next = anima;
@@ -53,7 +54,7 @@ t_obj	*load_obj(void *mlx, char *img_file, char obj_char)
 	item = malloc(sizeof(t_obj));
 	if (!item)
 		return (NULL);
-	item->anima = load_img(mlx, img_file);
+	item->anima = load_img(mlx, img_file, 0);
 	if (obj_char == 'P' || obj_char == 'D')
 		item->anima = load_anima(mlx, img_file, item->anima);
 	if (!item->anima)
@@ -84,6 +85,7 @@ int	init_objects(void *mlx, t_map *map)
 
 int	init_game_gui(t_data *game)
 {
+	printf("Ciao");
 	if (init_objects(game->mlx_conn, game->map) == 0)
 	{
 		throw_error("Initialisation failure - Images");
