@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
+/*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 16:51:15 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 20:35:26 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/17 14:57:40 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	is_edge_walled(char **map, t_pos size)
 		i++;
 	}
 	i = 0;
-	while (i < size.y)	
+	while (i < size.y)
 	{
 		if (map[i][0] != '1' || map[i][size.x - 1] != '1')
 			return (0);

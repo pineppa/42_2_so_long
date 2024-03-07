@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:25:44 by jsala             #+#    #+#             */
-/*   Updated: 2024/02/12 13:31:10 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/17 14:57:28 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	handle_key_input(int keysim, t_data *game)
 {
-	printf("Key: %i\n", keysim);
 	if (keysim == ESC)
 		game_exit(game);
 	else if (keysim == UP || keysim == RIGHT || keysim == LEFT

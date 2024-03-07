@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gui_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
+/*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 22:09:30 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/17 15:50:32 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_anima	*load_img(void *mlx, char *img_file)
 {
 	t_anima	*anima;
 
-	anima = malloc(sizeof(t_anima));
+	anima = ft_calloc(sizeof(t_anima), 1);
 	if (anima == NULL)
 		return (0);
 	anima->img = NULL;
@@ -24,8 +24,6 @@ t_anima	*load_img(void *mlx, char *img_file)
 	anima->w = 64;
 	anima->img = mlx_xpm_file_to_image(mlx, img_file,
 			&(anima->w), &(anima->h));
-	anima->addr = mlx_get_data_addr(anima->img, &anima->bpp,
-			&anima->line_length, &anima->endian);
 	anima->next = NULL;
 	return (anima);
 }
@@ -34,13 +32,16 @@ t_anima *load_anima(void *mlx, char *img_file, t_anima *anima)
 {
 	t_anima *temp;
 	int		i;
+	char	*file_path;
 
 	i = 0;
 	temp = anima;
 	while (++i < FRAMES_ANIMA)
 	{
-		temp->next = load_img(mlx, get_file_path(img_file, i));
+		file_path = get_file_path(img_file, i);
+		temp->next = load_img(mlx, file_path);
 		temp = temp->next;
+		free(file_path);
 	}
 	temp->next = anima;
 	return (anima);
@@ -50,7 +51,7 @@ t_obj	*load_obj(void *mlx, char *img_file, char obj_char)
 {
 	t_obj	*item;
 
-	item = malloc(sizeof(t_obj));
+	item = ft_calloc(sizeof(t_obj), 1);
 	if (!item)
 		return (NULL);
 	item->anima = load_img(mlx, img_file);

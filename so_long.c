@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/02/12 14:43:19 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/17 14:59:49 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,10 @@ int	handle_mlx(t_data *game)
 
 int	init_map(t_data *game, char *map_file)
 {
-	int	screen_w;
-	int	screen_h;
-
-	screen_h = 0;
-	screen_w = 0;
-	//mlx_get_screen_size(game->mlx_conn, &screen_w, &screen_h);
-	game->map = malloc(sizeof(t_map));
+	game->map = ft_calloc(sizeof(t_map), 1);
 	if (!game->map || !map_file)
 		return (0);
-	if (!load_map(map_file, game->map)/*
-		|| game->map->map_size.x > screen_w / IMG_W
-		|| game->map->map_size.y > screen_h / IMG_H*/)
+	if (!load_map(map_file, game->map))
 	{
 		game_exit(game);
 		return (0);
@@ -47,9 +39,9 @@ int	init_game_resources(t_data *game, char *map_file)
 {
 	int	res;
 
-	game->mlx_conn = mlx_init(); //Sets up a connection to the X Server
+	game->mlx_conn = mlx_init();
 	if (!game->mlx_conn)
-		return (0); //Shall it throw an error?  WIN_W, WIN_H//
+		return (0);
 	res = init_map(game, map_file);
 	if (res == 0)
 	{
@@ -78,15 +70,14 @@ int	main(int argc, char **argv)
 
 	if (argc != 2 || !ft_check_file_extension(argv[1]))
 		return (EXIT_FAILURE);
-	game = malloc(sizeof(t_data));
+	game = ft_calloc(sizeof(t_data), 1);
 	if (!game)
 		return (EXIT_FAILURE);
-	res = init_game_resources(game, argv[1]); // Create a free resources, that checks if there is content, in case it frees it, otherwise goes next
+	res = init_game_resources(game, argv[1]);
 	if (!res)
-		return (EXIT_FAILURE); // This should properly free resources
+		return (EXIT_FAILURE);
 	res = handle_mlx(game);
 	if (!res)
 		return (EXIT_FAILURE);
 	game_exit(game);
-	return (EXIT_SUCCESS);
 }

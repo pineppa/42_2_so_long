@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:47:27 by jsala             #+#    #+#             */
-/*   Updated: 2024/02/12 14:47:45 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/17 15:41:29 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_pos	get_map_size(char **map)
 	return (size);
 }
 
-void	check_malloc(char *str, char *buff)
+void	check_ft_calloc(char *str, char *buff)
 {
 	if (!str || !buff)
 	{
@@ -45,13 +45,14 @@ char	**read_mapfile(int fd)
 	char	*str;
 	char	**map;
 
-	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	buff = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
 	if (!buff)
 		exit(EXIT_FAILURE);
-	str = malloc(sizeof(char) * 1);
+	buff[BUFFER_SIZE] = '\0';
+	str = ft_calloc(sizeof(char), 1);
 	if (!str)
 		return (NULL);
-	check_malloc(buff, str);
+	check_ft_calloc(buff, str);
 	str[0] = '\0';
 	buff[BUFFER_SIZE] = '\0';
 	while (read(fd, buff, BUFFER_SIZE))
@@ -64,7 +65,6 @@ char	**read_mapfile(int fd)
 		return (NULL);
 	}
 	map = ft_split(str, '\n');
-	free(str);
 	return (map);
 }
 

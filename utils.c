@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:49:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/02/12 14:45:33 by jsala            ###   ########.fr       */
+/*   Updated: 2024/02/17 15:25:56 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,21 @@ char *get_file_path(char *base_file, int frame)
 {
 	int		file_len;
 	char	*str;
+	char	*num;
+	char	*suffix;
 
 	file_len = ft_strlen(base_file);
 	if (file_len <= 4)
 		perror("File name too short!");
-	str = malloc(sizeof(char) * file_len);
+	str = ft_calloc(sizeof(char), file_len); // Needs protections?
 	if (str == NULL)
 		return (NULL);
 	str = ft_substr(base_file, 0, file_len - 5);
-	str = ft_strjoin(str, ft_itoa(frame));
-	str = ft_strjoin(str, ft_substr(base_file, file_len - 4, 4));
+	num = ft_itoa(frame);
+	str = ft_strjoin(str, num);
+	free(num);
+	suffix = ft_substr(base_file, file_len - 4, 4);
+	str = ft_strjoin(str, suffix);
+	free(suffix);
 	return (str);
 }
