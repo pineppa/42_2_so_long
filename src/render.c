@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 13:43:04 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/12 09:14:04 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/12 09:32:21 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,31 +49,10 @@ void	draw_game_map(t_data *game, t_map *map)
 	}
 }
 
-int	draw_moves(t_data *game)
-{
-	char	*moves_text;
-
-	moves_text = ft_itoa(game->map->moves);
-	mlx_string_put(game->mlx_conn, game->window, IMG_W / 4, IMG_H / 4,
-		TEXT_COLOR, "Moves:");
-	mlx_string_put(game->mlx_conn, game->window, IMG_W / 4, 3 * IMG_H / 4,
-		TEXT_COLOR, moves_text);
-	if (moves_text)
-		free(moves_text);
-	return (0);
-}
-
-int	draw_ui(t_data *game)
-{
-	draw_moves(game);
-	return (0);
-}
-
 int ft_render(t_data *game)
 {
 	mlx_clear_window(game->mlx_conn, game->window);
 	draw_game_map(game, game->map);
-	draw_ui(game);
 	usleep(75000);
 	mlx_do_sync(game->mlx_conn);
 	return (0);
