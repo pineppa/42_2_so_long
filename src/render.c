@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 13:43:04 by jsala             #+#    #+#             */
-/*   Updated: 2024/02/17 15:34:48 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/12 08:41:06 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 
 int draw_item(t_data *game, t_obj *item, t_pos pos)
 {
-	/*if (item->obj_char == 'E' || item->obj_char == 'P'
-		|| item->obj_char == 'C')
-		mlx_put_image_to_window(game->mlx_conn, game->window,
-			item->anima->img, IMG_W * pos.x, IMG_H * pos.y);*/
 	mlx_put_image_to_window(game->mlx_conn, game->window, item->anima->img,
 		IMG_W * pos.x, IMG_H * pos.y);
 	if (item->obj_char == 'P' || item->obj_char == 'D')
