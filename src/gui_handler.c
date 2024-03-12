@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/02/17 15:50:32 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/12 09:02:05 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,6 @@ t_anima	*load_img(void *mlx, char *img_file)
 	return (anima);
 }
 
-t_anima *load_anima(void *mlx, char *img_file, t_anima *anima)
-{
-	t_anima *temp;
-	int		i;
-	char	*file_path;
-
-	i = 0;
-	temp = anima;
-	while (++i < FRAMES_ANIMA)
-	{
-		file_path = get_file_path(img_file, i);
-		temp->next = load_img(mlx, file_path);
-		temp = temp->next;
-		free(file_path);
-	}
-	temp->next = anima;
-	return (anima);
-}
-
 t_obj	*load_obj(void *mlx, char *img_file, char obj_char)
 {
 	t_obj	*item;
@@ -55,10 +36,6 @@ t_obj	*load_obj(void *mlx, char *img_file, char obj_char)
 	if (!item)
 		return (NULL);
 	item->anima = load_img(mlx, img_file);
-	if (obj_char == 'P' || obj_char == 'D')
-		item->anima = load_anima(mlx, img_file, item->anima);
-	if (!item->anima)
-		return (NULL);
 	item->pos.x = 0;
 	item->pos.y = 0;
 	item->obj_char = obj_char;
@@ -72,9 +49,8 @@ int	init_objects(void *mlx, t_map *map)
 	map->collecs = load_obj(mlx, COLLECTIBLE_IMG, 'C');
 	map->p1 = load_obj(mlx, PLAYER_IMG, 'P');
 	map->exits = load_obj(mlx, EXIT_IMG, 'E');
-	map->patrols = load_obj(mlx, PATROL_IMG, 'D');
 	if (map->wall == NULL || map->collecs == NULL
-		|| map->ground == NULL || map->patrols == NULL
+		|| map->ground == NULL
 		|| map->exits == NULL || map->p1 == NULL)
 	{
 		throw_error("Failed to load image");

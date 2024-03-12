@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 20:08:13 by jsala             #+#    #+#             */
-/*   Updated: 2024/02/17 14:56:46 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/12 09:14:46 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ int	move_action(t_map *map, t_obj *obj, t_pos new_pos)
 		return (1);
 	else if (obj_c == 'C')
 		player_collect(map);
-	else if (obj_c == 'D')
-		return (player_patrol());
 	else if (obj_c == 'E')
 		return (player_exit(map));
 	update_obj_pos(map, obj, new_pos);
@@ -63,4 +61,3 @@ int	move(int keysim, t_obj *obj, t_map *map)
 		new_pos.x += 1;
 	return (move_action(map, obj, new_pos));
 }
-// void	attack(int keysim, t_obj obj, t_map *map)

@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 13:43:04 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/12 08:41:06 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/12 09:14:04 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ int draw_item(t_data *game, t_obj *item, t_pos pos)
 {
 	mlx_put_image_to_window(game->mlx_conn, game->window, item->anima->img,
 		IMG_W * pos.x, IMG_H * pos.y);
-	if (item->obj_char == 'P' || item->obj_char == 'D')
+	if (item->obj_char == 'P')
 	{
 		item->pos.x = pos.x;
 		item->pos.y = pos.y;
-		item->anima = item->anima->next;
 	}
 	return (1);
 }
@@ -45,8 +44,6 @@ void	draw_game_map(t_data *game, t_map *map)
 				draw_item(game, map->wall, pos);
 			else if (map->map_content[pos.y][pos.x] == 'P')
 				draw_item(game, map->p1, pos);
-			else if (map->map_content[pos.y][pos.x] == 'D')
-				draw_item(game, map->patrols, pos);
 		}
 		pos.x = -1;
 	}

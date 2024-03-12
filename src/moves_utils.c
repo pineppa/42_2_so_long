@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moves_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
+/*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:19:50 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 08:30:00 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/12 09:05:39 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_move_wall(char **map, int x, int y)
 int	player_exit(t_map *map)
 {
 	if (map->n_collecs == 0)
-	{	
+	{
 		printf("Win!\n");
 		return (0);
 	}
@@ -44,11 +44,6 @@ int	player_collect(t_map *map)
 	return (0);
 }
 
-int	player_patrol(void)
-{
-	printf("Game lost\n");
-	return(0);
-}
 /*
 int	is_move_valid(t_map *map, t_pos map_size, t_obj *obj, t_pos new_pos)
 {

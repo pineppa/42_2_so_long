@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/02/17 14:59:49 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/12 09:16:13 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	handle_mlx(t_data *game)
 	init_keys(game);
 	mlx_hook(game->window, ON_DESTROY, 0, game_exit, game);
 	mlx_loop_hook(game->mlx_conn, ft_render, game);
-//	mlx_expose_hook(game->window, &ft_expose, void);
 	mlx_loop(game->mlx_conn);
 	return (0);
 }

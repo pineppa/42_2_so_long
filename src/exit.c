@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 07:58:23 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/12 08:35:47 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/12 09:29:36 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ void	free_object(void *mlx, t_obj *obj)
 {
 	if (!obj)
 		return ;
-	free_anima_list(mlx, &(obj->anima));
+	mlx_destroy_image(mlx, (obj->anima)->img);
+	free(obj->anima);
+	//free_anima_list(mlx, &(obj->anima)); // Double check how to handle this point
 	free(obj);
 }
 
@@ -72,7 +74,5 @@ void	free_map(t_data *game)
 		free_object(game->mlx_conn, game->map->ground);
 	if (game->map->wall)
 		free_object(game->mlx_conn, game->map->wall);
-	if (game->map->patrols)
-		free_object(game->mlx_conn, game->map->patrols);
 	free(game->map);
 }
