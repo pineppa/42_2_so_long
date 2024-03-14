@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 20:35:35 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/14 11:04:05 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/14 11:11:20 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int is_valid_path(char **temp_map, t_pos pos, int n_collecs, int n_exits)
 		return (1);
 	return (0);
 }
-
 
 int check_valid_path(t_map *map)
 {

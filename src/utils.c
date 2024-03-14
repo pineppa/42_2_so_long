@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:49:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/02/17 15:25:56 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/14 11:29:06 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,6 @@ char *get_file_path(char *base_file, int frame)
 	file_len = ft_strlen(base_file);
 	if (file_len <= 4)
 		perror("File name too short!");
-	str = ft_calloc(sizeof(char), file_len); // Needs protections?
-	if (str == NULL)
-		return (NULL);
 	str = ft_substr(base_file, 0, file_len - 5);
 	num = ft_itoa(frame);
 	str = ft_strjoin(str, num);

@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:47:27 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/14 09:44:33 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/14 11:48:50 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	check_ft_calloc(char *str, char *buff)
 			free(str);
 		if (buff)
 			free(buff);
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -48,17 +48,13 @@ char	**read_mapfile(int fd)
 	buff = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
 	if (!buff)
 		exit(EXIT_FAILURE);
-	buff[BUFFER_SIZE] = '\0';
-	str = ft_calloc(sizeof(char), 1);
-	if (!str)
-		return (NULL);
+	str = ft_calloc(sizeof(char), 1); // No free of buff if fail
 	check_ft_calloc(buff, str);
-	str[0] = '\0';
 	buff[BUFFER_SIZE] = '\0';
-	while (read(fd, buff, BUFFER_SIZE))
+	while (read(fd, buff, BUFFER_SIZE)) // Check for read errors too
 		str = ft_strjoin(str, buff);
 	free(buff);
-	if (ft_strlen(str) < 5 || !check_input(str))
+	if (ft_strlen(str) < 5 || !check_input(str)) // check again input
 	{
 		free(str);
 		write(2, "The input map is not valid", 26);

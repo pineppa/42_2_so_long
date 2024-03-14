@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/12 08:43:54 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/14 11:59:45 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,11 @@ typedef struct s_pos
 typedef struct s_anima
 {
 	void			*img;
-	char			*addr;
 	int				w;
 	int				h;
 	int				bpp;
 	int				line_length;
 	int				endian;
-	struct s_anima	*next;
 }	t_anima;
 
 typedef struct s_obj
@@ -104,7 +102,7 @@ typedef struct s_data
 	void	*mlx_conn;
 	void	*window;
 	t_map	*map;
-	int		end;
+
 }	t_data;
 
 // Utils

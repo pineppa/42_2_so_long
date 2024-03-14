@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 07:58:23 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/12 09:29:36 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/14 13:02:18 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	game_exit(t_data *game)
 {
-	free_map(game);
 	mlx_destroy_window(game->mlx_conn, game->window);
+	free_map(game);
 	if (game->mlx_conn)
 		free(game->mlx_conn);
 	if(game)
@@ -33,30 +33,12 @@ void	free_matrix(char **matrix)
 	free(matrix);
 }
 
-void	free_anima_list(void *mlx, t_anima **anima)
-{
-	t_anima	*temp;
-
-	while ((*anima) != NULL)
-	{
-		temp = *anima;
-		if ((*anima)->img)
-			mlx_destroy_image(mlx, (*anima)->img);
-		if ((*anima)->addr)
-			free((*anima)->addr);
-		(*anima)->next = NULL;
-		free(*anima);
-		*anima = temp->next;
-	}
-}
-
 void	free_object(void *mlx, t_obj *obj)
 {
 	if (!obj)
 		return ;
-	mlx_destroy_image(mlx, (obj->anima)->img);
+	mlx_destroy_image(mlx, obj->anima->img);
 	free(obj->anima);
-	//free_anima_list(mlx, &(obj->anima)); // Double check how to handle this point
 	free(obj);
 }
 

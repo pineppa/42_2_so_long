@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/12 09:16:13 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/14 11:40:21 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	handle_mlx(t_data *game)
 int	init_map(t_data *game, char *map_file)
 {
 	game->map = ft_calloc(sizeof(t_map), 1);
-	if (!game->map || !map_file)
+	if (!game->map || !map_file) // No hay game exit aqui
 		return (0);
 	if (!load_map(map_file, game->map))
 	{

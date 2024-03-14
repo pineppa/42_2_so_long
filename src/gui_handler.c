@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/12 09:02:05 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/14 11:59:10 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_anima	*load_img(void *mlx, char *img_file)
 	anima->w = 64;
 	anima->img = mlx_xpm_file_to_image(mlx, img_file,
 			&(anima->w), &(anima->h));
-	anima->next = NULL;
 	return (anima);
 }
 
