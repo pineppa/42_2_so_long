@@ -6,13 +6,20 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 20:35:35 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/12 09:24:40 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/14 11:04:05 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-char **copy_map(t_pos size, char **map)
+t_pos	ft_update_pos(t_pos pos, int x, int y)
+{
+	pos.x = x;
+	pos.y = y;
+	return (pos);
+}
+
+char	**copy_map(t_pos size, char **map)
 {
 	char	**temp_map;
 	int		i;
@@ -36,28 +43,35 @@ char **copy_map(t_pos size, char **map)
 	return (temp_map);
 }
 
-int is_valid_path(char **temp_map, int x, int y, int n_collecs)
+int is_valid_path(char **temp_map, t_pos pos, int n_collecs, int n_exits)
 {
-	if (temp_map[y][x] == '1')
+	t_pos	temp_pos1;
+	t_pos	temp_pos2;
+
+	if (temp_map[pos.y][pos.x] == '1')
 		return (0);
-	else if (temp_map[y][x] == 'P' || temp_map[y][x] == '0')
-		temp_map[y][x] = '1';
-	else if (temp_map[y][x] == 'E')
+	else
 	{
-		if (n_collecs == 0)
-			return (1);
-		return (0);
+		if (temp_map[pos.y][pos.x] == 'E')
+			n_exits -= 1;
+		else if (temp_map[pos.y][pos.x] == 'C')
+			n_collecs -= 1;
+		temp_map[pos.y][pos.x] = '1';
 	}
-	else if (temp_map[y][x] == 'C') // There is something wrong with this, probably finds exit before all collectibles
-	{
-		n_collecs--;
-		temp_map[y][x] = '1';
-	}
-	return (is_valid_path(temp_map, x - 1, y, n_collecs)
-		|| is_valid_path(temp_map, x + 1, y, n_collecs)
-		|| is_valid_path(temp_map, x, y - 1, n_collecs)
-		|| is_valid_path(temp_map, x, y + 1, n_collecs));
+	temp_pos1 = ft_update_pos(pos, pos.x - 1, pos.y);
+	temp_pos2 = ft_update_pos(pos, pos.x + 1, pos.y);
+	if ((n_exits == 0 && n_collecs == 0)
+		|| is_valid_path(temp_map, temp_pos1, n_collecs, n_exits)
+		|| is_valid_path(temp_map, temp_pos1, n_collecs, n_exits))
+		return (1);
+	temp_pos1 = ft_update_pos(pos, pos.x, pos.y - 1);
+	temp_pos2 = ft_update_pos(pos, pos.x, pos.y + 1);
+	if (is_valid_path(temp_map, temp_pos1, n_collecs, n_exits)
+		|| is_valid_path(temp_map, temp_pos1, n_collecs, n_exits))
+		return (1);
+	return (0);
 }
+
 
 int check_valid_path(t_map *map)
 {
@@ -66,16 +80,13 @@ int check_valid_path(t_map *map)
 	temp_map = copy_map(map->map_size, map->map_content);
 	if (!temp_map)
 		return (0);
-	printf("CIAIOSDONSDOAsDas");
-	if (!is_valid_path(temp_map, map->p1->pos.x, map->p1->pos.y,
-		map->n_collecs))
+	if (!is_valid_path(temp_map, map->p1->pos, map->n_collecs, map->n_exits))
 	{
-		printf("path:\npos.x: %i, pos.y: %i, collecs: %i", map->p1->pos.x, map->p1->pos.y, map->n_collecs);
+		printf("path:\npos.x: %i, pos.y: %i", map->p1->pos.x, map->p1->pos.y);
 		throw_error("What is wrong with meeeeee?\n");
 		free_matrix(temp_map);
 		return (0);
 	}
-	printf("CIAIOSDONSDOAsDas");
 	free_matrix(temp_map);
 	return (1);
 }

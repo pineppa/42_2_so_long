@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:47:27 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/12 09:03:59 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/14 09:44:33 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	**read_mapfile(int fd)
 		return (NULL);
 	}
 	map = ft_split(str, '\n');
+	free(str);
 	return (map);
 }
 
