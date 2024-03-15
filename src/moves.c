@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 20:08:13 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/12 09:14:46 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/15 16:22:46 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_obj	*update_obj_pos(t_map *map, t_obj *obj, t_pos new_pos)
 	map->moves += 1;
 	ft_putstr_fd("Current number of moves: ", 1);
 	itoa_val = ft_itoa(map->moves); // Is this missing a protection?
+	if (!itoa_val)
+		return (NULL);
 	ft_putstr_fd(itoa_val, 1);
 	if (itoa_val)
 		free(itoa_val);

@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/15 13:30:48 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/15 16:21:19 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,8 @@ int	init_map(t_data *game, char *map_file)
 	game->map->collecs = NULL;
 	game->map->wall = NULL;
 	game->map->ground = NULL;
-		if (!load_map(map_file, game->map))
-	{
+	if (!load_map(map_file, game->map))
 		game_exit(game);
-	//	return (0);
-	}
 	return (1);
 }
 

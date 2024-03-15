@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:47:27 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/15 12:19:35 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/15 16:36:57 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,18 @@ int	check_ft_calloc(char *str, char *buff)
 	return (1);
 }
 
-char	**read_mapfile(int fd)
+char	*get_map(int fd, char *str)
 {
 	char	*buff;
-	char	*str;
-	char	**map;
 
 	buff = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
-	str = ft_calloc(sizeof(char), 1);
-	if (check_ft_calloc(buff, str) == 0)
+	if (!buff)
+	{
+		free(str);
 		return (NULL);
+	}
 	buff[BUFFER_SIZE] = '\0';
-	while (read(fd, buff, BUFFER_SIZE))
+	while (read(fd, buff, BUFFER_SIZE)) // Need to fix this read for checks
 	{
 		str = ft_strjoin(str, buff);
 		if (!str)
@@ -61,6 +61,20 @@ char	**read_mapfile(int fd)
 		}
 	}
 	free(buff);
+	return (str);
+}
+
+char	**read_mapfile(int fd)
+{
+	char	*str;
+	char	**map;
+
+	str = ft_calloc(sizeof(char), 1);
+	if (!str)
+		return (NULL);
+	str = get_map(fd, str);
+	if (!str)
+		return (NULL);
 	if (ft_strlen(str) < 5 || !check_input(str))
 	{
 		free(str);
