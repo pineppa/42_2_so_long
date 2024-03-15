@@ -22,7 +22,7 @@ t_obj	*update_obj_pos(t_map *map, t_obj *obj, t_pos new_pos)
 	obj->pos.y = new_pos.y;
 	map->moves += 1;
 	ft_putstr_fd("Current number of moves: ", 1);
-	itoa_val = ft_itoa(map->moves);
+	itoa_val = ft_itoa(map->moves); // Is this missing a protection?
 	ft_putstr_fd(itoa_val, 1);
 	if (itoa_val)
 		free(itoa_val);
