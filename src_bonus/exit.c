@@ -16,8 +16,8 @@ int	game_exit(t_data *game)
 {
 	free_map(game);
 	mlx_destroy_window(game->mlx_conn, game->window);
-	if (game->mlx_conn)
-		free(game->mlx_conn);
+//	if (game->mlx_conn)
+//		free(game->mlx_conn);
 	if(game)
 		free(game);
 	exit(EXIT_SUCCESS);

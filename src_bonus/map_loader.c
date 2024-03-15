@@ -65,6 +65,7 @@ char	**read_mapfile(int fd)
 		return (NULL);
 	}
 	map = ft_split(str, '\n');
+	free(str);
 	return (map);
 }
 
