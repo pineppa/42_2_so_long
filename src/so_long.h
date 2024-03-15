@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/14 11:59:45 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/14 17:54:36 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ typedef struct s_map
 	t_obj			*p1;
 	t_obj			*wall;
 	t_obj			*ground;
-	t_obj			*patrols;
 	int				moves;
 }	t_map;
 
