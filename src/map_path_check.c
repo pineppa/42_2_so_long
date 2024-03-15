@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 20:35:35 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/15 11:18:27 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/15 11:37:50 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ int check_valid_path(t_map *map)
 		return (0);
 	if (!is_valid_path(temp_map, map->p1->pos, map->n_collecs, map->n_exits))
 	{
-		printf("path:\npos.x: %i, pos.y: %i", map->p1->pos.x, map->p1->pos.y);
-		throw_error("What is wrong with meeeeee?\n");
 		free_matrix(temp_map);
 		return (0);
 	}

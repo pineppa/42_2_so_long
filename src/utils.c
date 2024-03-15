@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:49:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/15 11:20:31 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/15 11:35:56 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	print_map(char **map)
 
 void	throw_error(char *message)
 {
-	perror("Error\n");
+	perror("Error");
 	ft_putstr_fd(message, 2);
 	write(2, "\n", 1);
 }

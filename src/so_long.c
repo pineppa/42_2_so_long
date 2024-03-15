@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/15 11:06:25 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/15 12:10:11 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	init_map(t_data *game, char *map_file)
 		game_exit(game); // Changed
 	if (!load_map(map_file, game->map))
 	{
-		game_exit(game);
-	//	return (0);
+	//	game_exit(game);
+		return (0);
 	}
 	return (1);
 }
@@ -68,15 +68,15 @@ int	main(int argc, char **argv)
 	int		res;
 
 	if (argc != 2 || !ft_check_file_extension(argv[1]))
-		return (EXIT_FAILURE);
+		return (1);
 	game = ft_calloc(sizeof(t_data), 1);
 	if (!game)
-		return (EXIT_FAILURE);
+		return (0);
 	res = init_game_resources(game, argv[1]); // Res should be deleteable
-	//if (!res)
-	//	return (EXIT_FAILURE);
+	if (!res)
+		game_exit(game);
 	res = handle_mlx(game); // This can't handle any failure at this moment
 	if (!res)
-		return (EXIT_FAILURE);
+		game_exit(game);
 	game_exit(game);
 }

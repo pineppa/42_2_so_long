@@ -25,7 +25,7 @@ NAME_BONUS = so_long_bonus
 
 CC = cc# -03
 CC_DEBUG = cc -g
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra
 RM = rm -f
 
 all : $(NAME)

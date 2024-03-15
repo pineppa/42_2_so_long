@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/14 11:59:10 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/15 11:41:28 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	init_game_gui(t_data *game)
 	if (init_objects(game->mlx_conn, game->map) == 0)
 	{
 		throw_error("Initialisation failure - Images");
-		return (0);
+		game_exit(game);
 	}
 	if (!init_nr_objs(game->map))
 	{
@@ -71,7 +71,7 @@ int	init_game_gui(t_data *game)
 		game_exit(game);
 	}
 	if (!check_valid_path(game->map))
-		return (0);
+		game_exit(game);
 	draw_game_map(game, game->map);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:47:27 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/14 11:48:50 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/15 12:19:35 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_pos	get_map_size(char **map)
 	return (size);
 }
 
-void	check_ft_calloc(char *str, char *buff)
+int	check_ft_calloc(char *str, char *buff)
 {
 	if (!str || !buff)
 	{
@@ -35,8 +35,9 @@ void	check_ft_calloc(char *str, char *buff)
 			free(str);
 		if (buff)
 			free(buff);
-		exit(EXIT_FAILURE);
+		return (0);
 	}
+	return (1);
 }
 
 char	**read_mapfile(int fd)
@@ -46,18 +47,23 @@ char	**read_mapfile(int fd)
 	char	**map;
 
 	buff = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
-	if (!buff)
-		exit(EXIT_FAILURE);
-	str = ft_calloc(sizeof(char), 1); // No free of buff if fail
-	check_ft_calloc(buff, str);
+	str = ft_calloc(sizeof(char), 1);
+	if (check_ft_calloc(buff, str) == 0)
+		return (NULL);
 	buff[BUFFER_SIZE] = '\0';
-	while (read(fd, buff, BUFFER_SIZE)) // Check for read errors too
+	while (read(fd, buff, BUFFER_SIZE))
+	{
 		str = ft_strjoin(str, buff);
+		if (!str)
+		{
+			free(buff);
+			return (NULL);
+		}
+	}
 	free(buff);
-	if (ft_strlen(str) < 5 || !check_input(str)) // check again input
+	if (ft_strlen(str) < 5 || !check_input(str))
 	{
 		free(str);
-		write(2, "The input map is not valid", 26);
 		return (NULL);
 	}
 	map = ft_split(str, '\n');
@@ -73,12 +79,14 @@ int	load_map(char *file, t_map *map)
 	if (fd < 0)
 	{
 		throw_error("Error opening the file, invalid fd");
+		close (fd);
 		return (0);
 	}
 	map->map_content = read_mapfile(fd);
 	if (!(map->map_content))
 	{
 		throw_error("Error loading map content");
+		close (fd);
 		return (0);
 	}
 	close(fd);
