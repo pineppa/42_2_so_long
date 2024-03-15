@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/15 16:21:19 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/15 18:01:10 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,14 @@ int	handle_mlx(t_data *game)
 	return (0);
 }
 
-int	init_map(t_data *game, char *map_file)
+void	init_map(t_data *game, char *map_file)
 {
 	game->map = ft_calloc(sizeof(t_map), 1);
 	if (!game->map || !map_file)
+	{
+		throw_error("Initialisation failure 2 - Map\n");
 		game_exit(game); // Changed
+	}
 	game->map->map_content = NULL;
 	game->map->exits = NULL;
 	game->map->p1 = NULL;
@@ -33,8 +36,10 @@ int	init_map(t_data *game, char *map_file)
 	game->map->wall = NULL;
 	game->map->ground = NULL;
 	if (!load_map(map_file, game->map))
+	{
+		throw_error("Initialisation failure - Map\n");
 		game_exit(game);
-	return (1);
+	}
 }
 
 int	init_game_resources(t_data *game, char *map_file)
@@ -44,12 +49,7 @@ int	init_game_resources(t_data *game, char *map_file)
 	game->mlx_conn = mlx_init();
 	if (!game->mlx_conn)
 		game_exit(game); // Changed
-	res = init_map(game, map_file);
-	if (res == 0)
-	{
-		throw_error("Initialisation failure - Map\n");
-		game_exit(game); // Changed -- Consider removing the other function and joining the two
-	}
+	init_map(game, map_file);
 	game->window = mlx_new_window(game->mlx_conn,
 			IMG_W * game->map->map_size.x,
 			IMG_H * game->map->map_size.y, "So long");
@@ -68,7 +68,6 @@ int	init_game_resources(t_data *game, char *map_file)
 int	main(int argc, char **argv)
 {
 	t_data	*game;
-	int		res;
 
 	if (argc != 2 || !ft_check_file_extension(argv[1]))
 		return (1);
@@ -78,11 +77,7 @@ int	main(int argc, char **argv)
 	game->map = NULL;
 	game->window = NULL;
 	game->mlx_conn = NULL;
-	res = init_game_resources(game, argv[1]); // Res should be deleteable
-	if (!res)
-		game_exit(game);
-	res = handle_mlx(game); // This can't handle any failure at this moment
-	if (!res)
-		game_exit(game);
+	init_game_resources(game, argv[1]); // Res should be deleteable
+	handle_mlx(game); // This can't handle any failure at this moment
 	game_exit(game);
 }

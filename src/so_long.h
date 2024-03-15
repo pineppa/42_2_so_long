@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/14 17:54:36 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/15 17:51:31 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char	*get_file_path(char *base_file, int frame);
 // Game functions
 // Initialisation
 
-int		init_map(t_data *game, char *map_file);
+void	init_map(t_data *game, char *map_file);
 int		init_objects(void *mlx_conn, t_map *map);
 int		init_nr_objs(t_map *map);
 t_anima	*load_img(void *mlx_conn, char *map_file);

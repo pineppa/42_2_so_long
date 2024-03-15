@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/15 11:41:28 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/15 17:57:03 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ int	init_game_gui(t_data *game)
 		game_exit(game);
 	}
 	if (!check_valid_path(game->map))
+	{
+		throw_error("Initialisation failure - Game GUI\n");
 		game_exit(game);
+	}
 	draw_game_map(game, game->map);
 	return (1);
 }
