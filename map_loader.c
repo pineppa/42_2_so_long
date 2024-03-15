@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:47:27 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/12 09:03:42 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/15 13:32:24 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,16 @@ void	check_ft_calloc(char *str, char *buff)
 	if (!str || !buff)
 	{
 		if (str)
+		{
 			free(str);
+			str = NULL; // Might be useless
+		}
 		if (buff)
+		{
 			free(buff);
-		exit (EXIT_FAILURE);
+			buff = NULL;
+		}
+		return (EXIT_FAILURE);
 	}
 }
 

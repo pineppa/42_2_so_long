@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/15 12:10:11 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/15 13:30:48 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,16 @@ int	init_map(t_data *game, char *map_file)
 	game->map = ft_calloc(sizeof(t_map), 1);
 	if (!game->map || !map_file)
 		game_exit(game); // Changed
-	if (!load_map(map_file, game->map))
+	game->map->map_content = NULL;
+	game->map->exits = NULL;
+	game->map->p1 = NULL;
+	game->map->collecs = NULL;
+	game->map->wall = NULL;
+	game->map->ground = NULL;
+		if (!load_map(map_file, game->map))
 	{
-	//	game_exit(game);
-		return (0);
+		game_exit(game);
+	//	return (0);
 	}
 	return (1);
 }
@@ -72,6 +78,9 @@ int	main(int argc, char **argv)
 	game = ft_calloc(sizeof(t_data), 1);
 	if (!game)
 		return (0);
+	game->map = NULL;
+	game->window = NULL;
+	game->mlx_conn = NULL;
 	res = init_game_resources(game, argv[1]); // Res should be deleteable
 	if (!res)
 		game_exit(game);
