@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/14 11:40:21 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/15 11:06:25 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	init_map(t_data *game, char *map_file)
 {
 	game->map = ft_calloc(sizeof(t_map), 1);
 	if (!game->map || !map_file)
-		game_exit(EXIT_FAILURE); // Changed
+		game_exit(game); // Changed
 	if (!load_map(map_file, game->map))
 	{
 		game_exit(game);
@@ -40,23 +40,23 @@ int	init_game_resources(t_data *game, char *map_file)
 
 	game->mlx_conn = mlx_init();
 	if (!game->mlx_conn)
-		game_exit(EXIT_FAILURE); // Changed
+		game_exit(game); // Changed
 	res = init_map(game, map_file);
 	if (res == 0)
 	{
 		throw_error("Initialisation failure - Map\n");
-		game_exit(EXIT_FAILURE); // Changed -- Consider removing the other function and joining the two
+		game_exit(game); // Changed -- Consider removing the other function and joining the two
 	}
 	game->window = mlx_new_window(game->mlx_conn,
 			IMG_W * game->map->map_size.x,
 			IMG_H * game->map->map_size.y, "So long");
 	if (!game->window)
-		game_exit(EXIT_FAILURE); // Changed
+		game_exit(game); // Changed
 	res = init_game_gui(game);
 	if (res == 0)
 	{
 		throw_error("Initialisation failure - Game GUI\n");
-		game_exit(EXIT_FAILURE); // Changed
+		game_exit(game); // Changed
 	}
 	game->map->moves = 0;
 	return (1);
