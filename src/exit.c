@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 07:58:23 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/14 13:02:18 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/15 11:22:05 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int	game_exit(t_data *game)
 {
 	mlx_destroy_window(game->mlx_conn, game->window);
 	free_map(game);
-//	if (game->mlx_conn)
-//		free(game->mlx_conn);
 	if(game)
 		free(game);
 	exit(EXIT_SUCCESS);

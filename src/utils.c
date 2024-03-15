@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:49:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/14 11:29:06 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/15 11:20:31 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,24 +67,4 @@ int init_nr_objs(t_map *map)
 		}
 	}
 	return (map->p1->pos.x > 0 && map->n_collecs > 0 && map->n_exits > 0);
-}
-
-char *get_file_path(char *base_file, int frame)
-{
-	int		file_len;
-	char	*str;
-	char	*num;
-	char	*suffix;
-
-	file_len = ft_strlen(base_file);
-	if (file_len <= 4)
-		perror("File name too short!");
-	str = ft_substr(base_file, 0, file_len - 5);
-	num = ft_itoa(frame); // Protect this, check for the other functions too
-	str = ft_strjoin(str, num); // Protect this, check for the other functions too
-	free(num);
-	suffix = ft_substr(base_file, file_len - 4, 4); // Protect this, check for the other functions too
-	str = ft_strjoin(str, suffix); // Protect this, check for the other functions too
-	free(suffix);
-	return (str);
 }
