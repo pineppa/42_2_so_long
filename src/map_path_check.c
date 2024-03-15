@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 20:35:35 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/14 11:11:20 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/15 11:18:27 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ int is_valid_path(char **temp_map, t_pos pos, int n_collecs, int n_exits)
 	temp_pos2 = ft_update_pos(pos, pos.x + 1, pos.y);
 	if ((n_exits == 0 && n_collecs == 0)
 		|| is_valid_path(temp_map, temp_pos1, n_collecs, n_exits)
-		|| is_valid_path(temp_map, temp_pos1, n_collecs, n_exits))
+		|| is_valid_path(temp_map, temp_pos2, n_collecs, n_exits))
 		return (1);
 	temp_pos1 = ft_update_pos(pos, pos.x, pos.y - 1);
 	temp_pos2 = ft_update_pos(pos, pos.x, pos.y + 1);
 	if (is_valid_path(temp_map, temp_pos1, n_collecs, n_exits)
-		|| is_valid_path(temp_map, temp_pos1, n_collecs, n_exits))
+		|| is_valid_path(temp_map, temp_pos2, n_collecs, n_exits))
 		return (1);
 	return (0);
 }
