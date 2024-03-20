@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:47:27 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/15 16:36:57 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/20 14:46:39 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	check_ft_calloc(char *str, char *buff)
 char	*get_map(int fd, char *str)
 {
 	char	*buff;
+	int		l_read;
 
 	buff = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
 	if (!buff)
@@ -51,7 +52,8 @@ char	*get_map(int fd, char *str)
 		return (NULL);
 	}
 	buff[BUFFER_SIZE] = '\0';
-	while (read(fd, buff, BUFFER_SIZE)) // Need to fix this read for checks
+	l_read = read(fd, buff, BUFFER_SIZE);
+	while (l_read > 0)
 	{
 		str = ft_strjoin(str, buff);
 		if (!str)
@@ -59,6 +61,8 @@ char	*get_map(int fd, char *str)
 			free(buff);
 			return (NULL);
 		}
+		l_read = read(fd, buff, BUFFER_SIZE);
+		buff[ft_strlen(buff)] = '\0';
 	}
 	free(buff);
 	return (str);
@@ -92,14 +96,14 @@ int	load_map(char *file, t_map *map)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
-		throw_error("Error opening the file, invalid fd");
+		throw_error("Error opening the file, invalid file");
 		close (fd);
 		return (0);
 	}
 	map->map_content = read_mapfile(fd);
 	if (!(map->map_content))
 	{
-		throw_error("Error loading map content");
+		throw_error("Error loading the map content");
 		close (fd);
 		return (0);
 	}
@@ -108,7 +112,7 @@ int	load_map(char *file, t_map *map)
 	if (!(map->map_size.x) || !(map->map_size.y)
 		|| !is_edge_walled(map->map_content, map->map_size))
 	{
-		throw_error("Map file Error");
+		throw_error("The map does not comply with the map rules");
 		return (0);
 	}
 	return (1);

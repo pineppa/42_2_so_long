@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/15 17:57:03 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/20 14:34:00 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,29 +52,26 @@ int	init_objects(void *mlx, t_map *map)
 		|| map->ground == NULL
 		|| map->exits == NULL || map->p1 == NULL)
 	{
-		throw_error("Failed to load image");
+		throw_error("Failed to load image\n");
 		return (0);
 	}
 	return (1);
 }
 
-int	init_game_gui(t_data *game)
+void	init_game_gui_content(t_data *game)
 {
-	if (init_objects(game->mlx_conn, game->map) == 0)
+	t_pos	p1_pos;
+
+	p1_pos.x = 0;
+	p1_pos.y = 0;
+	if (!init_nr_objs(game->map, &p1_pos))
 	{
-		throw_error("Initialisation failure - Images");
+		throw_error("Map does not contain the minimum elements\n");
 		game_exit(game);
 	}
-	if (!init_nr_objs(game->map))
-	{
-		throw_error("Map does not contain the minimum elements");
-		game_exit(game);
-	}
-	if (!check_valid_path(game->map))
+	if (!check_valid_path(game->map, p1_pos))
 	{
 		throw_error("Initialisation failure - Game GUI\n");
 		game_exit(game);
 	}
-	draw_game_map(game, game->map);
-	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 20:35:35 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/15 11:37:50 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/20 15:36:31 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	**copy_map(t_pos size, char **map)
 	return (temp_map);
 }
 
-int is_valid_path(char **temp_map, t_pos pos, int n_collecs, int n_exits)
+int is_valid_path(char **temp_map, t_pos pos, int *n_collecs, int *n_exits)
 {
 	t_pos	temp_pos1;
 	t_pos	temp_pos2;
@@ -53,14 +53,14 @@ int is_valid_path(char **temp_map, t_pos pos, int n_collecs, int n_exits)
 	else
 	{
 		if (temp_map[pos.y][pos.x] == 'E')
-			n_exits -= 1;
+			*n_exits -= 1;
 		else if (temp_map[pos.y][pos.x] == 'C')
-			n_collecs -= 1;
+			*n_collecs -= 1;
 		temp_map[pos.y][pos.x] = '1';
 	}
 	temp_pos1 = ft_update_pos(pos, pos.x - 1, pos.y);
 	temp_pos2 = ft_update_pos(pos, pos.x + 1, pos.y);
-	if ((n_exits == 0 && n_collecs == 0)
+	if ((*n_exits == 0 && *n_collecs == 0)
 		|| is_valid_path(temp_map, temp_pos1, n_collecs, n_exits)
 		|| is_valid_path(temp_map, temp_pos2, n_collecs, n_exits))
 		return (1);
@@ -72,14 +72,18 @@ int is_valid_path(char **temp_map, t_pos pos, int n_collecs, int n_exits)
 	return (0);
 }
 
-int check_valid_path(t_map *map)
+int check_valid_path(t_map *map, t_pos p1_pos)
 {
 	char	**temp_map;
+	int		n_coll;
+	int		n_exits;
 
 	temp_map = copy_map(map->map_size, map->map_content);
 	if (!temp_map)
 		return (0);
-	if (!is_valid_path(temp_map, map->p1->pos, map->n_collecs, map->n_exits))
+	n_coll = map->n_collecs;
+	n_exits = map->n_exits;
+	if (!is_valid_path(temp_map, p1_pos, &n_coll, &n_exits))
 	{
 		free_matrix(temp_map);
 		return (0);

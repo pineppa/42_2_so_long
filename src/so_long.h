@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/15 17:51:31 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/20 13:27:17 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,10 @@ char	*get_file_path(char *base_file, int frame);
 
 void	init_map(t_data *game, char *map_file);
 int		init_objects(void *mlx_conn, t_map *map);
-int		init_nr_objs(t_map *map);
+int		init_nr_objs(t_map *map, t_pos *p1_pos);
 t_anima	*load_img(void *mlx_conn, char *map_file);
 t_obj	*load_obj(void *mlx, char *img_file, char obj_char);
-int		init_game_gui(t_data *game);
+void	init_game_gui_content(t_data *game);
 
 // Input Handler
 int		init_keys(t_data *game);
@@ -137,7 +137,7 @@ int		is_edge_walled(char **map, t_pos size);
 
 // Map path checker
 
-int 	check_valid_path(t_map *map);
+int 	check_valid_path(t_map *map, t_pos p1_pos);
 char 	**copy_map(t_pos size, char **map);
 
 // Moves

@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:49:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/15 11:35:56 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/20 15:37:34 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int	ft_check_file_extension(char *str)
 		&& str[l_str - 2] == 'e' && str[l_str - 1] == 'r');
 }
 
-int init_nr_objs(t_map *map)
+int init_nr_objs(t_map *map, t_pos *p1_pos)
 {
-	int	i;
-	int j;
+	int		i;
+	int		j;
 
 	j = -1;
 	map->n_collecs = 0;
@@ -61,10 +61,12 @@ int init_nr_objs(t_map *map)
 				map->n_collecs += 1;
 			else if (map->map_content[j][i] == 'P')
 			{
-				map->p1->pos.x = i;
-				map->p1->pos.y = j;
+				if (p1_pos-> x != 0)
+					return (0);
+				p1_pos->x = i;
+				p1_pos->y = j;
 			}
 		}
 	}
-	return (map->p1->pos.x > 0 && map->n_collecs > 0 && map->n_exits > 0);
+	return (p1_pos->x != 0	&& map->n_collecs > 0 && map->n_exits > 0);
 }
