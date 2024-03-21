@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/21 15:46:55 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/21 18:04:09 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,8 @@ int		is_edge_walled(char **map, t_pos size);
 
 // Map path checker
 
-int 	check_valid_path(t_map *map, t_pos p1_pos);
-char 	**copy_map(t_pos size, char **map);
+int		check_valid_path(t_map *map, t_pos p1_pos);
+char	**copy_map(t_pos size, char **map);
 
 // Moves
 

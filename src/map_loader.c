@@ -6,11 +6,9 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:47:27 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/20 14:46:39 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/21 17:59:32 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/* Collection of function to load and generate maps */
 
 #include "so_long.h"
 

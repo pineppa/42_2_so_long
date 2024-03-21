@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 20:08:13 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/20 15:37:52 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/21 17:59:08 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_obj	*update_obj_pos(t_map *map, t_obj *obj, t_pos new_pos)
 
 int	move_action(t_map *map, t_obj *obj, t_pos new_pos)
 {
-	char obj_c;
+	char	obj_c;
 
 	obj_c = map->map_content[new_pos.y][new_pos.x];
 	if (obj_c == '1')

@@ -6,13 +6,13 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 13:43:04 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/15 17:56:22 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/21 18:01:13 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int draw_item(t_data *game, t_obj *item, t_pos pos)
+int	draw_item(t_data *game, t_obj *item, t_pos pos)
 {
 	mlx_put_image_to_window(game->mlx_conn, game->window, item->anima->img,
 		IMG_W * pos.x, IMG_H * pos.y);
@@ -32,7 +32,7 @@ void	draw_game_map(t_data *game, t_map *map)
 	pos.y = -1;
 	while (++pos.y < game->map->map_size.y)
 	{
-		while(++pos.x < game->map->map_size.x)
+		while (++pos.x < game->map->map_size.x)
 		{
 			if (map->map_content[pos.y][pos.x] == 'E')
 				draw_item(game, map->exits, pos);
@@ -49,7 +49,7 @@ void	draw_game_map(t_data *game, t_map *map)
 	}
 }
 
-int ft_render(t_data *game)
+int	ft_render(t_data *game)
 {
 	mlx_clear_window(game->mlx_conn, game->window);
 	draw_game_map(game, game->map);

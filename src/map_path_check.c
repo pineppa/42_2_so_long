@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 20:35:35 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/20 15:36:31 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/21 17:58:47 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	**copy_map(t_pos size, char **map)
 	return (temp_map);
 }
 
-int is_valid_path(char **temp_map, t_pos pos, int *n_collecs, int *n_exits)
+int	is_valid_path(char **temp_map, t_pos pos, int *n_collecs, int *n_exits)
 {
 	t_pos	temp_pos1;
 	t_pos	temp_pos2;
@@ -72,7 +72,7 @@ int is_valid_path(char **temp_map, t_pos pos, int *n_collecs, int *n_exits)
 	return (0);
 }
 
-int check_valid_path(t_map *map, t_pos p1_pos)
+int	check_valid_path(t_map *map, t_pos p1_pos)
 {
 	char	**temp_map;
 	int		n_coll;
