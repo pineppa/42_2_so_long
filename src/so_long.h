@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/21 18:23:41 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/21 18:39:35 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ t_obj	*load_obj(void *mlx, char *img_file, char obj_char);
 void	init_game_gui_content(t_data *game);
 
 // Input Handler
-int		init_keys(t_data *game);
 int		handle_key_input(int keysim, t_data *game);
 
 // Map loader

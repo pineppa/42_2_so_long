@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:25:44 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/21 18:00:47 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/21 18:38:01 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,4 @@ int	handle_key_input(int keysim, t_data *game)
 			game_exit(game, 1);
 	}
 	return (0);
-}
-
-int	init_keys(t_data *game)
-{
-	mlx_key_hook(game->window, handle_key_input, game);
-	return (1);
 }
