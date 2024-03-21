@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 07:58:23 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/21 15:48:19 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/21 19:02:20 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,14 @@ void	free_matrix(char **matrix)
 	free(matrix);
 }
 
-void	free_object(void *mlx, t_obj *obj)
+void	free_object(void *mlx, t_obj *obj) // Double check this again
 {
 	if (!obj)
 		return ;
-	mlx_destroy_image(mlx, obj->anima->img);
-	free(obj->anima);
+	if (obj->anima->img)
+		mlx_destroy_image(mlx, obj->anima->img);
+	if (obj->anima)
+		free(obj->anima);
 	free(obj);
 }
 
