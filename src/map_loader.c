@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:47:27 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/21 17:59:32 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/21 18:24:53 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*get_map(int fd, char *str)
 	}
 	buff[BUFFER_SIZE] = '\0';
 	l_read = read(fd, buff, BUFFER_SIZE);
-	while (l_read > 0)
+	while (l_read > 0) // Doesn't work for a second buffer run
 	{
 		str = ft_strjoin(str, buff);
 		if (!str)
