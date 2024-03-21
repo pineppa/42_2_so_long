@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/02/17 14:59:49 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/21 15:47:53 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	init_map(t_data *game, char *map_file)
 		return (0);
 	if (!load_map(map_file, game->map))
 	{
-		game_exit(game);
+		game_exit(game, 1);
 		return (0);
 	}
 	return (1);
@@ -79,5 +79,5 @@ int	main(int argc, char **argv)
 	res = handle_mlx(game);
 	if (!res)
 		return (EXIT_FAILURE);
-	game_exit(game);
+	game_exit(game, 1);
 }

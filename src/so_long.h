@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/20 13:27:17 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/21 15:46:55 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,17 +156,13 @@ void	draw_game_map(t_data *game, t_map *map);
 int		draw_item(t_data *game, t_obj *item, t_pos pos);
 
 // Moves_utils
-
-//int		is_move_valid(t_map *map, t_pos map_size, t_obj *obj, t_pos new_pos);
-//int		is_move_inbound(t_pos map_size, int x, int y);
-//int		is_move_wall(char **map, int x, int y);
 int		player_exit(t_map *map);
 int		player_collect(t_map *map);
 int		player_patrol(void);
 
 // Free allocations
 
-int		game_exit(t_data *game);
+int		game_exit(t_data *game, int exit_id);
 void	free_matrix(char **matrix);
 void	free_anima_list(void *mlx, t_anima **anima);
 void	free_object(void *mlx, t_obj *obj);
@@ -174,7 +170,5 @@ void	free_map(t_data *game);
 
 // Other functions
 void	check_malloc(char *str, char *buff);
-
-// void	attack(int keysim, t_obj obj, t_map *map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/20 14:34:00 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/21 15:47:53 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ void	init_game_gui_content(t_data *game)
 	if (!init_nr_objs(game->map, &p1_pos))
 	{
 		throw_error("Map does not contain the minimum elements\n");
-		game_exit(game);
+		game_exit(game, 1);
 	}
 	if (!check_valid_path(game->map, p1_pos))
 	{
 		throw_error("Initialisation failure - Game GUI\n");
-		game_exit(game);
+		game_exit(game, 1);
 	}
 }

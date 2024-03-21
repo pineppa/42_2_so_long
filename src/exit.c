@@ -6,13 +6,13 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 07:58:23 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/20 12:24:16 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/21 15:48:19 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	game_exit(t_data *game)
+int	game_exit(t_data *game, int exit_id)
 {
 	if (game->window)
 		mlx_destroy_window(game->mlx_conn, game->window);
@@ -20,7 +20,10 @@ int	game_exit(t_data *game)
 		free_map(game);
 	if (game)
 		free(game);
-	exit(EXIT_SUCCESS);
+	if (exit_id == 0)
+		exit(EXIT_SUCCESS);
+	else
+		exit(EXIT_FAILURE);
 }
 
 void	free_matrix(char **matrix)

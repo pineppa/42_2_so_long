@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/20 14:55:28 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/21 15:52:51 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	init_map(t_data *game, char *map_file)
 	if (!game->map || !map_file)
 	{
 		throw_error("Initialisation failure - Map\n");
-		game_exit(game);
+		game_exit(game, 1);
 	}
 	game->map->map_content = NULL;
 	game->map->exits = NULL;
@@ -38,7 +38,7 @@ void	init_map(t_data *game, char *map_file)
 	if (!load_map(map_file, game->map))
 	{
 		throw_error("Initialisation failure - Map\n");
-		game_exit(game);
+		game_exit(game, 1);
 	}
 }
 
@@ -50,7 +50,7 @@ int	init_game_resources(t_data *game, char *map_file)
 	if (!game->mlx_conn)
 	{
 		throw_error("Initialisation failure - Connection");
-		game_exit(game);
+		game_exit(game, 1);
 	}
 	game->window = mlx_new_window(game->mlx_conn,
 			IMG_W * game->map->map_size.x,
@@ -58,12 +58,12 @@ int	init_game_resources(t_data *game, char *map_file)
 	if (!game->window)
 	{
 		throw_error("Initialisation failure - Window");
-		game_exit(game);
+		game_exit(game, 1);
 	}
 	if (init_objects(game->mlx_conn, game->map) == 0)
 	{
 		throw_error("Initialisation failure - Objects");
-		game_exit(game);
+		game_exit(game, 1);
 	}
 	game->map->moves = 0;
 	return (1);
@@ -74,14 +74,17 @@ int	main(int argc, char **argv)
 	t_data	*game;
 
 	if (argc != 2 || !ft_check_file_extension(argv[1]))
-		return (1);
+	{
+		throw_error("Insert a single map file with extension .ber\n");
+		exit(EXIT_FAILURE);
+	}
 	game = ft_calloc(sizeof(t_data), 1);
 	if (!game)
-		return (0);
+		exit(EXIT_FAILURE);
 	game->map = NULL;
 	game->window = NULL;
 	game->mlx_conn = NULL;
 	init_game_resources(game, argv[1]);
 	handle_mlx(game); // This can't handle any failure at this moment
-	game_exit(game);
+	game_exit(game, 0);
 }

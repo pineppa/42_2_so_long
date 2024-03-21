@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:25:44 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/12 09:02:28 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/21 15:47:53 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 int	handle_key_input(int keysim, t_data *game)
 {
 	if (keysim == ESC)
-		game_exit(game);
+		game_exit(game, 1);
 	else if (keysim == UP || keysim == RIGHT || keysim == LEFT
 		|| keysim == DOWN || keysim == W || keysim == D
 		|| keysim == A || keysim == S)
 		{
 			if(move(keysim, game->map->p1, game->map) == 0)
-				game_exit(game);
+				game_exit(game, 1);
 		}
 	return (0);
 }
