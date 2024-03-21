@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:47:27 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/21 18:24:53 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/21 18:45:28 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,17 @@ char	*get_map(int fd, char *str)
 		return (NULL);
 	}
 	buff[BUFFER_SIZE] = '\0';
-	l_read = read(fd, buff, BUFFER_SIZE);
+	l_read = 1;
 	while (l_read > 0) // Doesn't work for a second buffer run
 	{
+		l_read = read(fd, buff, BUFFER_SIZE);
+		buff[l_read] = '\0';
 		str = ft_strjoin(str, buff);
 		if (!str)
 		{
 			free(buff);
 			return (NULL);
 		}
-		l_read = read(fd, buff, BUFFER_SIZE);
-		buff[ft_strlen(buff)] = '\0';
 	}
 	free(buff);
 	return (str);
