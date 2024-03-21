@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/21 15:47:53 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/21 19:00:01 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ t_obj	*load_obj(void *mlx, char *img_file, char obj_char)
 	if (!item)
 		return (NULL);
 	item->anima = load_img(mlx, img_file);
+	if (item->anima == NULL || item->anima->img == NULL) // Can be the reason of leaks!
+	{
+		free(item);
+		return (NULL);
+	}
 	item->pos.x = 0;
 	item->pos.y = 0;
 	item->obj_char = obj_char;
