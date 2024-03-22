@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:21:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/21 19:02:06 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/22 11:13:45 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <errno.h>
 # include <stdio.h>
 # include "libft/libft.h"
-# include <mlx.h>
 # include "mlx/mlx.h"
 
 # ifndef BUFFER_SIZE

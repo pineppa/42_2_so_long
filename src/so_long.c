@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/21 18:37:58 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/22 11:14:23 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,20 +71,14 @@ int	init_game_resources(t_data *game, char *map_file)
 
 int	main(int argc, char **argv)
 {
-	t_data	*game;
+	t_data	game;
 
 	if (argc != 2 || !ft_check_file_extension(argv[1]))
 	{
 		throw_error("Insert a single map file with extension .ber\n");
 		exit(EXIT_FAILURE);
 	}
-	game = ft_calloc(sizeof(t_data), 1);
-	if (!game)
-		exit(EXIT_FAILURE);
-	game->map = NULL;
-	game->window = NULL;
-	game->mlx_conn = NULL;
-	init_game_resources(game, argv[1]);
-	handle_mlx(game); // This can't handle any failure at this moment
-	game_exit(game, 0);
+	init_game_resources(&game, argv[1]);
+	handle_mlx(&game);
+	game_exit(&game, 0);
 }

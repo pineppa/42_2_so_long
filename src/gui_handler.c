@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/21 19:03:17 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/22 10:49:41 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ t_anima	*load_img(void *mlx, char *img_file)
 {
 	t_anima	*anima;
 
-	anima = ft_calloc(sizeof(t_anima), 1);
+	anima = malloc(sizeof(t_anima));
 	if (anima == NULL)
-		return (0);
+		return (NULL);
 	anima->img = NULL;
 	anima->h = 64;
 	anima->w = 64;
@@ -27,6 +27,7 @@ t_anima	*load_img(void *mlx, char *img_file)
 	if (anima->img == NULL)
 	{
 		free(anima);
+		anima = NULL;
 		return (NULL);
 	}
 	return (anima);
@@ -36,13 +37,14 @@ t_obj	*load_obj(void *mlx, char *img_file, char obj_char)
 {
 	t_obj	*item;
 
-	item = ft_calloc(sizeof(t_obj), 1);
-	if (!item)
+	item = malloc(sizeof(t_obj));
+	if (item == NULL)
 		return (NULL);
 	item->anima = load_img(mlx, img_file);
-	if (item->anima == NULL || item->anima->img == NULL) // Can be the reason of leaks!
+	if (item->anima == NULL)
 	{
-		free(item);
+		free (item);
+		item = NULL;
 		return (NULL);
 	}
 	item->pos.x = 0;

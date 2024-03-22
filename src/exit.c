@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 07:58:23 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/21 19:02:20 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/22 11:23:46 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 int	game_exit(t_data *game, int exit_id)
 {
-	if (game->window)
-		mlx_destroy_window(game->mlx_conn, game->window);
 	if (game->map)
 		free_map(game);
-	if (game)
-		free(game);
+	if (game->window)
+		mlx_destroy_window(game->mlx_conn, game->window);
 	if (exit_id == 0)
 		exit(EXIT_SUCCESS);
 	else
@@ -32,19 +30,27 @@ void	free_matrix(char **matrix)
 
 	i = -1;
 	while (matrix[++i])
+	{
 		free(matrix[i]);
+		matrix[i] = NULL;
+	}
 	free(matrix);
+	matrix = NULL;
 }
 
-void	free_object(void *mlx, t_obj *obj) // Double check this again
+void	free_object(void *mlx, t_obj *obj)
 {
 	if (!obj)
 		return ;
 	if (obj->anima->img)
 		mlx_destroy_image(mlx, obj->anima->img);
 	if (obj->anima)
+	{
 		free(obj->anima);
+		obj->anima = NULL;
+	}
 	free(obj);
+	obj = NULL;
 }
 
 void	free_map(t_data *game)
@@ -62,4 +68,5 @@ void	free_map(t_data *game)
 	if (game->map->wall)
 		free_object(game->mlx_conn, game->map->wall);
 	free(game->map);
+	game->map = NULL;
 }
