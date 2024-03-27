@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/22 11:14:23 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/27 11:39:53 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_map(t_data *game, char *map_file)
 	game->map = malloc(sizeof(t_map));
 	if (!game->map || !map_file)
 	{
-		throw_error("Initialisation failure - Map\n");
+		throw_error("Failed to initialise map");
 		game_exit(game, 1);
 	}
 	game->map->map_content = NULL;
@@ -36,10 +36,7 @@ void	init_map(t_data *game, char *map_file)
 	game->map->wall = NULL;
 	game->map->ground = NULL;
 	if (!load_map(map_file, game->map))
-	{
-		throw_error("Initialisation failure - Map\n");
 		game_exit(game, 1);
-	}
 }
 
 int	init_game_resources(t_data *game, char *map_file)
@@ -49,7 +46,7 @@ int	init_game_resources(t_data *game, char *map_file)
 	game->mlx_conn = mlx_init();
 	if (!game->mlx_conn)
 	{
-		throw_error("Initialisation failure - Connection");
+		throw_error("Failed to init the Connection;");
 		game_exit(game, 1);
 	}
 	game->window = mlx_new_window(game->mlx_conn,
@@ -57,12 +54,13 @@ int	init_game_resources(t_data *game, char *map_file)
 			IMG_H * game->map->map_size.y, "So long");
 	if (!game->window)
 	{
-		throw_error("Initialisation failure - Window");
+		throw_error("Failed to init the Window;");
 		game_exit(game, 1);
 	}
 	if (init_objects(game->mlx_conn, game->map) == 0)
 	{
-		throw_error("Initialisation failure - Objects");
+		throw_error("Failed to load an object;\n\t\
+			Have you removed, moved or renamed images?");
 		game_exit(game, 1);
 	}
 	game->map->moves = 0;
@@ -73,9 +71,14 @@ int	main(int argc, char **argv)
 {
 	t_data	game;
 
-	if (argc != 2 || !ft_check_file_extension(argv[1]))
+	if (argc != 2)
 	{
-		throw_error("Insert a single map file with extension .ber\n");
+		throw_error("Insert only one map file");
+		exit(EXIT_FAILURE);
+	}
+	if (!ft_check_file_extension(argv[1]))
+	{
+		throw_error("Insert a map file *.ber");
 		exit(EXIT_FAILURE);
 	}
 	init_game_resources(&game, argv[1]);

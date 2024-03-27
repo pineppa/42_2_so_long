@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:19:50 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/21 17:59:20 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/27 11:21:43 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	player_collect(t_map *map)
 {
 	printf("1 UP!\n");
 	if (!(map->n_collecs > 0))
-		throw_error("Collectionables should be gone by now\n");
+		throw_error("Collectionables should be gone by now");
 	map->n_collecs -= 1;
 	return (0);
 }

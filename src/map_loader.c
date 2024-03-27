@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:47:27 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/21 18:45:28 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/27 11:28:34 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*get_map(int fd, char *str)
 	}
 	buff[BUFFER_SIZE] = '\0';
 	l_read = 1;
-	while (l_read > 0) // Doesn't work for a second buffer run
+	while (l_read > 0)
 	{
 		l_read = read(fd, buff, BUFFER_SIZE);
 		buff[l_read] = '\0';
@@ -94,14 +94,13 @@ int	load_map(char *file, t_map *map)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
-		throw_error("Error opening the file, invalid file");
-		close (fd);
+		throw_error("Error opening the file, invalid file;");
 		return (0);
 	}
 	map->map_content = read_mapfile(fd);
 	if (!(map->map_content))
 	{
-		throw_error("Error loading the map content");
+		throw_error("The map does not comply with the map rules;");
 		close (fd);
 		return (0);
 	}
@@ -110,7 +109,7 @@ int	load_map(char *file, t_map *map)
 	if (!(map->map_size.x) || !(map->map_size.y)
 		|| !is_edge_walled(map->map_content, map->map_size))
 	{
-		throw_error("The map does not comply with the map rules");
+		throw_error("The map does not comply with the map rules;");
 		return (0);
 	}
 	return (1);

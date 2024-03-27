@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:47:27 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/15 16:17:34 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/27 11:19:00 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	load_map(char *file, t_map *map)
 	if (!(map->map_size.x) || !(map->map_size.y)
 		|| !is_edge_walled(map->map_content, map->map_size))
 	{
-		throw_error("Map file Error");
+		throw_error("The map does not comply with the map rules;");
 		return (0);
 	}
 	return (1);

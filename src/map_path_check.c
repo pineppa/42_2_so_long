@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 20:35:35 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/21 17:58:47 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/27 10:46:44 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ char	**copy_map(t_pos size, char **map)
 		j = -1;
 		temp_map[i] = ft_calloc(sizeof(char), (size.x + 1));
 		if (!temp_map)
+		{
+			free_matrix(temp_map);
 			return (NULL);
+		}
 		temp_map[i][size.x] = '\0';
 		while (++j < size.x)
 			temp_map[i][j] = map[i][j];

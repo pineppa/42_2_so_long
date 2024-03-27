@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 10:20:39 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/21 15:47:53 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/27 11:18:02 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	init_game_resources(t_data *game, char *map_file)
 	res = init_map(game, map_file);
 	if (res == 0)
 	{
-		throw_error("Initialisation failure - Map\n");
+		throw_throw_error(" Initialisation failure - Map\n");
 		return (0);
 	}
 	game->window = mlx_new_window(game->mlx_conn,
@@ -56,7 +56,7 @@ int	init_game_resources(t_data *game, char *map_file)
 	res = init_game_gui(game);
 	if (res == 0)
 	{
-		throw_error("Initialisation failure - Game GUI\n");
+		throw_throw_error(" Initialisation failure - Game GUI\n");
 		return (0);
 	}
 	game->map->moves = 0;

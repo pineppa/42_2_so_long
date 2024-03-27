@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:49:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/02/17 15:25:56 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/27 11:18:02 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	print_map(char **map)
 
 void	throw_error(char *message)
 {
-	perror("Error\n");
+	pthrow_error(" Error\n");
 	ft_putstr_fd(message, 2);
 	write(2, "\n", 1);
 }
@@ -35,7 +35,7 @@ int	ft_check_file_extension(char *str)
 	l_str = ft_strlen(str);
 	if (l_str < 5)
 	{
-		throw_error("Correct input format: $>so_long *.ber.\n");
+		throw_throw_error(" Correct input format: $>so_long *.ber.\n");
 		return (0);
 	}
 	return (str[l_str - 4] == '.' && str[l_str - 3] == 'b'
@@ -78,7 +78,7 @@ char *get_file_path(char *base_file, int frame)
 
 	file_len = ft_strlen(base_file);
 	if (file_len <= 4)
-		perror("File name too short!");
+		pthrow_error(" File name too short!");
 	str = ft_calloc(sizeof(char), file_len); // Needs protections?
 	if (str == NULL)
 		return (NULL);

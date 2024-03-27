@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/22 10:49:41 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/27 11:19:12 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,8 @@ int	init_objects(void *mlx, t_map *map)
 	map->p1 = load_obj(mlx, PLAYER_IMG, 'P');
 	map->exits = load_obj(mlx, EXIT_IMG, 'E');
 	if (map->wall == NULL || map->collecs == NULL
-		|| map->ground == NULL
-		|| map->exits == NULL || map->p1 == NULL)
-	{
-		throw_error("Failed to load image\n");
+		|| map->ground == NULL || map->exits == NULL || map->p1 == NULL)
 		return (0);
-	}
 	return (1);
 }
 
@@ -78,12 +74,12 @@ void	init_game_gui_content(t_data *game)
 	p1_pos.y = 0;
 	if (!init_nr_objs(game->map, &p1_pos))
 	{
-		throw_error("Map does not contain the minimum elements\n");
+		throw_error("The map does not comply with the map rules;");
 		game_exit(game, 1);
 	}
 	if (!check_valid_path(game->map, p1_pos))
 	{
-		throw_error("Initialisation failure - Game GUI\n");
+		throw_error("The map does not comply with the map rules;");
 		game_exit(game, 1);
 	}
 }

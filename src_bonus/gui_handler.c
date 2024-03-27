@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:12:25 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/21 15:47:53 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/27 11:18:02 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	init_objects(void *mlx, t_map *map)
 		|| map->ground == NULL || map->patrols == NULL
 		|| map->exits == NULL || map->p1 == NULL)
 	{
-		throw_error("Failed to load image");
+		throw_throw_error(" Failed to load image");
 		return (0);
 	}
 	return (1);
@@ -87,12 +87,12 @@ int	init_game_gui(t_data *game)
 {
 	if (init_objects(game->mlx_conn, game->map) == 0)
 	{
-		throw_error("Initialisation failure - Images");
+		throw_throw_error(" Initialisation failure - Images");
 		return (0);
 	}
 	if (!init_nr_objs(game->map))
 	{
-		throw_error("Map does not contain the minimum elements");
+		throw_throw_error(" Map does not contain the minimum elements");
 		game_exit(game, 1);
 	}
 	if (!check_valid_path(game->map))

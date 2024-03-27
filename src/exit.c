@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 07:58:23 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/22 11:23:46 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/27 10:45:44 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@ void	free_matrix(char **matrix)
 	i = -1;
 	while (matrix[++i])
 	{
-		free(matrix[i]);
-		matrix[i] = NULL;
+		if (matrix[i])
+		{
+			free(matrix[i]);
+			matrix[i] = NULL;
+		}
 	}
 	free(matrix);
 	matrix = NULL;
