@@ -6,7 +6,7 @@
 /*   By: jsala <jsala@student.42barcelona.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:49:01 by jsala             #+#    #+#             */
-/*   Updated: 2024/03/27 10:30:35 by jsala            ###   ########.fr       */
+/*   Updated: 2024/03/27 11:44:22 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,5 @@ int	init_nr_objs(t_map *map, t_pos *p1_pos)
 			}
 		}
 	}
-	return (p1_pos->x != 0 && map->n_collecs > 0 && map->n_exits > 0);
+	return (p1_pos->x != 0 && map->n_collecs > 0 && map->n_exits == 1);
 }
