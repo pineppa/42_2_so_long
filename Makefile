@@ -13,7 +13,7 @@ OBJ_SRCS_BONUS = $(SRCS_BONUS:.c=.o)
 DEPS = $(SRCS:.c=.d)
 DEPS_BONUS = $(SRCS_BONUS:.c=.d)
 
-MLX = libmlx.a
+MLX = ./mlx/libmlx.a
 MLX_DIR = ./mlx
 MLX_FLAGS = ./mlx/libmlx.a -framework OpenGL -framework AppKit
 
@@ -51,6 +51,7 @@ clean :
 
 fclean : clean
 	$(RM) $(NAME)
+	make -C ${MLX_DIR} fclean
 	make -C $(LIBFT_DIR) fclean
 
 debug : $(MLX) $(LIBFT) $(OBJ_SRCS) $(HEADER) Makefile
