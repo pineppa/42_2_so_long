@@ -28,6 +28,9 @@ $(LIBFT) :
 	make -C ./libft
 	make -C ./libft clean
 
+debug : $(OBJ_SRCS) $(LIBFT) $(HEADER) Makefile
+	$(CC) -g -fsanitize=address $(CFLAGS) $(OBJ_SRCS) $(LIBFT) $(MLX_FLAGS) -o $(NAME)_debug
+
 clean :
 	$(RM) $(OBJ_SRCS)
 	make -C $(LIBFT_DIR) clean

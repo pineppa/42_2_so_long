@@ -88,7 +88,7 @@ space.
   * `1` for a wall,
   * `C` for a collectible,
   * `E` for a map exit,
-  * `P` for the player’s starting position.
+  * `P` for the player's starting position.
 
 * The map must contain 1 exit, at least 1 collectible, and 1 starting position to be valid. If the map contains a duplicates characters (exit/start), you should display an error message
 
@@ -106,7 +106,7 @@ Here is a simple valid map:
 
 * The map must be rectangular.
 * The map must be closed/surrounded by walls. If it is not, the program must return an error.
-* You have to check if there’s a valid path in the map.
+* You have to check if there's a valid path in the map.
 * You must be able to parse any kind of map, as long as it respects the above rules.
 * Another example of a minimal `.ber` map:
 

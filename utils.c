@@ -66,7 +66,7 @@ int init_nr_objs(t_map *map)
 			}
 		}
 	}
-	return (map->p1->pos.x > 0 && map->n_collecs > 0 && map->n_exits > 0);
+	return (map->p1->pos.x > 0 && map->n_exits > 0); //&& map->n_collecs >= 0
 }
 
 char	*get_file_path(char *base_file, int frame, char *suffix)
@@ -90,6 +90,7 @@ char	*get_file_path(char *base_file, int frame, char *suffix)
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
 	{
+		printf("The composed file name is not correctly pointing to an image");
 		free(str);
 		return(NULL);
 	}

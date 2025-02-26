@@ -87,7 +87,6 @@ int	init_objects(void *mlx, t_map *map)
 
 int	init_game_gui(t_data *game)
 {
-	printf("Ciao");
 	if (init_objects(game->mlx_conn, game->map) == 0)
 	{
 		throw_error("Initialisation failure - Images");

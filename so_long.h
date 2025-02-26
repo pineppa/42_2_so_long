@@ -112,7 +112,7 @@ typedef struct s_data
 }	t_data;
 
 // Utils
-//void	print_map(char **map);
+void	print_map(char **map);
 void	throw_error(char *message);
 int		ft_check_file_extension(char *str);
 char	*get_file_path(char *base_file, int frame, char *suffix);

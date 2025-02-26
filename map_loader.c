@@ -79,6 +79,7 @@ int	load_map(char *file, t_map *map)
 	map->map_content = read_mapfile(fd);
 	if (!(map->map_content))
 	{
+		printf("%d\n", 223);
 		throw_error("Error loading map content");
 		return (0);
 	}
