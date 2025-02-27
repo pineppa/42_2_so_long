@@ -14,31 +14,10 @@ This is a graphical engine developed by the school. The project has been develop
 
 ## Table of Content
 
-* [Events Hooks](#hooks---x11-managed);
 * [The Game](#the-rules-of-the-game);
 * [Graphics management](#graphics-management)
 * [Map](#map)
-
-## Hooks - X11 Managed
-
-* Get inputs from:
-
-|       Key         | Event | EasierKey | Alias function | Prototype |
-| :---------------: | :---: | :--: | :--: | :---: |
-| KeyPress          | 2  | KeyboardPress | | int (*f)(int keycode, void \*param) |
-| KeyRelease        | 3  | KeyboardRelase | mlx_key_hook() | int (*f)(int keycode, void \*param) |
-| ButtonPress       | 4  | Mouse Click | | / |
-| ButtonRelease     | 5  | Mouse Release | mlx_mouse_hook() | int (*f)(int button, int x, int y, void \*param) |
-| MotionNotify      | 6  | Mouse Movement | | int (*f)(int x, int y, void \*param) |
-| Expose            | 12 | Redrawing (to be checked) | mlx_expose_hook() | / |
-| DestroyNotify     | 17 | Close Window | / | int (*f)(int x, int y, void \*param) |
-| LASTEvent         | 36 | / | *must be bigger than any event* |
-
-<p style="text-align:right;">
-  <a href="#so-long-and-thanks-for-all-the-fish">
-	Go to the top
-  </a>
-</p>
+* [Events Hooks](#hooks---x11-managed);
 
 ## The rules of the game
 
@@ -109,24 +88,44 @@ The program must be passed the map to be used for the game. The code sequentiall
 
 * Checks the presence of the additional argument;
 * Checks that the file is properly formatted as `.ber`;
-* Checks the map to:
-  * Be of rectangular shape
-  * The whole perimeter is closed with a wall;
 
 `map->map_size` tells how big the matrix of map is. This should be used to manage the content in the window;
 
 ## Load the map
 
+* Checks the map to:
+  * Be of rectangular shape
+  * The whole perimeter is closed with a wall;
+  * Go through map and load every location with the specific image required:
+  * There is a valid path
+  * Each component hass only 1 Player and Exit;
 * Loads all the necessary objects and throws an error if the specified file is missing.
-* Checks the quantity of each component to be sure there is only 1 Player and Exit;
-* Go through map and load every location with the specific image required:
-	* `0` Loads the Ground space;
-	* `1` Loads the Wall image;
-	* `ECP` loads an ground space as background plus the specific image that represents the Exit, a Collectible, or the Player;
-* Checks that there is a valid path
+  * `0` Loads the Ground space;
+  * `1` Loads the Wall image;
+  * `E C P` loads an ground space as background plus the specific image that represents the Exit, a Collectible, or the Player;
 * Draws the map
 
-Map here is already loaded beforehand and therefore the current implementation needs to be revisited to check all the input aspects before the content is loaded
+
+<p style="text-align:right;">
+  <a href="#so-long-and-thanks-for-all-the-fish">
+	Go to the top
+  </a>
+</p>
+
+## Hooks - X11 Managed
+
+* Get inputs from:
+
+|       Key         | Event | EasierKey | Alias function | Prototype |
+| :---------------: | :---: | :--: | :--: | :---: |
+| KeyPress          | 2  | KeyboardPress | | int (*f)(int keycode, void \*param) |
+| KeyRelease        | 3  | KeyboardRelase | mlx_key_hook() | int (*f)(int keycode, void \*param) |
+| ButtonPress       | 4  | Mouse Click | | / |
+| ButtonRelease     | 5  | Mouse Release | mlx_mouse_hook() | int (*f)(int button, int x, int y, void \*param) |
+| MotionNotify      | 6  | Mouse Movement | | int (*f)(int x, int y, void \*param) |
+| Expose            | 12 | Redrawing (to be checked) | mlx_expose_hook() | / |
+| DestroyNotify     | 17 | Close Window | / | int (*f)(int x, int y, void \*param) |
+| LASTEvent         | 36 | / | *must be bigger than any event* |
 
 <p style="text-align:right;">
   <a href="#so-long-and-thanks-for-all-the-fish">

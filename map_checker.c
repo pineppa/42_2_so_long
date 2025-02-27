@@ -1,74 +1,68 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_checker.c                                      :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsala <jacopo.sala@student.barcelona.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/21 16:51:15 by jsala             #+#    #+#             */
-/*   Updated: 2024/01/28 20:35:26 by jsala            ###   ########.fr       */
+/*   Created: 2024/01/26 13:19:23 by jsala             #+#    #+#             */
+/*   Updated: 2024/03/04 14:39:46 by jsala            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include <so_long.h>
 
-/*
-@brief:
-Checker functions for map. Receives the map as a string
-returns -1 in case of any error in the map
-
-- Assumes that checks on loaded values (01EPC) have already being done;
-- Assumes that *str is longer than 4 elements
-	-> Checks for ground and less than 2x2 maps done in advance
-*/
-
-int	check_input(char *str)
+int check_map_fit(t_map *map, void *mlx_conn)
 {
-	int	row_len;
-	int	i;
-	int	count;
+	int	screen_w;
+	int	screen_h;
 
-	row_len = 0;
-	i = -1;
-	count = 0;
-	while (str[++i])
+	screen_h = 0;
+	screen_w = 0;
+	mlx_get_screen_size(mlx_conn, &screen_w, &screen_h);
+	if (map->map_size.x > screen_w / IMG_W
+		|| map->map_size.y > screen_h / IMG_H)
 	{
-		if (str[i] != '0' && str[i] != '1' && str[i] != 'E' && str[i] != 'P'
-				&& str[i] != 'C' && str[i] != 'D' && str[i] != '\n')
-			return (0);
-		if (str[i] == '\n')
-		{
-			if (row_len == 0)
-				row_len = i;
-			else if (row_len != count)
-				return (0);
-			count = 0;
-		}
-		else
-			count++;
+		throw_error("The map overflows the screen size; Please try a smaller map\n");
+		free(map);
+		return (0);
 	}
 	return (1);
 }
 
-int	is_edge_walled(char **map, t_pos size)
+int check_map_size(t_map *map, void *mlx_conn)
 {
-	int	i;
-
-	if (!map)
+	if (!(map->map_size.x) || !(map->map_size.y)
+        || !check_map_fit(map, mlx_conn))
+	{
+		throw_error("Map file Error");
 		return (0);
-	i = 0;
-	while (i < size.x)
-	{
-		if (map[0][i] != '1' || map[size.y - 1][i] != '1')
-			return (0);
-		i++;
 	}
-	i = 0;
-	while (i < size.y)	
+    return (1);
+}
+ 
+int check_map(t_data *game, char *map_file)
+{
+    game->map = malloc(sizeof(t_map));
+	if (!game->map || !map_file)
+		return (0);
+	if (!load_map(map_file, game->map))	
 	{
-		if (map[i][0] != '1' || map[i][size.x - 1] != '1')
-			return (0);
-		i++;
+		throw_error("Initialisation failure - Load Map\n");
+		return (0);
 	}
-	return (1);
+	game->map->map_size = get_map_size(game->map->map_content);
+	if (!is_edge_walled(game->map->map_content, game->map->map_size))
+    {
+		throw_error("The map walls don't close the playable area");
+		return (0);
+    }
+	if (!init_nr_objs(game->map))
+	{
+		throw_error("Map does not contain the minimum elements");
+		game_exit(game);
+	}
+	if (!check_valid_path(game->map))
+		return (0);
+    return (1);
 }

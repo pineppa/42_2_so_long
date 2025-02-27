@@ -22,42 +22,14 @@ int	handle_mlx(t_data *game)
 	return (0);
 }
 
-int	init_map(t_data *game, char *map_file)
+int	init_game_resources(t_data *game)
 {
-	int	screen_w;
-	int	screen_h;
-
-	screen_h = 0;
-	screen_w = 0;
-	mlx_get_screen_size(game->mlx_conn, &screen_w, &screen_h);
-	game->map = malloc(sizeof(t_map));
-	if (!game->map || !map_file)
-		return (0);
-	if (!load_map(map_file, game->map)
-		|| game->map->map_size.x > screen_w / IMG_W
-		|| game->map->map_size.y > screen_h / IMG_H)
+	game->mlx_conn = mlx_init();
+	if (!game->mlx_conn || !check_map_size(game->map, game->mlx_conn))
 	{
-		free(game->map);
+		throw_error("The map is too big and doesn't fit the screen");
 		return (0);
 	}
-	return (1);
-}
-
-int	init_game_resources(t_data *game, char *map_file)
-{
-	game->mlx_conn = mlx_init(); //Sets up a connection to the X Server
-	if (!game->mlx_conn)
-		return (0); //Shall it throw an error?  WIN_W, WIN_H//
-	if (init_map(game, map_file) == 0)
-	{
-		throw_error("Initialisation failure - Map\n");
-		return (0);
-	}
-	game->window = mlx_new_window(game->mlx_conn,
-			IMG_W * game->map->map_size.x,
-			IMG_H * game->map->map_size.y, "So long");
-	if (!game->window)
-		return (0);
 	if (init_game_gui(game) == 0)
 	{
 		throw_error("Initialisation failure - Game GUI\n");
@@ -76,8 +48,13 @@ int	main(int argc, char **argv)
 	game = malloc(sizeof(t_data));
 	if (!game)
 		return (EXIT_FAILURE);
-	if (!init_game_resources(game, argv[1]))
-		return (EXIT_FAILURE); // This should properly free resources
+	if(check_map(game, argv[1]) == 0)
+	{
+		throw_error("Initialisation failure - Map\n");
+		return (0);
+	}
+	if (!init_game_resources(game))
+		return (EXIT_FAILURE);
 	if (!handle_mlx(game))
 		return (EXIT_FAILURE);
 	game_exit(game);

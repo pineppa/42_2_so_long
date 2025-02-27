@@ -82,23 +82,22 @@ int	init_objects(void *mlx, t_map *map)
 		throw_error("Failed to load image");
 		return (0);
 	}
+	map->p1->pos = map->p1_pos;
 	return (1);
 }
 
 int	init_game_gui(t_data *game)
 {
+	game->window = mlx_new_window(game->mlx_conn,
+		IMG_W * game->map->map_size.x,
+		IMG_H * game->map->map_size.y, "So long");
+	if (!game->window)
+		return (0);
 	if (init_objects(game->mlx_conn, game->map) == 0)
 	{
 		throw_error("Initialisation failure - Images");
 		return (0);
 	}
-	if (!init_nr_objs(game->map))
-	{
-		throw_error("Map does not contain the minimum elements");
-		game_exit(game);
-	}
-	if (!check_valid_path(game->map))
-		return (0);
 	draw_game_map(game, game->map);
 	return (1);
 }

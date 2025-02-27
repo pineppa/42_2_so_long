@@ -12,13 +12,16 @@
 
 #include "so_long.h"
 
-void	print_map(char **map)
+void	check_calloc(char *str, char *buff)
 {
-	int	i;
-
-	i = 0;
-	while (map[i])
-		printf("%s\n", map[i++]);
+	if (!str || !buff)
+	{
+		if (str)
+			free(str);
+		if (buff)
+			free(buff);
+		exit (EXIT_FAILURE);
+	}
 }
 
 void	throw_error(char *message)
@@ -61,12 +64,12 @@ int init_nr_objs(t_map *map)
 				map->n_collecs += 1;
 			else if (map->map_content[j][i] == 'P')
 			{
-				map->p1->pos.x = i;
-				map->p1->pos.y = j;
+				map->p1_pos.x = i;
+				map->p1_pos.y = j;
 			}
 		}
 	}
-	return (map->p1->pos.x > 0 && map->n_exits > 0); //&& map->n_collecs >= 0
+	return (map->p1_pos.x > 0 && map->n_collecs > 0 && map->n_exits > 0);
 }
 
 char	*get_file_path(char *base_file, int frame, char *suffix)

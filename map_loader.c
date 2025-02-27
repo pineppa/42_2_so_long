@@ -27,18 +27,6 @@ t_pos	get_map_size(char **map)
 	return (size);
 }
 
-void	check_calloc(char *str, char *buff)
-{
-	if (!str || !buff)
-	{
-		if (str)
-			free(str);
-		if (buff)
-			free(buff);
-		exit (EXIT_FAILURE);
-	}
-}
-
 char	**read_mapfile(int fd)
 {
 	char	*buff;
@@ -79,17 +67,9 @@ int	load_map(char *file, t_map *map)
 	map->map_content = read_mapfile(fd);
 	if (!(map->map_content))
 	{
-		printf("%d\n", 223);
 		throw_error("Error loading map content");
 		return (0);
 	}
 	close(fd);
-	map->map_size = get_map_size(map->map_content);
-	if (!(map->map_size.x) || !(map->map_size.y)
-		|| !is_edge_walled(map->map_content, map->map_size))
-	{
-		throw_error("Map file Error");
-		return (0);
-	}
 	return (1);
 }

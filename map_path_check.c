@@ -44,6 +44,7 @@ int is_valid_path(char **temp_map, int x, int y, int n_collecs)
         temp_map[y][x] = '1';
     else if (temp_map[y][x] == 'E')
     {   
+
         if (n_collecs == 0)
             return (1);
         return (0);
@@ -66,7 +67,7 @@ int check_valid_path(t_map *map)
     temp_map = copy_map(map->map_size, map->map_content);
 	if (!temp_map)
 		return (0);
-    if (!is_valid_path(temp_map, map->p1->pos.x, map->p1->pos.y, 
+    if (!is_valid_path(temp_map, map->p1_pos.x, map->p1_pos.y, 
         map->n_collecs))
     {
         throw_error("What is wrong with meeeeee?\n");

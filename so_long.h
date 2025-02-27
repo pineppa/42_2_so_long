@@ -100,6 +100,7 @@ typedef struct s_map
 	t_obj			*wall;
 	t_obj			*ground;
 	t_obj			*patrols;
+	t_pos			p1_pos;
 	int				moves;
 }	t_map;
 
@@ -120,7 +121,6 @@ char	*get_file_path(char *base_file, int frame, char *suffix);
 // Game functions
 // Initialisation
 
-int		init_map(t_data *game, char *map_file);
 int		init_objects(void *mlx_conn, t_map *map);
 int		init_nr_objs(t_map *map);
 t_anima	*load_img(void *mlx, char *img_file, int frame);
@@ -139,6 +139,9 @@ int		load_map(char *file, t_map *map);
 
 // Map checker
 
+int		check_map_fit(t_map *map, void *mlx_conn);
+int		check_map_size(t_map *map, void *mlx_conn);
+int		check_map(t_data *game, char *map_file);
 int		check_input(char *str);
 int		is_edge_walled(char **map, t_pos size);
 
