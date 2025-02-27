@@ -15,9 +15,6 @@
 int	game_exit(t_data *game)
 {
 	free_resources(game);
-	// mlx_clear_window(game->mlx_conn, game->window);
-	// mlx_destroy_window(game->mlx_conn, game->window);
-	// mlx_destroy_display(game->mlx_conn);
 	free(game->mlx_conn);
 	free(game);
 	exit(EXIT_SUCCESS);

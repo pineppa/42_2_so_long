@@ -44,7 +44,6 @@ int is_valid_path(char **temp_map, int x, int y, int n_collecs)
         temp_map[y][x] = '1';
     else if (temp_map[y][x] == 'E')
     {   
-
         if (n_collecs == 0)
             return (1);
         return (0);
