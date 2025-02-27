@@ -15,6 +15,9 @@ This is a graphical engine developed by the school. The project has been develop
 ## Table of Content
 
 * [Events Hooks](#hooks---x11-managed);
+* [The Game](#the-rules-of-the-game);
+* [Graphics management](#graphics-management)
+* [Map](#map)
 
 ## Hooks - X11 Managed
 
@@ -27,50 +30,23 @@ This is a graphical engine developed by the school. The project has been develop
 | ButtonPress       | 4  | Mouse Click | | / |
 | ButtonRelease     | 5  | Mouse Release | mlx_mouse_hook() | int (*f)(int button, int x, int y, void \*param) |
 | MotionNotify      | 6  | Mouse Movement | | int (*f)(int x, int y, void \*param) |
-| EnterNotify       | 7  | / | / | / |
-| LeaveNotify       | 8  | / | / | / |
-| FocusIn           | 9  | / | / | / |
-| FocusOut          | 10 | / | / | / |
-| KeymapNotify      | 11 | / | / | / |
-| Expose            | 12 | Redrawing (to be check) | mlx_expose_hook() | / |
-| GraphicsExpose    | 13 | / | / | / |
-| NoExpose          | 14 | / | / | / |
-| VisibilityNotify  | 15 | / | / | / |
-| CreateNotify      | 16 | / | / | / |
+| Expose            | 12 | Redrawing (to be checked) | mlx_expose_hook() | / |
 | DestroyNotify     | 17 | Close Window | / | int (*f)(int x, int y, void \*param) |
-| UnmapNotify       | 18 | / | / | / |
-| MapNotify         | 19 | / | / | / |
-| MapRequest        | 20 | / | / | / |
-| ReparentNotify    | 21 | / | / | / |
-| ConfigureNotify   | 22 | / | / | / |
-| ConfigureRequest  | 23 | / | / | / |
-| GravityNotify     | 24 | / | / | / |
-| ResizeRequest     | 25 | / | / | / |
-| CirculateNotify   | 26 | / | / | / |
-| CirculateRequest  | 27 | / | / | / |
-| PropertyNotify    | 28 | / | / | / |
-| SelectionClear    | 29 | / | / | / |
-| SelectionRequest  | 30 | / | / | / |
-| SelectionNotify   | 31 | / | / | / |
-| ColormapNotify    | 32 | / | / | / |
-| ClientMessage     | 33 | / | / | / |
-| MappingNotify     | 34 | / | / | / |
-| GenericEvent      | 35 | / | / | / |
 | LASTEvent         | 36 | / | *must be bigger than any event* |
 
 <p style="text-align:right;">
   <a href="#so-long-and-thanks-for-all-the-fish">
-    Go to the top
+	Go to the top
   </a>
 </p>
 
-## The Game
+## The rules of the game
 
-* Implement movement functions that are associated to WASD keys to catch the 4 different movement directions;
+* Implement movement functions that are associated to `W A S D` keys to catch the 4 different movement directions;
 * The player cannot move through walls;
-* The number of movement must be displayed in the shell -> print_movements amount
-* Must use a 2D view (top-down or profile)
-* Game does not need to be real time (Does it mean it can load a series of instructions?)
+* The number of movement must be displayed in the shell;
+* Must use a 2D view (top-down or profile);
+* Game does not need to be real time (Can be a turned based one).
 
 ## Graphics management
 
@@ -81,33 +57,31 @@ This is a graphical engine developed by the school. The project has been develop
 
 ## Map
 
-* The map has to be constructed with 3 components: walls, collectibles, and free
-space.
-* The map can be composed of only these 5 characters:
+* The map has to be constructed with 3 components: walls, collectibles, and free space.
+* The map can be composed of only these 5 (6) characters:
   * `0` for an ground space,
   * `1` for a wall,
   * `C` for a collectible,
   * `E` for a map exit,
   * `P` for the player's starting position.
+  * `D` for the enemies (*bonus*)
 
-* The map must contain 1 exit, at least 1 collectible, and 1 starting position to be valid. If the map contains a duplicates characters (exit/start), you should display an error message
+* The map must contain 1 exit, at least 1 collectible, and 1 starting position to be valid. If the map contains a duplicates characters (exit/start), the program should display an error message.
 
 Here is a simple valid map:
 
 ```
-
 1111111111111
 10010000000C1
 1000011111001
 1P0011E000001
 1111111111111
-
 ```
 
 * The map must be rectangular.
 * The map must be closed/surrounded by walls. If it is not, the program must return an error.
-* You have to check if there's a valid path in the map.
-* You must be able to parse any kind of map, as long as it respects the above rules.
+* There must be a valid path in the map.
+* The user should be able to parse any kind of map, as long as it respects the above rules.
 * Another example of a minimal `.ber` map:
 
 ```
@@ -119,26 +93,43 @@ Here is a simple valid map:
 1111111111111111111111111111111111
 ```
 
-* If any misconfiguration of any kind is encountered in the file, the program must exit in a clean way, and return "Error\n" followed by an explicit error message of your choice
-
-## Text to be checked before being included
-
-map->map_size tells how big the matrix of map is. This should be used to manage the content in the window;
-
-* To be checked if the window can be set with a minimum and maximum size...
-* How should the images be handled not to be stretched?
-* Should the background be loaded as a single image?
-
-Go through map and load every location with the specific image required:
-
-* `0` Loads the ground space;
-* `1` Loads the Wall image;
-* `ECP` loads an ground space as background plus the specific image that represents the Exit, a Collectible, or the Player;
-
-Map here is already loaded beforehand
+* If any misconfiguration of any kind is encountered in the file, the program must exit in a clean way, and return `"Error\n"` followed by an explicit error message of your choice
 
 <p style="text-align:right;">
   <a href="#so-long-and-thanks-for-all-the-fish">
-    Go to the top
+	Go to the top
+  </a>
+</p>
+
+# The code organization
+
+## Input
+
+The program must be passed the map to be used for the game. The code sequentially:
+
+* Checks the presence of the additional argument;
+* Checks that the file is properly formatted as `.ber`;
+* Checks the map to:
+  * Be of rectangular shape
+  * The whole perimeter is closed with a wall;
+
+`map->map_size` tells how big the matrix of map is. This should be used to manage the content in the window;
+
+## Load the map
+
+* Loads all the necessary objects and throws an error if the specified file is missing.
+* Checks the quantity of each component to be sure there is only 1 Player and Exit;
+* Go through map and load every location with the specific image required:
+	* `0` Loads the Ground space;
+	* `1` Loads the Wall image;
+	* `ECP` loads an ground space as background plus the specific image that represents the Exit, a Collectible, or the Player;
+* Checks that there is a valid path
+* Draws the map
+
+Map here is already loaded beforehand and therefore the current implementation needs to be revisited to check all the input aspects before the content is loaded
+
+<p style="text-align:right;">
+  <a href="#so-long-and-thanks-for-all-the-fish">
+	Go to the top
   </a>
 </p>
